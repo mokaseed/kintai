@@ -12,8 +12,8 @@
 		<h1>TOPページ</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<a href="empLogin.jsp?action=done">従業員ログイン</a><br>
-		<a href="sysadminLogin.jsp">管理者ログイン</a>
+		<a href="/Login?action=done">従業員ログイン</a><br>
+		<a href="/Login">管理者ログイン</a>
 	</div>
 	<jsp:include page="/footer.jsp" />
 </body>

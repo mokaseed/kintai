@@ -12,7 +12,7 @@
 		<h1>従業員ログイン</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="#" method="post">
+		<form action="Login" method="post">
 			<table>
 				<tr>
 					<td>ユーザー名</td>

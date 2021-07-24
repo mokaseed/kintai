@@ -12,7 +12,7 @@
 		<h1>管理者ログイン</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="#" method="post">
+		<form action="Login" method="post">
 			<table>
 				<tr>
 					<td>ユーザー名</td>
@@ -23,8 +23,9 @@
 					<td><input type="password" name="pass"></td>
 				</tr>
 			</table>
-			<!-- <input type="submit" value="ログイン"> -->
-			<a href="sysadminMenu.jsp">ログイン</a> <!-- モック用ボタン -->
+			<input type="hidden" name="action" value="done">
+			<input type="submit" value="ログイン">
+			<!-- <a href="sysadminMenu.jsp">ログイン</a> モック用ボタン -->
 		</form>
 		<a href="top.jsp">TOPへ戻る</a>
 	</div>
