@@ -3,5 +3,5 @@
 <header>
 <!-- 	ログインしていたら従業員メニューへ
 	ログインしていなかったらTOP画面へ -->
-	<a href="empMenu.jsp">Kintai</a>
+	<a href="/WEB-INF/empMenu.jsp">Kintai</a>
 </header>

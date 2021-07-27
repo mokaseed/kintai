@@ -4,16 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kintai TOP</title>
+<title>Kintai ログイン</title>
 </head>
 <body>
 	<jsp:include page="/empHeader.jsp" />
 	<div class="title" align="center">
-		<h1>TOPページ</h1>
+			<h1>ログインエラー</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<a href="/kintai/Login?action=done">従業員ログイン</a><br>
-		<a href="/kintai/Login">管理者ログイン</a>
+		<p>ログインできませんでした。</p>
+		<p>ユーザー名とパスワードが正しいかご確認ください。</p>
+		<p></p>
+		<a href="sysadminLogin.jsp">ログインページへ戻る</a>
 	</div>
 	<jsp:include page="/footer.jsp" />
 </body>

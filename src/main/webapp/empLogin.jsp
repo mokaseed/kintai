@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kintai 管理者ログイン</title>
+<title>Kintai 従業員ログイン</title>
 </head>
 <body>
-	<jsp:include page="/sysadminHeader.jsp" />
+	<jsp:include page="/empHeader.jsp" />
 	<div class="title" align="center">
-		<h1>管理者ログイン</h1>
+		<h1>従業員ログイン</h1>
 	</div>
 	<div class="main_wrapper" align="center">
 		<form action="Login" method="post">
@@ -23,9 +23,7 @@
 					<td><input type="password" name="pass"></td>
 				</tr>
 			</table>
-			<input type="hidden" name="action" value="done">
 			<input type="submit" value="ログイン">
-			<!-- <a href="sysadminMenu.jsp">ログイン</a> モック用ボタン -->
 		</form>
 		<a href="top.jsp">TOPへ戻る</a>
 	</div>

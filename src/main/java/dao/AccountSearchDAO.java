@@ -10,23 +10,31 @@ import entity.Employee;
 
 public class AccountSearchDAO {
 	final String jdbcId = "root";
-    final String jdbcPass = "";
-    final String jdbcUrl = "";
+    final String jdbcPass = "seedrose";
+    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
-    public Employee fined(Employee emp) {
+    @SuppressWarnings("finally")
+	public Employee fined(Employee emp){
+    	
+    	Connection con = null;
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
     	
 //    	戻り値の用意
-    	Employee account;
+    	Employee account = null;
     	
+
 //    	データベースへ接続
-    	try (Connection con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass)) {
+    	try {
+    		Class.forName("com.mysql.jdbc.Driver");
+    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
     		String sql = "SELECT * FROM m_emp WHERE name = ? AND pass = ?";
-    		PreparedStatement ps = con.prepareStatement(sql);
+    		ps = con.prepareStatement(sql);
     		
     		ps.setString(1, emp.getName());
     		ps.setString(2, emp.getPass());
     		
-    		ResultSet rs = ps.executeQuery();
+    		rs = ps.executeQuery();
     		
     		if(rs.next()) {
 //    			見つかったアカウント情報を戻り値にセット
@@ -40,15 +48,43 @@ public class AccountSearchDAO {
     			String sysadmin = rs.getString("sysadmin");
     			String remarks = rs.getString("remarks");
     			account = new Employee(empId, name, pass, deptName, tel, mail, hireDate, sysadmin, remarks);
+    			System.out.println("accountあり");
     		} else {
 //    			アカウントがなければnullを返す
+    			System.out.println("accountなし");
     			return null;
     		}
     	} catch(SQLException e) {
     		e.printStackTrace();
     		System.out.println(e);
     		return null;
+    	} finally {
+    		if(rs != null) {
+    			try {
+    				rs.close();
+    			} catch (SQLException e) {
+    				// TODO 自動生成された catch ブロック
+    				e.printStackTrace();
+    			}
+    		}
+    		if(ps != null) {
+    			try {
+    				ps.close();
+    			} catch (SQLException e) {
+    				// TODO 自動生成された catch ブロック
+    				e.printStackTrace();
+    			}
+    		}
+    		if(con != null) {
+    			try {
+    				con.close();
+    			} catch (SQLException e) {
+    				// TODO 自動生成された catch ブロック
+    				e.printStackTrace();
+    			}
+    		}
+            return account;
+
     	}
-    	return account;
     }
 }
