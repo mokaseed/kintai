@@ -32,7 +32,7 @@ public class AccountSearchDAO {
     		ps = con.prepareStatement(sql);
     		
     		ps.setString(1, emp.getName());
-    		ps.setString(2, emp.getPass());
+    		ps.setString(2, emp.getPass());	
     		
     		rs = ps.executeQuery();
     		

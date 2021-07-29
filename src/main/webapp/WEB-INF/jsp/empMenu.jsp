@@ -17,7 +17,7 @@
 		<a href="schedule.jsp?action=schedule">スケジュール</a><br>
 		<a href="empList.jsp?action=empList">従業員一覧</a><br>
 		<a href="empConfig.jsp?action=empConfig">設定</a><br>
-		<a href="logout.jsp">ログアウト</a>
+		<a href="Logout">ログアウト</a>
 	</div>
 	<jsp:include page="/footer.jsp" />
 </body>

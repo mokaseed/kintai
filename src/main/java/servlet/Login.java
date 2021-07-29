@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("account", account);
 				//従業員メニュー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/empMenu.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empMenu.jsp");
 				dispatcher.forward(request, response);
 			} else {
 				//アカウントがヒットしなかった場合
@@ -90,7 +90,7 @@ public class Login extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("account", account);
 					//管理者メニュー画面へフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/sysadminpMenu.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminpMenu.jsp");
 					dispatcher.forward(request, response);
 				}
 				//管理者権限がない場合

@@ -13,7 +13,7 @@
 	</div>
 	<div class="main_wrapper" align="center">
 		<a href="sysadminEmpList.jsp?action=sysadminEmpList">従業員一覧</a><br>
-		<a href="logout.jsp">ログアウト</a>
+		<a href="Logout">ログアウト</a>
 	</div>
 	<jsp:include page="/footer.jsp" />
 </body>
