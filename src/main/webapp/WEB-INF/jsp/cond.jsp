@@ -16,14 +16,15 @@
 		<p>今のコンディションを選択してください</p>
 <!-- 	画像をラジオボタンにするやり方は以下を参考に作成する予定
 		https://0forest.com/radio-button-image/ -->
-		<form action="clockOnOK.jsp">
-		<input type="radio" name="cond" value="verygood">verygood画像
-		<input type="radio" name="cond" value="good">good画像
-		<input type="radio" name="cond" value="OK">OK画像
-		<input type="radio" name="cond" value="bad">bad画像<br>
+		<form action="/kintai/Cond" method="POST">
+		<input type="hidden" name="clockOn" value="${ clockOn }">
+		<input type="radio" name="cond" value="1">verygood画像
+		<input type="radio" name="cond" value="2">good画像
+		<input type="radio" name="cond" value="3">OK画像
+		<input type="radio" name="cond" value="4">bad画像<br>
 		<input type="submit" value="登録する">
 		</form>
-		<a href="clockOn.jsp">出退勤選択に戻る</a>
+		<a href="/kintai/ClockOn">出退勤選択に戻る</a>
 	</div>
 	<jsp:include page="/footer.jsp" />
 </body>

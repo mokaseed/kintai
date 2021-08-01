@@ -12,10 +12,9 @@
 			<h1>勤怠入力</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<p>〇〇〇〇/〇〇/〇〇(◯)　〇〇：〇〇</p>
-		<p>出勤</p>
+		<p>${ clockOn }</p><br>
 		<p>登録完了しました</p>
-		<a href="empMenu.jsp">メニューに戻る</a>
+		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
 	</div>
 	<jsp:include page="/footer.jsp" />
 </body>

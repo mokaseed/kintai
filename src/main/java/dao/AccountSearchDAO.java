@@ -41,13 +41,13 @@ public class AccountSearchDAO {
     			int empId = rs.getInt("emp_id");
     			String name = rs.getString("name");
     			String pass = rs.getString("pass");
-    			String deptName = rs.getString("dept_name");
+    			String deptId = rs.getString("dept_id");
     			String tel = rs.getString("tel");
     			String mail = rs.getString("mail");
     			String hireDate = rs.getString("hire_date");
     			String sysadmin = rs.getString("sysadmin");
     			String remarks = rs.getString("remarks");
-    			account = new Employee(empId, name, pass, deptName, tel, mail, hireDate, sysadmin, remarks);
+    			account = new Employee(empId, name, pass, deptId, tel, mail, hireDate, sysadmin, remarks);
     			System.out.println("accountあり");
     		} else {
 //    			アカウントがなければnullを返す
