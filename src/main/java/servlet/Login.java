@@ -1,4 +1,4 @@
-package servlet;
+	package servlet;
 
 import java.io.IOException;
 
@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
+		int empId = Integer.parseInt(request.getParameter("empId"));
 		String pass = request.getParameter("pass");
 		String action = request.getParameter("action");
 		
@@ -47,7 +47,7 @@ public class Login extends HttpServlet {
 		if(action == null || action == "") {
 			
 			//name,passをEmployeeBeansにセット
-			Employee emp = new Employee(name, pass);
+			Employee emp = new Employee(empId, pass);
 			
 			//アカウントサーチDAOでアカウントの有無を検索
 			//検索したアカウント情報を取得
@@ -56,6 +56,8 @@ public class Login extends HttpServlet {
 			
 			//アカウントがヒットした場合
 			if(account != null) {
+				//パスワードのチェック
+				
 				//セッションにアカウント情報を登録
 				HttpSession session = request.getSession();
 				session.setAttribute("account", account);
@@ -71,7 +73,7 @@ public class Login extends HttpServlet {
 		//actionがdoneの場合は管理者ログイン
 		} else {
 			//name,passをEmployeeBeansにセット
-			Employee emp = new Employee(name, pass);
+			Employee emp = new Employee(empId, pass);
 			
 			//アカウントサーチDAOでアカウントの有無を検索
 			//検索したアカウント情報を取得

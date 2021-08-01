@@ -15,8 +15,8 @@
 		<form action="Login" method="post">
 			<table>
 				<tr>
-					<td>ユーザー名</td>
-					<td><input type="text" name="name"></td>
+					<td>社員ID</td>
+					<td><input type="text" name="empId"></td>
 				</tr>
 				<tr>
 					<td>パスワード</td>

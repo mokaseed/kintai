@@ -12,7 +12,7 @@
 		<h1>従業員メニュー</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<a href="clockOn.jsp?action=clockOn">勤怠打刻</a><br>
+		<a href="/kintai/clockOn">勤怠打刻</a><br>
 		<a href="mgmtAttendance.jsp?action=mgmtAttendance">勤怠管理</a><br>
 		<a href="schedule.jsp?action=schedule">スケジュール</a><br>
 		<a href="empList.jsp?action=empList">従業員一覧</a><br>

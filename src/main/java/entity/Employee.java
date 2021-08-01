@@ -14,9 +14,9 @@ public class Employee implements Serializable{
 	private String remarks; //備考
 	
 	public Employee() {	}
-	public Employee(String name, String pass) {
+	public Employee(int empId, String pass) {
 		this.pass = pass;
-		this.name = name;
+		this.empId = empId;
 	}
 	public Employee(int empId, String name, String pass, String deptName, String tel, String mail, String hireDate, String sysadmin, String remarks) {
 		this.empId = empId;

@@ -28,10 +28,10 @@ public class AccountSearchDAO {
     	try {
     		Class.forName("com.mysql.jdbc.Driver");
     		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
-    		String sql = "SELECT * FROM m_emp WHERE name = ? AND pass = ?";
+    		String sql = "SELECT * FROM m_emp WHERE emp_id = ? AND pass = ?";
     		ps = con.prepareStatement(sql);
     		
-    		ps.setString(1, emp.getName());
+    		ps.setInt(1, emp.getEmpId());
     		ps.setString(2, emp.getPass());	
     		
     		rs = ps.executeQuery();
