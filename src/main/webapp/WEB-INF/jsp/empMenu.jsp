@@ -13,7 +13,7 @@
 	</div>
 	<div class="main_wrapper" align="center">
 		<a href="/kintai/ClockOn">勤怠打刻</a><br>
-		<a href="mgmtAttendance.jsp?action=mgmtAttendance">勤怠管理</a><br>
+		<a href="/kintai/SelectWorkTimeList">勤怠管理</a><br>
 		<a href="schedule.jsp?action=schedule">スケジュール</a><br>
 		<a href="empList.jsp?action=empList">従業員一覧</a><br>
 		<a href="empConfig.jsp?action=empConfig">設定</a><br>

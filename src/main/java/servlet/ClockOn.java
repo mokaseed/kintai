@@ -21,8 +21,8 @@ public class ClockOn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//直接アクセスに対して従業員が既にログインしていたら勤怠入力画面にフォワード。
-		//ログインしていない場合はTOP画面へリダイレクト。
+		//従業員が既にログインしていたら勤怠入力画面にフォワード。
+		//ログインしていない場合はログイン画面へリダイレクト。
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("account") == null) {
