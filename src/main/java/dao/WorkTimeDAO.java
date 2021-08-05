@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +18,14 @@ public class WorkTimeDAO {
 	    final String jdbcPass = "seedrose";
 	    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
 	    
-	public List<WorkTime> selectWorkTimeList(int empId, String thisMonth){
-	  	
 	  	Connection con = null;
 	   	PreparedStatement ps = null;
 	   	ResultSet rs = null;
+	    
+	public List<WorkTime> selectWorkTimeList(int empId, String thisMonth){
 	   	
 //	   	戻り値の用意
 	   	List<WorkTime> workTimeList = new ArrayList<>();
-	   	
 	   	
 //	   	データベースへ接続
 	   	try {
@@ -111,6 +111,69 @@ public class WorkTimeDAO {
     			}
     		}
     	}
+	}
+	
+	public boolean updateWorkTime(int empId, WorkTime workTime) {
+		
+		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		try {
+    		Class.forName("com.mysql.jdbc.Driver");
+    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
+    		ps = con.prepareStatement("UPDATE t_work_time SET start_time = ?, break_start_time = ?, break_finish_time = ?, finish_time = ? WHERE emp_id = ? AND work_date = ?");
+			if(workTime.getStartTime() == null) {
+				ps.setTime(1, null);
+			} else {
+				ps.setString(1, workTime.getStartTime().format(timeFormat));
+			}
+			if(workTime.getBreakStartTime() == null) {
+				ps.setTime(2, null);
+			} else {
+				ps.setString(2, workTime.getBreakStartTime().format(timeFormat));				
+			}
+			if(workTime.getBreakFinishTime() == null) {
+				ps.setTime(3, null);
+			} else {
+				ps.setString(3, workTime.getBreakFinishTime().format(timeFormat));				
+			}
+			if(workTime.getFinishTime() == null) {
+				ps.setTime(4, null);
+			} else {
+				ps.setString(4, workTime.getFinishTime().format(timeFormat));				
+			}
+			ps.setInt(5, empId);
+			ps.setString(6, workTime.getWorkDate().format(dateFormat));
+			int r = ps.executeUpdate();
+			
+			if(r != 0) {
+				System.out.println("勤務時刻修正が完了しました。");
+				return true;
+			} else {
+				System.out.println("勤務時刻修正に失敗しました。");
+				return false;
+			}
+		} catch(SQLException | ClassNotFoundException e) {
+    		e.printStackTrace();
+   			System.out.println(e);
+   			System.out.println("勤務時間の修正ができませんでした。");
+   			return false;
+   		} finally {
+   			if(ps != null) {
+   				try {
+   					ps.close();
+   				} catch (SQLException e) {
+   					e.printStackTrace();
+   				}
+   			}
+   			if(con != null) {
+   				try {
+   					con.close();
+   				} catch (SQLException e) {
+    				e.printStackTrace();
+    			}
+   			}
+   		}
 	}
 }
 

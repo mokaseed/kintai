@@ -23,16 +23,45 @@ public class SelectWorkTimeList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//直接アクセスに対してログインしていない場合はログイン画面へリダイレクト。
 		//従業員が既にログインしていたらタイムシート選択画面にフォワード。
-		//ログインしていない場合はログイン画面へリダイレクト。
+		//actionがdoneの場合は勤務時間修正からのリダイレクトのため、修正後のタイムシートを表示
 		
 		HttpSession session = request.getSession();
+		String action = request.getParameter("action");
+		
 		if(session.getAttribute("account") == null) {
 			response.sendRedirect("empLogin.jsp");
-		} else {
+		} else if(action == null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/selectWorkTimeList.jsp");
 			dispatcher.forward(request, response);
+		} else if(action.equals("done")) {
+			request.setCharacterEncoding("UTF-8");
+			String thisMonth = (String)session.getAttribute("request-month");
+			session.removeAttribute("request-month");
+			Calendar thisMonthCalendar = Calendar.getInstance();
+			thisMonthCalendar.set(Calendar.YEAR, Integer.parseInt(thisMonth.substring(0, 4)));
+			thisMonthCalendar.set(Calendar.MONTH, Integer.parseInt(thisMonth.substring(5, 7)));
+			
+			Employee account = (Employee)session.getAttribute("account");
+			WorkTimeDAO tsDAO = new WorkTimeDAO();
+			List<WorkTime> workTimeList = new ArrayList<>();
+			
+			workTimeList = tsDAO.selectWorkTimeList(account.getEmpId(), thisMonth);
+			
+			String nextJsp;
+			if(workTimeList == null) {
+				nextJsp = "/WEB-INF/jsp/selectTimeSheetError.jsp";
+			} else {
+				session.setAttribute("workTimeList", workTimeList);
+				session.setAttribute("thisMonthCalendar", thisMonthCalendar);
+				nextJsp = "/WEB-INF/jsp/workTimeList.jsp";
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
+			dispatcher.forward(request, response);
 		}
+		
+		
 	}
 
 

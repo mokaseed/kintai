@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.Calendar,java.util.List,entity.WorkTime,java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.Calendar,java.util.List,entity.WorkTime,java.time.format.DateTimeFormatter,java.text.DecimalFormat" %>
 <%
 Calendar thisMonthCalendar = (Calendar)session.getAttribute("thisMonthCalendar");
 List<WorkTime> workTimeList = (List<WorkTime>)session.getAttribute("workTimeList");
 
 DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd");
+/* DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MM"); */
+DecimalFormat mFormat= new DecimalFormat("00");
 
 thisMonthCalendar.add(Calendar.MONTH, -1);
 int maxDay = thisMonthCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -21,12 +23,12 @@ thisMonthCalendar.add(Calendar.MONTH, +1);
 <body>
 	<jsp:include page="/empHeader.jsp" />
 	<div class="title" align="center">
-			<h1><%= thisMonthCalendar.get(Calendar.YEAR) %>年<%= thisMonthCalendar.get(Calendar.MONTH) %>月分タイムシート</h1>
+		<h1><%= thisMonthCalendar.get(Calendar.YEAR) %>年<%= thisMonthCalendar.get(Calendar.MONTH) %>月分タイムシート</h1>
 	</div>
 	<div class="main_wrapper" align="center">
 		<table>
 			<tr>
-				<th>日付</th><th>出勤</th><th>休憩開始</th><th>休憩終了</th><th>退勤</th>
+				<th>日付</th><th>出勤</th><th>休憩開始</th><th>休憩終了</th><th>退勤</th><th>修正</th>
 			</tr>
 			<% for(int i = 1; i <= maxDay; i++){ 
 			 	Boolean chkDateFlag = false;
@@ -55,6 +57,16 @@ thisMonthCalendar.add(Calendar.MONTH, +1);
 					<td>
 						<% if(workTime.getFinishTime() != null) { %>
 						<%= workTime.getFinishTime().format(timeFormat) %><% } %>
+					</td>
+					<td>
+						<form action="/kintai/UpdateWorkTime">
+							<input type="hidden" name="workDate" value="<%= thisMonthCalendar.get(Calendar.YEAR) + "-" + mFormat.format(thisMonthCalendar.get(Calendar.MONTH)) + "-" + workTime.getWorkDate().format(dateFormat) %>">
+							<input type="hidden" name="startTime" value="<%= workTime.getStartTime() %>">
+							<input type="hidden" name="breakStartTime" value="<%= workTime.getBreakStartTime() %>">
+							<input type="hidden" name="breakFinishTime" value="<%= workTime.getBreakFinishTime() %>">
+							<input type="hidden" name="finishTime" value="<%= workTime.getFinishTime() %>">
+							<input type="submit" value="修正">
+						</form>
 					</td></tr>
 					<%
 						chkDateFlag = true;
@@ -63,7 +75,7 @@ thisMonthCalendar.add(Calendar.MONTH, +1);
 					}
 					if(!chkDateFlag) {
 					%>
-					<td></td><td></td><td></td><td></td></tr>
+					<td></td><td></td><td></td><td></td><td></td></tr>
 			<% } }%>
 		</table>
 	</div>
