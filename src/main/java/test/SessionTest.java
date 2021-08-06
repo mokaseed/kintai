@@ -26,7 +26,7 @@ public class SessionTest extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/cond.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/updateWorkTimeError.jsp");
 		dispatcher.forward(request, response);	
 	}
 

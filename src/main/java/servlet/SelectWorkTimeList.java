@@ -81,7 +81,7 @@ public class SelectWorkTimeList extends HttpServlet {
 		
 		String nextJsp;
 		if(workTimeList == null) {
-			nextJsp = "/WEB-INF/jsp/selectTimeSheetError.jsp";
+			nextJsp = "/WEB-INF/jsp/selectWorkTimeListError.jsp";
 		} else {
 			session.setAttribute("workTimeList", workTimeList);
 			session.setAttribute("thisMonthCalendar", thisMonthCalendar);
