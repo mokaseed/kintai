@@ -18,10 +18,10 @@
 		https://0forest.com/radio-button-image/ -->
 		<form action="/kintai/Cond" method="POST">
 		<input type="hidden" name="clockOn" value="${ clockOn }">
-		<input type="radio" name="cond" value="1">verygood画像
-		<input type="radio" name="cond" value="2">good画像
-		<input type="radio" name="cond" value="3">OK画像
-		<input type="radio" name="cond" value="4">bad画像<br>
+		<input type="radio" name="cond" value="1">very fine
+		<input type="radio" name="cond" value="2">fine
+		<input type="radio" name="cond" value="3">OK
+		<input type="radio" name="cond" value="4">bad<br>
 		<input type="submit" value="登録する">
 		</form>
 		<a href="/kintai/ClockOn">出退勤選択に戻る</a>

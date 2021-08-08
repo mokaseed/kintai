@@ -38,8 +38,17 @@ public class Login extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
-		int empId = Integer.parseInt(request.getParameter("empId"));
+		
+		String id = request.getParameter("empId").replaceAll("[^0-9]", "");
+		int empId;
+		if(id.length() == 0) {
+			empId = 0;
+		} else {
+			empId = Integer.parseInt(id);
+		}
+		
 		String pass = request.getParameter("pass");
 		String action = request.getParameter("action");
 		
@@ -92,13 +101,14 @@ public class Login extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("account", account);
 					//管理者メニュー画面へフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminpMenu.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminMenu.jsp");
 					dispatcher.forward(request, response);
-				}
+				} else {
 				//管理者権限がない場合
 				//エラー画面へフォワード
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/sysadminLoginError.jsp");
 				dispatcher.forward(request, response);
+				}
 			} else {
 				//アカウントがヒットしなかった場合
 				//エラー画面へフォワード
@@ -106,7 +116,6 @@ public class Login extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		}
-		
 		
 	}
 

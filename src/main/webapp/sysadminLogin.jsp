@@ -16,7 +16,7 @@
 			<table>
 				<tr>
 					<td>社員ID</td>
-					<td><input type="text" name="empId"></td>
+					<td><input type="tel" name="empId" maxlength="5"></td>
 				</tr>
 				<tr>
 					<td>パスワード</td>
@@ -27,6 +27,11 @@
 			<input type="submit" value="ログイン">
 		</form>
 		<a href="top.jsp">TOPへ戻る</a>
+	</div>
+	<div align="center">
+		<p>テスト用アカウント<br>
+		社員ID：2<br>
+		パスワード：2345</p>
 	</div>
 	<jsp:include page="/footer.jsp" />
 </body>

@@ -32,9 +32,38 @@ public class SelectWorkTimeList extends HttpServlet {
 		
 		if(session.getAttribute("account") == null) {
 			response.sendRedirect("empLogin.jsp");
+			
 		} else if(action == null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/selectWorkTimeList.jsp");
+			Calendar thisMonthCalendar = Calendar.getInstance();
+			thisMonthCalendar.set(Calendar.YEAR, thisMonthCalendar.get(Calendar.YEAR));
+			thisMonthCalendar.set(Calendar.MONTH, thisMonthCalendar.get(Calendar.MONTH) +1);
+			
+			String y = String.valueOf(thisMonthCalendar.get(Calendar.YEAR));
+			String m;
+			if(String.valueOf(thisMonthCalendar.get(Calendar.MONTH)).length() == 1) {
+				m = "0" + thisMonthCalendar.get(Calendar.MONTH);
+			} else {
+				m = String.valueOf(thisMonthCalendar.get(Calendar.MONTH));
+			}
+			String thisMonth = y + "-" + m ;
+			
+			Employee account = (Employee)session.getAttribute("account");
+			WorkTimeDAO tsDAO = new WorkTimeDAO();
+			List<WorkTime> workTimeList = new ArrayList<>();
+			
+			workTimeList = tsDAO.selectWorkTimeList(account.getEmpId(), thisMonth);
+			
+			String nextJsp;
+			if(workTimeList == null) {
+				nextJsp = "/WEB-INF/jsp/selectWorkTimeListError.jsp";
+			} else {
+				session.setAttribute("workTimeList", workTimeList);
+				session.setAttribute("thisMonthCalendar", thisMonthCalendar);
+				nextJsp = "/WEB-INF/jsp/workTimeList.jsp";
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);
+			
 		} else if(action.equals("done")) {
 			request.setCharacterEncoding("UTF-8");
 			String thisMonth = (String)session.getAttribute("request-month");
@@ -60,17 +89,23 @@ public class SelectWorkTimeList extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);
 		}
-		
-		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String thisMonth = request.getParameter("request-month");
+		
+		String y = request.getParameter("selectY");
+		String m = request.getParameter("selectM");
+	
+		if(m.length() == 1) {
+			m = "0" + m;
+		}
+		String thisMonth = y + "-" + m ;
+		
 		Calendar thisMonthCalendar = Calendar.getInstance();
-		thisMonthCalendar.set(Calendar.YEAR, Integer.parseInt(thisMonth.substring(0, 4)));
-		thisMonthCalendar.set(Calendar.MONTH, Integer.parseInt(thisMonth.substring(5, 7)));
+		thisMonthCalendar.set(Calendar.YEAR, Integer.parseInt(y));
+		thisMonthCalendar.set(Calendar.MONTH, Integer.parseInt(m));
 		
 		HttpSession session = request.getSession();
 		Employee account = (Employee)session.getAttribute("account");

@@ -22,11 +22,13 @@ public class Forward extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("account") == null) {
-			response.sendRedirect("empLogin.jsp");
+			response.sendRedirect("top.jsp");
 			
 		} else {
 			if(action.equals("empMenu")){
 				nextJsp = "/WEB-INF/jsp/empMenu.jsp";
+			} else if(action.equals("sysadminMenu")){
+				nextJsp = "/WEB-INF/jsp/sysadminMenu.jsp";
 			} else {
 				nextJsp = "/top.jsp";
 			}
