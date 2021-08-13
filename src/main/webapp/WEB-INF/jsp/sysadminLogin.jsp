@@ -7,7 +7,7 @@
 <title>Kintai 管理者ログイン</title>
 </head>
 <body>
-	<jsp:include page="/sysadminHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />
 	<div class="title" align="center">
 		<h1>管理者ログイン</h1>
 	</div>
@@ -26,13 +26,13 @@
 			<input type="hidden" name="action" value="done">
 			<input type="submit" value="ログイン">
 		</form>
-		<a href="top.jsp">TOPへ戻る</a>
+		<a href="/kintai/Forward?action=top">TOPへ戻る</a>
 	</div>
 	<div align="center">
 		<p>テスト用アカウント<br>
 		社員ID：2<br>
 		パスワード：2345</p>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

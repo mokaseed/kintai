@@ -12,7 +12,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 <title>勤怠管理</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 			<h1>勤怠管理</h1>
 	</div>
@@ -23,6 +23,6 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 	  <button type="submit">表示する</button>
 	</form>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

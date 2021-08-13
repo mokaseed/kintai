@@ -21,8 +21,8 @@ public class ClockOnDAO {
 	DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
+	//勤怠打刻で出勤が押された場合の処理
     public boolean setWorkStartTime(int empId, String cond){
-    	
 		try {
     		Class.forName("com.mysql.jdbc.Driver");
     		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
@@ -39,10 +39,10 @@ public class ClockOnDAO {
     			ps.setString(2, cond);
     			ps.setInt(3, empId);
     			ps.setString(4, now.format(dateFormat));
-    			int r2 = ps.executeUpdate();
+    			int updateRowcount = ps.executeUpdate();
     			
-    			if(r2 != 0) {
-    				System.out.println(r2 + "件の出勤時刻をUPDATE登録しました。");
+    			if(updateRowcount != 0) {
+    				System.out.println(updateRowcount + "件の出勤時刻をUPDATE登録しました。");
     				return true;
     			} else {
     				System.out.println("出勤時刻のUPDATE登録に失敗しました。");
@@ -57,10 +57,10 @@ public class ClockOnDAO {
     			ps.setString(3, now.format(timeFormat));
     			ps.setString(4, cond);
     			
-    			int r1 = ps.executeUpdate();
+    			int insertRowcount = ps.executeUpdate();
     			
-    			if(r1 != 0) {
-    				System.out.println(r1 + "件の出勤時刻をINSERT登録しました。");
+    			if(insertRowcount != 0) {
+    				System.out.println(insertRowcount + "件の出勤時刻をINSERT登録しました。");
     				return true;
     			} else {
     				System.out.println("該当が0件です。出勤時刻のINSERT登録ができませんでした。");
@@ -90,6 +90,7 @@ public class ClockOnDAO {
    		}
     }
     
+    //勤怠打刻で退勤が押された場合の処理
     public boolean setWorkFinishTime(int empId, String cond){
     	
 		try {
@@ -108,10 +109,10 @@ public class ClockOnDAO {
     			ps.setString(2, cond);
     			ps.setInt(3, empId);
     			ps.setString(4, now.format(dateFormat));
-    			int r2 = ps.executeUpdate();
+    			int updateRowcount = ps.executeUpdate();
     			
-    			if(r2 != 0) {
-    				System.out.println(r2 + "件の退勤時刻をUPDATE登録しました。");
+    			if(updateRowcount != 0) {
+    				System.out.println(updateRowcount + "件の退勤時刻をUPDATE登録しました。");
     				return true;
     			} else {
     				System.out.println("退勤時刻のUPDATE登録に失敗しました。");
@@ -126,10 +127,10 @@ public class ClockOnDAO {
     			ps.setString(3, now.format(timeFormat));
     			ps.setString(4, cond);
     			
-    			int r1 = ps.executeUpdate();
+    			int insertRowcount = ps.executeUpdate();
     			
-    			if(r1 != 0) {
-    				System.out.println(r1 + "件の退勤時刻をINSERT登録しました。");
+    			if(insertRowcount != 0) {
+    				System.out.println(insertRowcount + "件の退勤時刻をINSERT登録しました。");
     				return true;
     			} else {
     				System.out.println("該当が0件です。退勤時刻のINSERT登録ができませんでした。");
@@ -158,7 +159,7 @@ public class ClockOnDAO {
    			}
    		}
     }
-    
+    //勤怠打刻で休憩開始が押された場合の処理
     public boolean setBreakStartTime(int empId){
     	
 		try {
@@ -176,10 +177,10 @@ public class ClockOnDAO {
     			ps.setString(1, now.format(timeFormat));
     			ps.setInt(2, empId);
     			ps.setString(3, now.format(dateFormat));
-    			int r2 = ps.executeUpdate();
+    			int updateRowcount = ps.executeUpdate();
     			
-    			if(r2 != 0) {
-    				System.out.println(r2 + "件の休憩開始時刻をUPDATE登録しました。");
+    			if(updateRowcount != 0) {
+    				System.out.println(updateRowcount + "件の休憩開始時刻をUPDATE登録しました。");
     				return true;
     			} else {
     				System.out.println("休憩開始時刻のUPDATE登録に失敗しました。");
@@ -193,10 +194,10 @@ public class ClockOnDAO {
     			ps.setString(2, now.format(dateFormat));
     			ps.setString(3, now.format(timeFormat));
     			
-    			int r1 = ps.executeUpdate();
+    			int insertRowcount = ps.executeUpdate();
     			
-    			if(r1 != 0) {
-    				System.out.println(r1 + "件の休憩開始時刻をINSERT登録しました。");
+    			if(insertRowcount != 0) {
+    				System.out.println(insertRowcount + "件の休憩開始時刻をINSERT登録しました。");
     				return true;
     			} else {
     				System.out.println("該当が0件です。休憩開始時刻のINSERT登録ができませんでした。");
@@ -225,8 +226,8 @@ public class ClockOnDAO {
    			}
    		}
     }
-    
-public boolean setBreakFinishTime(int empId){
+    //勤怠打刻で休憩終了が押された場合の処理
+    public boolean setBreakFinishTime(int empId){
     	
 		try {
     		Class.forName("com.mysql.jdbc.Driver");
@@ -243,10 +244,10 @@ public boolean setBreakFinishTime(int empId){
     			ps.setString(1, now.format(timeFormat));
     			ps.setInt(2, empId);
     			ps.setString(3, now.format(dateFormat));
-    			int r2 = ps.executeUpdate();
+    			int updateRowcount = ps.executeUpdate();
     			
-    			if(r2 != 0) {
-    				System.out.println(r2 + "件の休憩終了時刻をUPDATE登録しました。");
+    			if(updateRowcount != 0) {
+    				System.out.println(updateRowcount + "件の休憩終了時刻をUPDATE登録しました。");
     				return true;
     			} else {
     				System.out.println("休憩終了時刻のUPDATE登録に失敗しました。");
@@ -260,10 +261,10 @@ public boolean setBreakFinishTime(int empId){
     			ps.setString(2, now.format(dateFormat));
     			ps.setString(3, now.format(timeFormat));
     			
-    			int r1 = ps.executeUpdate();
+    			int insertRowcount = ps.executeUpdate();
     			
-    			if(r1 != 0) {
-    				System.out.println(r1 + "件の休憩終了時刻をINSERT登録しました。");
+    			if(insertRowcount != 0) {
+    				System.out.println(insertRowcount + "件の休憩終了時刻をINSERT登録しました。");
     				return true;
     			} else {
     				System.out.println("該当が0件です。休憩終了時刻のINSERT登録ができませんでした。");

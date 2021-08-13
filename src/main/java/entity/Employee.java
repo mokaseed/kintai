@@ -18,6 +18,7 @@ public class Employee implements Serializable{
 		this.pass = pass;
 		this.empId = empId;
 	}
+
 	public Employee(int empId, String name, String pass, String deptName, String tel, String mail, String hireDate, String sysadmin, String remarks) {
 		this.empId = empId;
 		this.name = name;
@@ -30,6 +31,14 @@ public class Employee implements Serializable{
 		this.remarks = remarks;
 	}
 	
+	public Employee(int empId, String tel, String mail, String pass, String remarks) {
+		this.empId = empId;
+		this.tel = tel;
+		this.mail = mail;
+		this.pass = pass;
+		this.remarks= remarks;
+	}
+	
 	public int getEmpId() {
 		return empId;
 	}
@@ -39,7 +48,7 @@ public class Employee implements Serializable{
 	public String getName() {
 		return name;
 	}
-	public String getDeptId() {
+	public String getDeptName() {
 		return deptName;
 	}
 	public String getTel() {
@@ -58,7 +67,33 @@ public class Employee implements Serializable{
 		return remarks;
 	}
 	
-	
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+	public void setHireDate(String hireDate) {
+		this.hireDate = hireDate;
+	}
+	public void setSysadmin(String sysadmin) {
+		this.sysadmin = sysadmin;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	
 
 }

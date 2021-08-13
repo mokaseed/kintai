@@ -7,7 +7,7 @@
 <title>Kintai ログイン</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 			<h1>ログインエラー</h1>
 	</div>
@@ -15,8 +15,8 @@
 		<p>ログインできませんでした。</p>
 		<p>ユーザー名とパスワードが正しいかご確認ください。</p>
 		<p></p>
-		<a href="empLogin.jsp">ログインページへ戻る</a>
+		<a href="/kintai/Forward?action=empLogin">ログインページへ戻る</a>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

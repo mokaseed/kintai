@@ -14,7 +14,7 @@ DateTimeFormatter workDateFormat = DateTimeFormatter.ofPattern("yyyy年MM月dd�
 <title>Kintai 勤怠修正</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 		<h1>勤怠修正</h1>
 	</div>
@@ -74,6 +74,6 @@ DateTimeFormatter workDateFormat = DateTimeFormatter.ofPattern("yyyy年MM月dd�
 		<a href="javascript:history.back()">戻る</a><br>
 		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

@@ -22,6 +22,7 @@ public class WorkTimeDAO {
 	   	PreparedStatement ps = null;
 	   	ResultSet rs = null;
 	    
+	//タイムシートを表示するための勤務時刻情報を取得
 	public List<WorkTime> selectWorkTimeList(int empId, String thisMonth){
 	   	
 //	   	戻り値の用意
@@ -109,6 +110,7 @@ public class WorkTimeDAO {
     	}
 	}
 	
+	//勤怠管理にて勤務時刻が修正された時の処理
 	public boolean updateWorkTime(int empId, WorkTime workTime) {
 		
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -151,9 +153,9 @@ public class WorkTimeDAO {
 	   			}
 	   			ps.setInt(5, empId);
 	   			ps.setString(6, workTime.getWorkDate().format(dateFormat));
-	   			int r = ps.executeUpdate();
+	   			int rowcount = ps.executeUpdate();
 	   			
-	   			if(r != 0) {
+	   			if(rowcount != 0) {
 	   				System.out.println("勤務時刻修正が完了しました。");
 	   				return true;
 	   			} else {
@@ -186,9 +188,9 @@ public class WorkTimeDAO {
 	   				ps.setString(6, workTime.getFinishTime().format(timeFormat));				
 	   			}
 	   			
-	   			int r = ps.executeUpdate();
+	   			int rowcount = ps.executeUpdate();
 	   			
-	   			if(r != 0) {
+	   			if(rowcount != 0) {
 	   				System.out.println("勤務時刻修正が完了しました。");
 	   				return true;
 	   			} else {

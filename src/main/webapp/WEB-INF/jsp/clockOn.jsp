@@ -14,7 +14,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd(E)");
 <title>Kintai 勤怠入力</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 		<h1>勤怠入力</h1>
 	</div>
@@ -50,7 +50,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd(E)");
 			<a href="/kintai/Forward?action=empMenu">メニューへ戻る</a>
 		</div>
 	</div>
-<jsp:include page="/footer.jsp" />
+<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 <script src="${pageContext.request.contextPath}/common/JS/func.js"></script>
 </body>
 </html>

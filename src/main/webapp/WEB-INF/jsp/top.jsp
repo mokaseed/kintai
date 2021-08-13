@@ -7,7 +7,7 @@
 <title>Kintai TOP</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 		<h1>TOPページ</h1>
 	</div>
@@ -15,6 +15,6 @@
 		<a href="/kintai/Login?action=done">従業員ログイン</a><br>
 		<a href="/kintai/Login">管理者ログイン</a>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

@@ -23,17 +23,14 @@ public class SelectWorkTimeList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//直接アクセスに対してログインしていない場合はログイン画面へリダイレクト。
-		//従業員が既にログインしていたらタイムシート選択画面にフォワード。
-		//actionがdoneの場合は勤務時間修正からのリダイレクトのため、修正後のタイムシートを表示
-		
-		HttpSession session = request.getSession();
-		String action = request.getParameter("action");
-		
-		if(session.getAttribute("account") == null) {
-			response.sendRedirect("empLogin.jsp");
 			
-		} else if(action == null) {
+		String action = request.getParameter("action");
+		HttpSession session = request.getSession(false);
+		
+        //当月のタイムシート画面に遷移
+		if(action == null) {
+			
+			//当月の勤務時刻情報をdaoから取得するために、今の年月を取得しthisMonthにセット
 			Calendar thisMonthCalendar = Calendar.getInstance();
 			thisMonthCalendar.set(Calendar.YEAR, thisMonthCalendar.get(Calendar.YEAR));
 			thisMonthCalendar.set(Calendar.MONTH, thisMonthCalendar.get(Calendar.MONTH) +1);
@@ -47,10 +44,12 @@ public class SelectWorkTimeList extends HttpServlet {
 			}
 			String thisMonth = y + "-" + m ;
 			
+			
 			Employee account = (Employee)session.getAttribute("account");
 			WorkTimeDAO tsDAO = new WorkTimeDAO();
 			List<WorkTime> workTimeList = new ArrayList<>();
 			
+			//当月の勤務時刻情報を取得
 			workTimeList = tsDAO.selectWorkTimeList(account.getEmpId(), thisMonth);
 			
 			String nextJsp;
@@ -64,6 +63,8 @@ public class SelectWorkTimeList extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);
 			
+			
+		//actionがdoneの場合は勤務時間修正からのリダイレクトのため、修正後のタイムシートを表示
 		} else if(action.equals("done")) {
 			request.setCharacterEncoding("UTF-8");
 			String thisMonth = (String)session.getAttribute("request-month");
@@ -76,6 +77,7 @@ public class SelectWorkTimeList extends HttpServlet {
 			WorkTimeDAO tsDAO = new WorkTimeDAO();
 			List<WorkTime> workTimeList = new ArrayList<>();
 			
+			//勤務時刻を修正した月の勤務時刻情報を取得
 			workTimeList = tsDAO.selectWorkTimeList(account.getEmpId(), thisMonth);
 			
 			String nextJsp;
@@ -93,8 +95,11 @@ public class SelectWorkTimeList extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//勤怠管理画面の年月選択で選択された月のタイムシートを表示
 		request.setCharacterEncoding("UTF-8");
 		
+		//選択された年月を取得
 		String y = request.getParameter("selectY");
 		String m = request.getParameter("selectM");
 	
@@ -107,11 +112,12 @@ public class SelectWorkTimeList extends HttpServlet {
 		thisMonthCalendar.set(Calendar.YEAR, Integer.parseInt(y));
 		thisMonthCalendar.set(Calendar.MONTH, Integer.parseInt(m));
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		Employee account = (Employee)session.getAttribute("account");
 		WorkTimeDAO tsDAO = new WorkTimeDAO();
 		List<WorkTime> workTimeList = new ArrayList<>();
 		
+		//選択された年月の勤務時刻情報を取得
 		workTimeList = tsDAO.selectWorkTimeList(account.getEmpId(), thisMonth);
 		
 		String nextJsp;

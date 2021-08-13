@@ -21,16 +21,10 @@ public class ClockOn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//従業員が既にログインしていたら勤怠入力画面にフォワード。
-		//ログインしていない場合はログイン画面へリダイレクト。
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("account") == null) {
-			response.sendRedirect("empLogin.jsp");
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/clockOn.jsp");
+			//直接アクセスされた場合は、フィルターのログインチェックを通り勤怠打刻画面へ遷移
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/clockOn.jsp");
 			dispatcher.forward(request, response);
-		}
+//		}
 	}
 
 
@@ -38,13 +32,13 @@ public class ClockOn extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String clockOn = request.getParameter("clockOn");
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		Employee account = (Employee)session.getAttribute("account");
 		
 		ClockOnDAO clockOnDAO = new ClockOnDAO();
 		
 		//押されたボタンが「出勤」もしくは「退勤」の場合、コンディション入力へフォワード
-		//押されたバタンが「休憩開始」もしくは「休憩終了」の場合は時間をDBに記録して打刻完了画面へフォアード
+		//押されたボタンが「休憩開始」もしくは「休憩終了」の場合は時間をDBに記録して打刻完了画面へフォワード
 		boolean flag = false;
 		String nextJsp = null;
 		if(clockOn.equals("work_start")) {

@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/Forward")
@@ -20,23 +19,24 @@ public class Forward extends HttpServlet {
 		String action = request.getParameter("action");
 		String nextJsp = null;
 		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("account") == null) {
-			response.sendRedirect("top.jsp");
-			
-		} else {
+		//actionにて指定されたページにフォワード
+
 			if(action.equals("empMenu")){
 				nextJsp = "/WEB-INF/jsp/empMenu.jsp";
 			} else if(action.equals("sysadminMenu")){
 				nextJsp = "/WEB-INF/jsp/sysadminMenu.jsp";
-			} else {
-				nextJsp = "/top.jsp";
-			}
+			} else if(action.equals("sysadminLogin")){
+				nextJsp = "/WEB-INF/jsp/sysadminLogin.jsp";
+			} else if(action.equals("empLogin")) {
+				nextJsp = "/WEB-INF/jsp/empLogin.jsp";
+			} else if(action.equals("top")){
+				nextJsp = "/WEB-INF/jsp/top.jsp";
+			} 
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);			
 		}
 		
-	}
+//	}
 
 }

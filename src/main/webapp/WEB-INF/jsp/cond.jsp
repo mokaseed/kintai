@@ -7,7 +7,7 @@
 <title>Kintai 勤怠入力</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 		<h1>勤怠入力</h1>
 		<p>※勤怠入力はまだ完了していません</p>
@@ -26,6 +26,6 @@
 		</form>
 		<a href="/kintai/ClockOn">出退勤選択に戻る</a>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

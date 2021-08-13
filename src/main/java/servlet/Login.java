@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.AccountSearchDAO;
 import entity.Employee;
+import model.PassCheck;
 import model.SysadminCheckLogic;
 
 
@@ -27,9 +28,9 @@ public class Login extends HttpServlet {
 		//従業員ログイン画面と管理者ログイン画面への遷移振り分け
 		String nextJsp;
 		if("done".equals(action)) {
-			nextJsp = "empLogin.jsp";
+			nextJsp = "/WEB-INF/jsp/empLogin.jsp";
 		} else {
-			nextJsp = "sysadminLogin.jsp";
+			nextJsp = "/WEB-INF/jsp/sysadminLogin.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
@@ -66,17 +67,29 @@ public class Login extends HttpServlet {
 			//アカウントがヒットした場合
 			if(account != null) {
 				//パスワードのチェック
+				PassCheck passCheck = new PassCheck();
+				boolean passResult = passCheck.execute(emp, account);
 				
-				//セッションにアカウント情報を登録
-				HttpSession session = request.getSession();
-				session.setAttribute("account", account);
-				//従業員メニュー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empMenu.jsp");
-				dispatcher.forward(request, response);
+				//パスワードが正しい場合
+				if(passResult) {
+					//セッションにアカウント情報を登録
+					HttpSession session = request.getSession();
+					session.setAttribute("account", account);
+					//従業員メニュー画面へフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empMenu.jsp");
+					dispatcher.forward(request, response);					
+				
+				//パスワードが誤りの場合
+				} else {
+					//エラー画面へフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empLoginError.jsp");
+					dispatcher.forward(request, response);
+				}
+				
 			} else {
 				//アカウントがヒットしなかった場合
 				//エラー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/empLoginError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empLoginError.jsp");
 				dispatcher.forward(request, response);
 			}
 		//actionがdoneの場合は管理者ログイン
@@ -93,10 +106,14 @@ public class Login extends HttpServlet {
 			if(account != null) {
 				//管理者権限があるか確認
 				SysadminCheckLogic scl = new SysadminCheckLogic();
-				boolean result = scl.execute(account);
+				boolean sysadminResult = scl.execute(account);
 				
-				//管理者権限がある場合
-				if(result) {
+				//パスワードが正しいか確認
+				PassCheck passCheck = new PassCheck();
+				boolean passResult = passCheck.execute(emp, account);
+				
+				//管理者権限があり、パスワードが正しい場合
+				if(sysadminResult && passResult) {
 					//セッションにアカウント情報を登録
 					HttpSession session = request.getSession();
 					session.setAttribute("account", account);
@@ -104,15 +121,15 @@ public class Login extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminMenu.jsp");
 					dispatcher.forward(request, response);
 				} else {
-				//管理者権限がない場合
+				//管理者権限がない、もしくはパスワードが誤りの場合
 				//エラー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/sysadminLoginError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminLoginError.jsp");
 				dispatcher.forward(request, response);
 				}
 			} else {
 				//アカウントがヒットしなかった場合
 				//エラー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/sysadminLoginError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminLoginError.jsp");
 				dispatcher.forward(request, response);
 			}
 		}

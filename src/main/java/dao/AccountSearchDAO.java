@@ -13,7 +13,6 @@ public class AccountSearchDAO {
     final String jdbcPass = "seedrose";
     final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
-    @SuppressWarnings("finally")
 	public Employee fined(Employee emp){
     	
     	Connection con = null;
@@ -24,15 +23,14 @@ public class AccountSearchDAO {
     	Employee account = null;
     	
 
-//    	データベースへ接続
+//    	ログイン画面にて入力された社員IDがDBに登録済みの場合、当該社員情報を返す
     	try {
     		Class.forName("com.mysql.jdbc.Driver");
     		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
-    		String sql = "SELECT * FROM m_emp WHERE emp_id = ? AND pass = ?";
+    		String sql = "SELECT emp_id, name, pass, dept_name, tel, mail, hire_date, sysadmin, remarks FROM m_emp inner join m_dept on m_emp.dept_id = m_dept.dept_id WHERE emp_id = ?";
     		ps = con.prepareStatement(sql);
     		
     		ps.setInt(1, emp.getEmpId());
-    		ps.setString(2, emp.getPass());	
     		
     		rs = ps.executeQuery();
     		
@@ -41,20 +39,20 @@ public class AccountSearchDAO {
     			int empId = rs.getInt("emp_id");
     			String name = rs.getString("name");
     			String pass = rs.getString("pass");
-    			String deptId = rs.getString("dept_id");
+    			String deptName = rs.getString("dept_name");
     			String tel = rs.getString("tel");
     			String mail = rs.getString("mail");
     			String hireDate = rs.getString("hire_date");
     			String sysadmin = rs.getString("sysadmin");
     			String remarks = rs.getString("remarks");
-    			account = new Employee(empId, name, pass, deptId, tel, mail, hireDate, sysadmin, remarks);
+    			account = new Employee(empId, name, pass, deptName, tel, mail, hireDate, sysadmin, remarks);
     			System.out.println("accountあり");
     		} else {
 //    			アカウントがなければnullを返す
     			System.out.println("accountなし");
     			return null;
     		}
-    	} catch(SQLException e) {
+    	} catch(SQLException | ClassNotFoundException e) {
     		e.printStackTrace();
     		System.out.println(e);
     		return null;
@@ -83,8 +81,7 @@ public class AccountSearchDAO {
     				e.printStackTrace();
     			}
     		}
-            return account;
-
     	}
+        return account;
     }
 }

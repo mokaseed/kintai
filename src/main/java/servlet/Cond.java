@@ -19,16 +19,9 @@ public class Cond extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//直接アクセスに対して従業員が既にログインしていたら勤怠入力画面にフォワード。
-		//ログインしていない場合はTOP画面へリダイレクト。
-				
-		HttpSession session = request.getSession();
-		if(session.getAttribute("account") == null) {
-			response.sendRedirect("empLogin.jsp");
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/clockOn.jsp");
+			//直接アクセスされた場合は、フィルターのログインチェックを通り勤怠打刻画面へ遷移
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/clockOn.jsp");
 			dispatcher.forward(request, response);
-		}
 	}
 
 
@@ -37,18 +30,20 @@ public class Cond extends HttpServlet {
 		String clockOn = request.getParameter("clockOn");
 		String cond = request.getParameter("cond");
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		Employee account = (Employee)session.getAttribute("account");
 		
 		ClockOnDAO clockOnDAO = new ClockOnDAO();
 		boolean flag = false;
 		
+		//出勤か退勤かを判別してdaoに時刻とコンディションの記録を依頼
 		if(clockOn.equals("work_start")) {
 			flag = clockOnDAO.setWorkStartTime(account.getEmpId(), cond);
 		} else if(clockOn.equals("work_finish")) {
 			flag = clockOnDAO.setWorkFinishTime(account.getEmpId(), cond);
 		}
 		
+		//DB登録が成功したら打刻完了画面へ、失敗したらエラー画面へ
 		if(flag) {
 			request.setAttribute("clockOn", clockOn);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/clockOnOK.jsp");

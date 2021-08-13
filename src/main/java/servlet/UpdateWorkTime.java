@@ -23,10 +23,12 @@ public class UpdateWorkTime extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//勤怠管理画面にて「修正」ボタンが押された年月日と勤務時刻を取得し、勤務時刻修正画面を表示
 		request.setCharacterEncoding("UTF-8");
 		WorkTime workTime = new WorkTime();
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		Employee account = (Employee)session.getAttribute("account");
 		workTime.setEmpId(account.getEmpId());
 		
@@ -71,9 +73,11 @@ public class UpdateWorkTime extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//勤務時刻修正画面にて入力された時刻を取得し、DBに上書き登録
+		//予期せぬ文字（記号等）が入力された場合や、時と分の片方を入力してもう片方が未入力の場合などはエラー画面に遷移
 		try {
 			request.setCharacterEncoding("UTF-8");
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
 			Employee account = (Employee)session.getAttribute("account");
 			WorkTime workTime = new WorkTime();
 			

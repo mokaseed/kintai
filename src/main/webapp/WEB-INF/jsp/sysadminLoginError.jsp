@@ -7,7 +7,7 @@
 <title>Kintai ログイン</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 			<h1>ログインエラー</h1>
 	</div>
@@ -15,8 +15,8 @@
 		<p>ログインできませんでした。<br>
 		管理者権限がない、もしくはユーザー名・パスワードが誤っている可能性があります。<br></p>
 		<p></p>
-		<a href="sysadminLogin.jsp">ログインページへ戻る</a>
+		<a href="/kintai/Forward?action=sysadminLogin">ログインページへ戻る</a>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

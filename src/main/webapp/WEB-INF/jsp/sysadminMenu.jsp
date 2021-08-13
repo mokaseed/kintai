@@ -7,14 +7,14 @@
 <title>Kintai  管理者メニュー</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 		<h1>管理者メニュー</h1>
 	</div>
 	<div class="main_wrapper" align="center">
 		<a href="sysadminEmpList.jsp?action=sysadminEmpList">従業員一覧</a><br>
-		<a href="Logout">ログアウト</a>
+		<a href="/kintai/Logout">ログアウト</a>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

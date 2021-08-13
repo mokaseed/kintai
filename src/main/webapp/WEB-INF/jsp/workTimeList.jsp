@@ -27,7 +27,7 @@ List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.t
 <title>Kintai 勤怠管理</title>
 </head>
 <body>
-	<jsp:include page="/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
 	<div class="title" align="center">
 		<h1><%= thisMonthCalendar.get(Calendar.YEAR) %>年<%= thisMonthCalendar.get(Calendar.MONTH) %>月分タイムシート</h1>
 	</div>
@@ -121,6 +121,6 @@ List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.t
 	<div align="center">
 		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
 	</div>
-	<jsp:include page="/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>
