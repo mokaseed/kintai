@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DeptDAO;
 import dao.EmpListDAO;
+import entity.Dept;
 import entity.Employee;
 
 
@@ -24,20 +26,47 @@ public class EmpList extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession(false);
+		String action = request.getParameter("action");
+		
+		
 		//EmpListDAOで従業員情報一覧を取得して従業員一覧画面を表示する
-		EmpListDAO empListDAO = new EmpListDAO();
-		List<Employee> empList = new ArrayList<>();
-		empList = empListDAO.selectEmpList();
-		
-		if(empList != null) {
-			HttpSession session = request.getSession();
+		if(action == null) {
+			EmpListDAO empListDAO = new EmpListDAO();
+			List<Employee> empList = new ArrayList<>();
+			empList = empListDAO.selectEmpList();
+			
+			DeptDAO deptDAO = new DeptDAO();
+			List<Dept> deptList = deptDAO.selectDeptList();
+			session.setAttribute("deptList", deptList);
+			
+			if(empList == null) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empListError.jsp");
+				dispatcher.forward(request, response);
+			}
 			session.setAttribute("empList", empList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empList.jsp");
-			dispatcher.forward(request, response);
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empListError.jsp");
-		dispatcher.forward(request, response);
 		
+		
+		//選択された事業部の従業員情報を表示
+		} else if(action.equals("selectDept")) {
+			String dept = request.getParameter("dept");
+			if(dept != null) {
+				EmpListDAO empListDAO = new EmpListDAO();
+				List<Employee> empList = empListDAO.selectDeptEmpList(Integer.parseInt(dept, 10));
+				session.setAttribute("empList", empList);
+				request.setAttribute("nowDept", Integer.parseInt(dept, 10));
+			} 
+			
+		
+		//検索にヒットした従業員情報を表示
+		} else if(action.equals("search")) {
+			String searchWord = request.getParameter("search");
+			EmpListDAO empListDAO = new EmpListDAO();
+			List<Employee> empList = empListDAO.searchEmpList(searchWord);
+			session.setAttribute("empList", empList);
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empList.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	

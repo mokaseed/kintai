@@ -13,6 +13,21 @@
 		<h1>従業員一覧</h1>
 	</div>
 	<div align="center">
+		<form action="/kintai/SysadminEmpList">
+			<input type="hidden" name="action" value="selectDept">
+			<select name="dept" onchange="submit(this.form)">
+				<c:set var="nowDept" value="${nowDept}"/>
+				<c:forEach var="dept" items="${deptList}">
+					<option value="${dept.deptId}"<c:if test="${dept.deptId == nowDept}">selected</c:if> ><c:out value="${dept.deptName}"/></option>
+				</c:forEach>
+				<option value="0">管理者</option>
+			</select>
+		</form>
+		<form action="/kintai/SysadminEmpList">
+			<input type="hidden" name="action" value="search">
+			<input type="text" name="search">
+			<input type="submit" value="検索">
+		</form>
 		<form action="/kintai/SysadminEmpList" method="post">
 			<input type="hidden" name="action" value="addEmp">
 			<input type="submit" value="従業員新規登録">

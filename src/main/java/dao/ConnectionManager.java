@@ -17,7 +17,7 @@ public class ConnectionManager {
 			try{
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
-				System.out.println("DB接続を行いました");
+//				System.out.println("DB接続を行いました");
 			}catch(SQLException | ClassNotFoundException e){
 				e.printStackTrace();
 			}			
@@ -29,7 +29,7 @@ public class ConnectionManager {
 		if(con != null) {
 			try {
 				con.close();
-				System.out.println("DB切断を行いました");
+//				System.out.println("DB切断を行いました");
 			} catch (SQLException e) {
 			e.printStackTrace();
 			}

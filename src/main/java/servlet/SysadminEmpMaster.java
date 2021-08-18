@@ -26,8 +26,20 @@ public class SysadminEmpMaster extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEditEmpMaster.jsp");
-		dispatcher.forward(request, response);
+		String action = request.getParameter("action");
+		System.out.println(action);
+		
+		//従業員情報修正画面へ
+		if(action == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEditEmpMaster.jsp");
+			dispatcher.forward(request, response);
+			
+			
+		//従業員情報詳細画面へ
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpMaster.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 
@@ -120,7 +132,7 @@ public class SysadminEmpMaster extends HttpServlet {
 			
 			session.setAttribute("empList", empList);
 			
-			if(flag == false) {
+			if(empList == null) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			} else {

@@ -66,7 +66,6 @@ public class SelectWorkTimeList extends HttpServlet {
 			
 		//actionがdoneの場合は勤務時間修正からのリダイレクトのため、修正後のタイムシートを表示
 		} else if(action.equals("done")) {
-			request.setCharacterEncoding("UTF-8");
 			String thisMonth = (String)session.getAttribute("request-month");
 			session.removeAttribute("request-month");
 			Calendar thisMonthCalendar = Calendar.getInstance();

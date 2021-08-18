@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,56 +20,90 @@ import dao.WorkTimeDAO;
 import entity.Employee;
 import entity.WorkTime;
 
-@WebServlet("/UpdateWorkTime")
-public class UpdateWorkTime extends HttpServlet {
+//管理者ログインフィルターを通る
+
+@WebServlet("/SysadminUpdateWorkTime")
+public class SysadminUpdateWorkTime extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//勤怠管理画面にて「修正」ボタンが押された年月日と勤務時刻を取得し、勤務時刻修正画面を表示
-		WorkTime workTime = new WorkTime();
-		
+		String action = request.getParameter("action");
 		HttpSession session = request.getSession(false);
-		Employee account = (Employee)session.getAttribute("account");
-		workTime.setEmpId(account.getEmpId());
 		
-		LocalDate workDate = LocalDate.parse(request.getParameter("workDate"));
-		workTime.setWorkDate(workDate);			
+		//社員IDを取得
+		String index = (String)session.getAttribute("index");
+		List<Employee> empList = (List<Employee>)session.getAttribute("empList");
+		Employee emp = empList.get(Integer.parseInt(index, 10));
 		
-		String startTime = (String)request.getParameter("startTime");
-		if(startTime.equals("null") || startTime.length() == 0) {
-			workTime.setStartTime(null);
+		if(action == null) {
+			//勤怠管理画面にて「修正」ボタンが押された年月日と勤務時刻を取得し、勤務時刻修正画面を表示
+			WorkTime workTime = new WorkTime();
+			
+			workTime.setEmpId(emp.getEmpId());
+			
+			LocalDate workDate = LocalDate.parse(request.getParameter("workDate"));
+			workTime.setWorkDate(workDate);			
+			
+			String startTime = (String)request.getParameter("startTime");
+			if(startTime.equals("null") || startTime.length() == 0) {
+				workTime.setStartTime(null);
+			} else {
+				workTime.setStartTime(LocalTime.parse(startTime));			
+			}
+			
+			String breakStartTime = (String)request.getParameter("breakStartTime");
+			if(breakStartTime.equals("null") || breakStartTime.length() == 0) {
+				workTime.setBreakStartTime(null);
+			} else {
+				workTime.setBreakStartTime(LocalTime.parse(breakStartTime));			
+			}
+			
+			String breakFinishTime = (String)request.getParameter("breakFinishTime");
+			if(breakFinishTime.equals("null") || breakFinishTime.length() == 0) {
+				workTime.setBreakFinishTime(null);
+			} else {
+				workTime.setBreakFinishTime(LocalTime.parse(breakFinishTime));			
+			}
+			
+			String finishTime = (String)request.getParameter("finishTime");
+			if(finishTime.equals("null") || finishTime.length() == 0) {
+				workTime.setFinishTime(null);
+			} else {
+				workTime.setFinishTime(LocalTime.parse(finishTime));
+			}
+			request.setAttribute("workTime", workTime);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminUpdateWorkTime.jsp");
+			dispatcher.forward(request, response);
+		
+		
+		//actionがdoneの場合は勤務時間修正からのリダイレクトのため、修正後のタイムシートを表示
 		} else {
-			workTime.setStartTime(LocalTime.parse(startTime));			
+			String thisMonth = (String)session.getAttribute("request-month");
+			session.removeAttribute("request-month");
+			Calendar thisMonthCalendar = Calendar.getInstance();
+			thisMonthCalendar.set(Calendar.YEAR, Integer.parseInt(thisMonth.substring(0, 4)));
+			thisMonthCalendar.set(Calendar.MONTH, Integer.parseInt(thisMonth.substring(5, 7)));
+			
+			WorkTimeDAO tsDAO = new WorkTimeDAO();
+			List<WorkTime> workTimeList = new ArrayList<>();
+			
+			//勤務時刻を修正した月の勤務時刻情報を取得
+			workTimeList = tsDAO.selectWorkTimeList(emp.getEmpId(), thisMonth);
+			
+			String nextJsp;
+			if(workTimeList == null) {
+				nextJsp = "/WEB-INF/jsp/sysadminError.jsp";
+			} else {
+				session.setAttribute("workTimeList", workTimeList);
+				session.setAttribute("thisMonthCalendar", thisMonthCalendar);
+				nextJsp = "/WEB-INF/jsp/sysadminWorkTimeList.jsp";
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
+			dispatcher.forward(request, response);
+			
 		}
-		
-		String breakStartTime = (String)request.getParameter("breakStartTime");
-		if(breakStartTime.equals("null") || breakStartTime.length() == 0) {
-			workTime.setBreakStartTime(null);
-		} else {
-			workTime.setBreakStartTime(LocalTime.parse(breakStartTime));			
-		}
-		
-		String breakFinishTime = (String)request.getParameter("breakFinishTime");
-		if(breakFinishTime.equals("null") || breakFinishTime.length() == 0) {
-			workTime.setBreakFinishTime(null);
-		} else {
-			workTime.setBreakFinishTime(LocalTime.parse(breakFinishTime));			
-		}
-		
-		String finishTime = (String)request.getParameter("finishTime");
-		if(finishTime.equals("null") || finishTime.length() == 0) {
-			workTime.setFinishTime(null);
-		} else {
-			workTime.setFinishTime(LocalTime.parse(finishTime));
-		}
-		request.setAttribute("workTime", workTime);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTime.jsp");
-		dispatcher.forward(request, response);
-		
-		
 	}
 
 
@@ -76,7 +113,9 @@ public class UpdateWorkTime extends HttpServlet {
 		//予期せぬ文字（記号等）が入力された場合や、時と分の片方を入力してもう片方が未入力の場合などはエラー画面に遷移
 		try {
 			HttpSession session = request.getSession(false);
-			Employee account = (Employee)session.getAttribute("account");
+			String index = (String)session.getAttribute("index");
+			List<Employee> empList = (List<Employee>)session.getAttribute("empList");
+			Employee emp = empList.get(Integer.parseInt(index, 10));
 			WorkTime workTime = new WorkTime();
 			
 			String workDate = request.getParameter("workDate");
@@ -139,21 +178,20 @@ public class UpdateWorkTime extends HttpServlet {
 			}
 			
 			WorkTimeDAO workTimeDAO = new WorkTimeDAO();
-			boolean flag = workTimeDAO.updateWorkTime(account.getEmpId(), workTime);
+			boolean flag = workTimeDAO.updateWorkTime(emp.getEmpId(), workTime);
 			if(flag) {
 				DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM");
 				session.setAttribute("request-month", workTime.getWorkDate().format(dateFormat));
-				response.sendRedirect("/kintai/SelectWorkTimeList?action=done");
+				response.sendRedirect("/kintai/SysadminUpdateWorkTime?action=done");
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTimeError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminError.jsp");
 				dispatcher.forward(request, response);
 				
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTimeError.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminError.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-
 }

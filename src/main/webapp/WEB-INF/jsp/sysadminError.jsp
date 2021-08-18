@@ -14,7 +14,8 @@
 	<div class="main_wrapper" align="center">
 		<p>エラーが発生しました。<br>
 		再度お試しください。</p>
-		<a href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+		<a href="javascript:history.back()">戻る</a>
+		<a href="/kintai/Forward?action=sysadminMenu">メニューへ</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
