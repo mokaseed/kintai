@@ -64,7 +64,7 @@ public class PersonalSettingsEmpMaster extends HttpServlet {
 			}
 			
 		} else {
-			nextJsp = "/WEB-INF/jsp/updatePersonalSettingsEmpMasterPasswordError.jsp";
+			nextJsp = "/WEB-INF/jsp/passwordError.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);

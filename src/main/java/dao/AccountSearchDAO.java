@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,15 +8,15 @@ import java.sql.SQLException;
 import entity.Employee;
 
 public class AccountSearchDAO {
-	final String jdbcId = "root";
-    final String jdbcPass = "seedrose";
-    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
 	public Employee fined(Employee emp){
     	
-    	Connection con = null;
     	PreparedStatement ps = null;
     	ResultSet rs = null;
+    	
+    	//DB接続用のメソッド
+    	ConnectionManager connectionManager = new ConnectionManager();
+    	Connection con = connectionManager.connect();
     	
 //    	戻り値の用意
     	Employee account = null;
@@ -25,8 +24,6 @@ public class AccountSearchDAO {
 
 //    	ログイン画面にて入力された社員IDがDBに登録済みの場合、当該社員情報を返す
     	try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
     		String sql = "SELECT emp_id, name, pass, dept_name, tel, mail, hire_date, sysadmin, remarks FROM m_emp inner join m_dept on m_emp.dept_id = m_dept.dept_id WHERE emp_id = ?";
     		ps = con.prepareStatement(sql);
     		
@@ -52,7 +49,7 @@ public class AccountSearchDAO {
     			System.out.println("accountなし");
     			return null;
     		}
-    	} catch(SQLException | ClassNotFoundException e) {
+    	} catch(SQLException e) {
     		e.printStackTrace();
     		System.out.println(e);
     		return null;
@@ -73,14 +70,7 @@ public class AccountSearchDAO {
     				e.printStackTrace();
     			}
     		}
-    		if(con != null) {
-    			try {
-    				con.close();
-    			} catch (SQLException e) {
-    				// TODO 自動生成された catch ブロック
-    				e.printStackTrace();
-    			}
-    		}
+    		connectionManager.close();
     	}
         return account;
     }

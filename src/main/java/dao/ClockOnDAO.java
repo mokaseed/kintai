@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,13 +8,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ClockOnDAO {
-	final String jdbcId = "root";
-    final String jdbcPass = "seedrose";
-    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
-    
-    Connection con = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	
+	//DB接続用のメソッド
+	ConnectionManager connectionManager = new ConnectionManager();
+	Connection con = connectionManager.connect();
 	
 	LocalDateTime now = LocalDateTime.now();
 	DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -24,8 +22,8 @@ public class ClockOnDAO {
 	//勤怠打刻で出勤が押された場合の処理
     public boolean setWorkStartTime(int empId, String cond){
 		try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
+//    		Class.forName("com.mysql.jdbc.Driver");
+//    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
     		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date = ?";
     		ps = con.prepareStatement(sql);
     		ps.setInt(1, empId);
@@ -67,7 +65,7 @@ public class ClockOnDAO {
     				return false;
     			}
     		}
-    	} catch(SQLException | ClassNotFoundException e) {
+    	} catch(SQLException e) {
     		e.printStackTrace();
    			System.out.println(e);
    			System.out.println("出勤時刻の登録ができませんでした。");
@@ -80,13 +78,9 @@ public class ClockOnDAO {
    					e.printStackTrace();
    				}
    			}
-   			if(con != null) {
-   				try {
-   					con.close();
-   				} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
-   			}
+   			//DB接続を切断するメソッド
+   			connectionManager.close();
+
    		}
     }
     
@@ -94,8 +88,6 @@ public class ClockOnDAO {
     public boolean setWorkFinishTime(int empId, String cond){
     	
 		try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
     		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date = ?";
     		ps = con.prepareStatement(sql);
     		ps.setInt(1, empId);
@@ -109,10 +101,10 @@ public class ClockOnDAO {
     			ps.setString(2, cond);
     			ps.setInt(3, empId);
     			ps.setString(4, now.format(dateFormat));
-    			int updateRowcount = ps.executeUpdate();
+    			int updateRowCount = ps.executeUpdate();
     			
-    			if(updateRowcount != 0) {
-    				System.out.println(updateRowcount + "件の退勤時刻をUPDATE登録しました。");
+    			if(updateRowCount != 0) {
+    				System.out.println(updateRowCount + "件の退勤時刻をUPDATE登録しました。");
     				return true;
     			} else {
     				System.out.println("退勤時刻のUPDATE登録に失敗しました。");
@@ -127,17 +119,17 @@ public class ClockOnDAO {
     			ps.setString(3, now.format(timeFormat));
     			ps.setString(4, cond);
     			
-    			int insertRowcount = ps.executeUpdate();
+    			int insertRowCount = ps.executeUpdate();
     			
-    			if(insertRowcount != 0) {
-    				System.out.println(insertRowcount + "件の退勤時刻をINSERT登録しました。");
+    			if(insertRowCount != 0) {
+    				System.out.println(insertRowCount + "件の退勤時刻をINSERT登録しました。");
     				return true;
     			} else {
     				System.out.println("該当が0件です。退勤時刻のINSERT登録ができませんでした。");
     				return false;
     			}
     		}
-    	} catch(SQLException | ClassNotFoundException e) {
+    	} catch(SQLException e) {
     		e.printStackTrace();
    			System.out.println(e);
    			System.out.println("退勤時刻の登録ができませんでした。");
@@ -150,21 +142,15 @@ public class ClockOnDAO {
    					e.printStackTrace();
    				}
    			}
-   			if(con != null) {
-   				try {
-   					con.close();
-   				} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
-   			}
+   			//DB接続を切断するメソッド
+   			connectionManager.close();
+
    		}
     }
     //勤怠打刻で休憩開始が押された場合の処理
     public boolean setBreakStartTime(int empId){
     	
 		try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
     		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date = ?";
     		ps = con.prepareStatement(sql);
     		ps.setInt(1, empId);
@@ -204,7 +190,7 @@ public class ClockOnDAO {
     				return false;
     			}
     		}
-    	} catch(SQLException | ClassNotFoundException e) {
+    	} catch(SQLException e) {
     		e.printStackTrace();
    			System.out.println(e);
    			System.out.println("休憩開始時刻の登録ができませんでした。");
@@ -217,21 +203,14 @@ public class ClockOnDAO {
    					e.printStackTrace();
    				}
    			}
-   			if(con != null) {
-   				try {
-   					con.close();
-   				} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
-   			}
+   			//DB接続を切断するメソッド
+   			connectionManager.close();
    		}
     }
     //勤怠打刻で休憩終了が押された場合の処理
     public boolean setBreakFinishTime(int empId){
     	
 		try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
     		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date = ?";
     		ps = con.prepareStatement(sql);
     		ps.setInt(1, empId);
@@ -271,7 +250,7 @@ public class ClockOnDAO {
     				return false;
     			}
     		}
-    	} catch(SQLException | ClassNotFoundException e) {
+    	} catch(SQLException e) {
     		e.printStackTrace();
    			System.out.println(e);
    			System.out.println("休憩終了時刻の登録ができませんでした。");
@@ -284,13 +263,8 @@ public class ClockOnDAO {
    					e.printStackTrace();
    				}
    			}
-   			if(con != null) {
-   				try {
-   					con.close();
-   				} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
-   			}
+   			//DB接続を切断するメソッド
+   			connectionManager.close();
    		}
     }
 }

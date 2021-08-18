@@ -7,6 +7,7 @@ public class Employee implements Serializable{
 	private String name; //氏名
 	private String pass; //パスワード
 	private String deptName; //部署名
+	private int deptId; //部署ID
 	private String tel; //電話番号
 	private String mail; //メールアドレス
 	private String hireDate; //入社日
@@ -94,6 +95,11 @@ public class Employee implements Serializable{
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	public int getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(int deptId) {
+		this.deptId = deptId;
+	}
 	
-
 }

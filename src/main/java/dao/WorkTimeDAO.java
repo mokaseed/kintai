@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +17,10 @@ public class WorkTimeDAO {
 	    final String jdbcPass = "seedrose";
 	    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
 	    
-	  	Connection con = null;
+	  //DBを接続するメソッド
+	    ConnectionManager connectionManager = new ConnectionManager();
+	    Connection con = connectionManager.connect();
+	    
 	   	PreparedStatement ps = null;
 	   	ResultSet rs = null;
 	    
@@ -30,8 +32,6 @@ public class WorkTimeDAO {
 	   	
 //	   	データベースへ接続
 	   	try {
-	   		Class.forName("com.mysql.jdbc.Driver");
-	   		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
 	   		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date LIKE ?";
 	   		ps = con.prepareStatement(sql);
 	   		
@@ -78,7 +78,7 @@ public class WorkTimeDAO {
 	    		workTimeList.add(workTime);
 	   		}
 	   		return workTimeList;
-	   	} catch(SQLException| ClassNotFoundException e) {
+	   	} catch(SQLException e) {
     		e.printStackTrace();
     		System.out.println(e);
     		return null;
@@ -99,14 +99,8 @@ public class WorkTimeDAO {
     				e.printStackTrace();
     			}
     		}
-    		if(con != null) {
-    			try {
-    				con.close();
-    			} catch (SQLException e) {
-    				// TODO 自動生成された catch ブロック
-    				e.printStackTrace();
-    			}
-    		}
+    		//DB接続を切断するメソッド
+    		connectionManager.close();
     	}
 	}
 	
@@ -117,9 +111,6 @@ public class WorkTimeDAO {
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
 		try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
-    		
     		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date = ?";
 	   		ps = con.prepareStatement(sql);
 	   		
@@ -199,7 +190,7 @@ public class WorkTimeDAO {
 	   			}
 	   		}
 
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException e) {
     		e.printStackTrace();
    			System.out.println(e);
    			System.out.println("勤務時間の修正ができませんでした。");
@@ -212,13 +203,8 @@ public class WorkTimeDAO {
    					e.printStackTrace();
    				}
    			}
-   			if(con != null) {
-   				try {
-   					con.close();
-   				} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
-   			}
+   			//DB接続を切断するメソッド
+   			connectionManager.close();
    		}
 	}
 }

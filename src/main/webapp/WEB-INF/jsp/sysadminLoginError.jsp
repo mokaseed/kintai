@@ -7,7 +7,7 @@
 <title>Kintai ログイン</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
+	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />
 	<div class="title" align="center">
 			<h1>ログインエラー</h1>
 	</div>

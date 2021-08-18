@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,10 @@ public class EmpListDAO {
     final String jdbcPass = "seedrose";
     final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
-  	Connection con = null;
+    //DBを接続するメソッド
+    ConnectionManager connectionManager = new ConnectionManager();
+    Connection con = connectionManager.connect();
+    
    	PreparedStatement ps = null;
    	ResultSet rs = null;
 	
@@ -26,8 +28,6 @@ public class EmpListDAO {
 		List<Employee> empList = new ArrayList<>();
 		
 		try {
-	   		Class.forName("com.mysql.jdbc.Driver");
-	   		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
 	   		String sql = "SELECT emp_id, name, pass, dept_name, tel, mail, hire_date, sysadmin, remarks FROM m_emp inner join m_dept on m_emp.dept_id = m_dept.dept_id"; 
 	   		ps = con.prepareStatement(sql);
 	   		rs = ps.executeQuery();
@@ -73,9 +73,8 @@ public class EmpListDAO {
 	   			}
 	   			empList.add(emp);
 	   		}
-   		} catch(SQLException| ClassNotFoundException e) {
+   		} catch(SQLException e) {
    			e.printStackTrace();
-   			System.out.println(e);
    			return null;
     	} finally {
     		if(rs != null) {
@@ -94,14 +93,8 @@ public class EmpListDAO {
     				e.printStackTrace();
     			}
     		}
-    		if(con != null) {
-    			try {
-    				con.close();
-    			} catch (SQLException e) {
-    				// TODO 自動生成された catch ブロック
-    				e.printStackTrace();
-    			}
-    		}
+    		//DB接続を切断するメソッド
+    		connectionManager.close();
     	}
 		return empList;
 	}
