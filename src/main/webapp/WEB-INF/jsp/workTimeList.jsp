@@ -14,9 +14,6 @@ thisMonthCalendar.add(Calendar.MONTH, -1);
 int maxDay = thisMonthCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 thisMonthCalendar.add(Calendar.MONTH, +1);
 
-IntStream year = IntStream.range(2020, 2030);
-IntStream month = IntStream.range(1, 13);
-
 List<Integer> yearNumbers = IntStream.range(2020, 2030).boxed().collect(Collectors.toList());
 List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.toList());
 %>

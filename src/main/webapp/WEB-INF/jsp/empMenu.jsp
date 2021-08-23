@@ -14,7 +14,7 @@
 	<div class="main_wrapper" align="center">
 		<a href="/kintai/ClockOn">勤怠打刻</a><br>
 		<a href="/kintai/SelectWorkTimeList">勤怠管理</a><br>
-		<a href="schedule.jsp?action=schedule">スケジュール</a><br>
+		<a href="/kintai/MyCalendarMain">スケジュール</a><br>
 		<a href="/kintai/EmpList">従業員一覧</a><br>
 		<a href="/kintai/PersonalSettingsEmpMaster">設定</a><br>
 		<a href="/kintai/Logout">ログアウト</a>

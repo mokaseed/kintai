@@ -1,6 +1,8 @@
 package entity;
 
-public class Dept {
+import java.io.Serializable;
+
+public class Dept implements Serializable{
 	private int deptId; //事業部ID
 	private String deptName; //事業部名
 	

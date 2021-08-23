@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginCheck
  */
-@WebFilter(urlPatterns={"/ClockOn", "/Cond", "/Forward", "/SelectWorkTimeList", "/UpdateWorkTime", "/EmpList", "/PersonalSettingsEmpMaster"})
+@WebFilter(urlPatterns={"/ClockOn", "/Cond", "/Forward", "/SelectWorkTimeList", "/UpdateWorkTime", "/EmpList", "/PersonalSettingsEmpMaster", "/AddSchedule", "/MyCalendarMain"})
 
 public class EmpLoginCheck implements Filter {
 
