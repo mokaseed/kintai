@@ -23,10 +23,10 @@ public class PersonalSettingsEmpMaster extends HttpServlet {
 		String nextJsp;
 		if(action == null) {
 			//個人設定＿従業員情報画面へ
-			nextJsp = "/WEB-INF/jsp/personalSettingsEmpMaster.jsp";
+			nextJsp = "/WEB-INF/jsp/emp/personalSettingsEmpMaster.jsp";
 		} else {
 			//個人設定＿従業員情報修正画面へ
-			nextJsp = "/WEB-INF/jsp/updatePersonalSettingsEmpMaster.jsp";
+			nextJsp = "/WEB-INF/jsp/emp/updatePersonalSettingsEmpMaster.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 		dispatcher.forward(request, response);
@@ -58,13 +58,13 @@ public class PersonalSettingsEmpMaster extends HttpServlet {
 			//DBのUPDATEが失敗したらエラー画面へ
 			if(revisedAccount != null) {
 				session.setAttribute("account", revisedAccount);
-				nextJsp = "/WEB-INF/jsp/personalSettingsEmpMaster.jsp";
+				nextJsp = "/WEB-INF/jsp/emp/personalSettingsEmpMaster.jsp";
 			} else {
-				nextJsp = "/WEB-INF/jsp/updatePersonalSettingsEmpMasterError.jsp";
+				nextJsp = "/WEB-INF/jsp/emp/updatePersonalSettingsEmpMasterError.jsp";
 			}
 			
 		} else {
-			nextJsp = "/WEB-INF/jsp/passwordError.jsp";
+			nextJsp = "/WEB-INF/jsp/emp/passwordError.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);

@@ -43,11 +43,11 @@ public class SysadminEmpList extends HttpServlet {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminError.jsp");
 				dispatcher.forward(request, response);		
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEmpList.jsp");
 			dispatcher.forward(request, response);
 		
 		
@@ -55,7 +55,7 @@ public class SysadminEmpList extends HttpServlet {
 		} else if(action.equals("selectDept")) {
 			String dept = request.getParameter("dept");
 			if(dept == null) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpList.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEmpList.jsp");
 				dispatcher.forward(request, response);
 			
 				
@@ -64,7 +64,7 @@ public class SysadminEmpList extends HttpServlet {
 				EmpListDAO empListDAO = new EmpListDAO();
 				List<Employee> empList = empListDAO.selectSysadminEmpList();
 				session.setAttribute("empList", empList);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpList.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEmpList.jsp");
 				dispatcher.forward(request, response);
 				
 				
@@ -74,7 +74,7 @@ public class SysadminEmpList extends HttpServlet {
 				List<Employee> empList = empListDAO.selectDeptEmpList(Integer.parseInt(dept, 10));
 				session.setAttribute("empList", empList);
 				request.setAttribute("nowDept", Integer.parseInt(dept, 10));
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpList.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEmpList.jsp");
 				dispatcher.forward(request, response);
 			}
 			
@@ -85,7 +85,7 @@ public class SysadminEmpList extends HttpServlet {
 			EmpListDAO empListDAO = new EmpListDAO();
 			List<Employee> empList = empListDAO.searchEmpList(searchWord);
 			session.setAttribute("empList", empList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEmpList.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

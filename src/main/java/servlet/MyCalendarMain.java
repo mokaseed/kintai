@@ -44,7 +44,7 @@ public class MyCalendarMain extends HttpServlet {
 		}
 		request.setAttribute("mc", mc);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myCalendar.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/myCalendar.jsp");
 		dispatcher.forward(request, response);
 	}
 

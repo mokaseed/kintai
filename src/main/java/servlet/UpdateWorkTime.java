@@ -63,7 +63,7 @@ public class UpdateWorkTime extends HttpServlet {
 		}
 		request.setAttribute("workTime", workTime);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTime.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTime.jsp");
 		dispatcher.forward(request, response);
 		
 		
@@ -90,7 +90,7 @@ public class UpdateWorkTime extends HttpServlet {
 			if(hStartTime.length() == 0 && mStartTime.length() == 0) {
 				workTime.setStartTime(null);
 			} else if(hStartTime.length() == 0 || mStartTime.length() == 0) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTimeError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTimeError.jsp");
 				dispatcher.forward(request, response);
 			} else {
 				if(hStartTime.length() == 1) {
@@ -145,13 +145,13 @@ public class UpdateWorkTime extends HttpServlet {
 				session.setAttribute("request-month", workTime.getWorkDate().format(dateFormat));
 				response.sendRedirect("/kintai/SelectWorkTimeList?action=done");
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTimeError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTimeError.jsp");
 				dispatcher.forward(request, response);
 				
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTimeError.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTimeError.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

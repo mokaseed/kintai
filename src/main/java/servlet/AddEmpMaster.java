@@ -36,9 +36,9 @@ public class AddEmpMaster extends HttpServlet {
 		if(deptList != null) {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("deptList", deptList);
-			nextJsp ="/WEB-INF/jsp/addEmpMaster.jsp";
+			nextJsp ="/WEB-INF/jsp/sysadmin/addEmpMaster.jsp";
 		} else {
-			nextJsp ="/WEB-INF/jsp/sysadminError.jsp";
+			nextJsp ="/WEB-INF/jsp/sysadmin/sysadminError.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
@@ -66,7 +66,7 @@ public class AddEmpMaster extends HttpServlet {
 			
 			//入力した二つのパスワードの一致確認
 			if(pass.equals(passCheck) == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/passwordError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			}
 			
@@ -74,7 +74,7 @@ public class AddEmpMaster extends HttpServlet {
 			DateCheck dateCheck = new DateCheck();
 			boolean flag = dateCheck.execute(hireDate);
 			if(flag == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			}
 			
@@ -94,11 +94,11 @@ public class AddEmpMaster extends HttpServlet {
 			
 			} catch(Exception e) {
 				e.printStackTrace();
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterConfirm.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterConfirm.jsp");
 			dispatcher.forward(request, response);
 		
 				
@@ -168,10 +168,10 @@ public class AddEmpMaster extends HttpServlet {
 			boolean flag = empMasterDAO.empMasterRegist(emp);
 			
 			if(flag == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterOK.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterOK.jsp");
 				dispatcher.forward(request, response);
 			}
 			

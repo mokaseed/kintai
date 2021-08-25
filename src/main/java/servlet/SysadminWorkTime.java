@@ -59,11 +59,11 @@ public class SysadminWorkTime extends HttpServlet {
 			
 			String nextJsp = null;
 			if(workTimeList == null) {
-				nextJsp = "/WEB-INF/jsp/sysadminError.jsp";
+				nextJsp = "/WEB-INF/jsp/sysadmin/sysadminError.jsp";
 			} else {
 				session.setAttribute("workTimeList", workTimeList);
 				session.setAttribute("thisMonthCalendar", thisMonthCalendar);
-				nextJsp = "/WEB-INF/jsp/sysadminWorkTimeList.jsp";
+				nextJsp = "/WEB-INF/jsp/sysadmin/sysadminWorkTimeList.jsp";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);
@@ -102,11 +102,11 @@ public class SysadminWorkTime extends HttpServlet {
 				
 				String nextJsp;
 				if(workTimeList == null) {
-					nextJsp = "/WEB-INF/jsp/sysadminError.jsp";
+					nextJsp = "/WEB-INF/jsp/sysadmin/sysadminError.jsp";
 				} else {
 					session.setAttribute("workTimeList", workTimeList);
 					session.setAttribute("thisMonthCalendar", thisMonthCalendar);
-					nextJsp = "/WEB-INF/jsp/sysadminWorkTimeList.jsp";
+					nextJsp = "/WEB-INF/jsp/sysadmin/sysadminWorkTimeList.jsp";
 				}
 				RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 				dispatcher.forward(request, response);

@@ -34,7 +34,7 @@ public class AddSchedule extends HttpServlet {
 		request.setAttribute("year", s_year);
 		request.setAttribute("month", s_month);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addSchedule.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/addSchedule.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -70,7 +70,7 @@ public class AddSchedule extends HttpServlet {
 		//エラーが一つでもある場合はエラー画面へ遷移
 		if(errorMsgList.isEmpty() == false) {
 			request.setAttribute("errorMsgList", errorMsgList);
-			nextJsp = "/WEB-INF/jsp/addScheduleError.jsp";
+			nextJsp = "/WEB-INF/jsp/emp/addScheduleError.jsp";
 			
 		//エラーがない場合はスケジュールをDBに登録してカレンダー画面へ遷移
 		} else {
@@ -136,7 +136,7 @@ public class AddSchedule extends HttpServlet {
 			if(myScheduleList == null) {
 				errorMsgList.add("DB登録失敗");
 				request.setAttribute("errorMsgList", errorMsgList);
-				nextJsp = "/WEB-INF/jsp/addScheduleError.jsp";
+				nextJsp = "/WEB-INF/jsp/emp/addScheduleError.jsp";
 			} else {
 				session.setAttribute("myScheduleList", myScheduleList);
 			}

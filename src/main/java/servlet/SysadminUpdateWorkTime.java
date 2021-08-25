@@ -74,7 +74,7 @@ public class SysadminUpdateWorkTime extends HttpServlet {
 			}
 			request.setAttribute("workTime", workTime);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminUpdateWorkTime.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminUpdateWorkTime.jsp");
 			dispatcher.forward(request, response);
 		
 		
@@ -94,11 +94,11 @@ public class SysadminUpdateWorkTime extends HttpServlet {
 			
 			String nextJsp;
 			if(workTimeList == null) {
-				nextJsp = "/WEB-INF/jsp/sysadminError.jsp";
+				nextJsp = "/WEB-INF/jsp/sysadmin/sysadminError.jsp";
 			} else {
 				session.setAttribute("workTimeList", workTimeList);
 				session.setAttribute("thisMonthCalendar", thisMonthCalendar);
-				nextJsp = "/WEB-INF/jsp/sysadminWorkTimeList.jsp";
+				nextJsp = "/WEB-INF/jsp/sysadmin/sysadminWorkTimeList.jsp";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);
@@ -129,7 +129,7 @@ public class SysadminUpdateWorkTime extends HttpServlet {
 			if(hStartTime.length() == 0 && mStartTime.length() == 0) {
 				workTime.setStartTime(null);
 			} else if(hStartTime.length() == 0 || mStartTime.length() == 0) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateWorkTimeError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/updateWorkTimeError.jsp");
 				dispatcher.forward(request, response);
 			} else {
 				if(hStartTime.length() == 1) {
@@ -184,13 +184,13 @@ public class SysadminUpdateWorkTime extends HttpServlet {
 				session.setAttribute("request-month", workTime.getWorkDate().format(dateFormat));
 				response.sendRedirect("/kintai/SysadminUpdateWorkTime?action=done");
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminError.jsp");
 				dispatcher.forward(request, response);
 				
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminError.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminError.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

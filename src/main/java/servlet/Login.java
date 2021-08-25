@@ -28,9 +28,9 @@ public class Login extends HttpServlet {
 		//従業員ログイン画面と管理者ログイン画面への遷移振り分け
 		String nextJsp;
 		if("done".equals(action)) {
-			nextJsp = "/WEB-INF/jsp/empLogin.jsp";
+			nextJsp = "/WEB-INF/jsp/emp/empLogin.jsp";
 		} else {
-			nextJsp = "/WEB-INF/jsp/sysadminLogin.jsp";
+			nextJsp = "/WEB-INF/jsp/sysadmin/sysadminLogin.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
@@ -76,20 +76,20 @@ public class Login extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("account", account);
 					//従業員メニュー画面へフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empMenu.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/empMenu.jsp");
 					dispatcher.forward(request, response);					
 				
 				//パスワードが誤りの場合
 				} else {
 					//エラー画面へフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empLoginError.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/empLoginError.jsp");
 					dispatcher.forward(request, response);
 				}
 				
 			} else {
 				//アカウントがヒットしなかった場合
 				//エラー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empLoginError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/empLoginError.jsp");
 				dispatcher.forward(request, response);
 			}
 		//actionがdoneの場合は管理者ログイン
@@ -118,18 +118,18 @@ public class Login extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("account", account);
 					//管理者メニュー画面へフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminMenu.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminMenu.jsp");
 					dispatcher.forward(request, response);
 				} else {
 				//管理者権限がない、もしくはパスワードが誤りの場合
 				//エラー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminLoginError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminLoginError.jsp");
 				dispatcher.forward(request, response);
 				}
 			} else {
 				//アカウントがヒットしなかった場合
 				//エラー画面へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminLoginError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminLoginError.jsp");
 				dispatcher.forward(request, response);
 			}
 		}

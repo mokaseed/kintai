@@ -4,18 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kintai エラー</title>
+<title>Kintai 勤怠管理</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />
 	<div class="title" align="center">
-		<h1>エラー</h1>
+		<h1>勤怠時刻修正エラー</h1>
 	</div>
 	<div class="main_wrapper" align="center">
 		<p>エラーが発生しました。<br>
-		再度お試しください。</p>
-		<a href="javascript:history.back()">戻る</a>
-		<a href="/kintai/Forward?action=sysadminMenu">メニューへ</a>
+		勤務時刻が正しく選択されているかご確認ください。</p><br>
+		<p>※ 注意 ※<br>
+		時刻入力は半角で入力してください。</p><br>
+		<a href="/kintai/SelectWorkTimeList">タイムシート年月指定に戻る</a><br>
+		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

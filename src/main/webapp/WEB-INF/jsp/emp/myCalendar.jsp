@@ -44,6 +44,9 @@
 				<% } %>
 		</table>
 	</div>
+	<div align="center">
+		<a href="/kintai/Forward?action=empMenu">メニューへ戻る</a>
+	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

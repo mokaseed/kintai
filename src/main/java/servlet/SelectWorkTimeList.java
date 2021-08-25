@@ -54,11 +54,11 @@ public class SelectWorkTimeList extends HttpServlet {
 			
 			String nextJsp;
 			if(workTimeList == null) {
-				nextJsp = "/WEB-INF/jsp/selectWorkTimeListError.jsp";
+				nextJsp = "/WEB-INF/jsp/emp/selectWorkTimeListError.jsp";
 			} else {
 				session.setAttribute("workTimeList", workTimeList);
 				session.setAttribute("thisMonthCalendar", thisMonthCalendar);
-				nextJsp = "/WEB-INF/jsp/workTimeList.jsp";
+				nextJsp = "/WEB-INF/jsp/emp/workTimeList.jsp";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);
@@ -81,11 +81,11 @@ public class SelectWorkTimeList extends HttpServlet {
 			
 			String nextJsp;
 			if(workTimeList == null) {
-				nextJsp = "/WEB-INF/jsp/selectTimeSheetError.jsp";
+				nextJsp = "/WEB-INF/jsp/emp/selectTimeSheetError.jsp";
 			} else {
 				session.setAttribute("workTimeList", workTimeList);
 				session.setAttribute("thisMonthCalendar", thisMonthCalendar);
-				nextJsp = "/WEB-INF/jsp/workTimeList.jsp";
+				nextJsp = "/WEB-INF/jsp/emp/workTimeList.jsp";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 			dispatcher.forward(request, response);
@@ -121,11 +121,11 @@ public class SelectWorkTimeList extends HttpServlet {
 		
 		String nextJsp;
 		if(workTimeList == null) {
-			nextJsp = "/WEB-INF/jsp/selectWorkTimeListError.jsp";
+			nextJsp = "/WEB-INF/jsp/emp/selectWorkTimeListError.jsp";
 		} else {
 			session.setAttribute("workTimeList", workTimeList);
 			session.setAttribute("thisMonthCalendar", thisMonthCalendar);
-			nextJsp = "/WEB-INF/jsp/workTimeList.jsp";
+			nextJsp = "/WEB-INF/jsp/emp/workTimeList.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 		dispatcher.forward(request, response);

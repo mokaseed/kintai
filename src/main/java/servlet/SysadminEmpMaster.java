@@ -31,13 +31,13 @@ public class SysadminEmpMaster extends HttpServlet {
 		
 		//従業員情報修正画面へ
 		if(action == null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEditEmpMaster.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEditEmpMaster.jsp");
 			dispatcher.forward(request, response);
 			
 			
 		//従業員情報詳細画面へ
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpMaster.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEmpMaster.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -59,7 +59,7 @@ public class SysadminEmpMaster extends HttpServlet {
 			
 			//入力した二つのパスワードの一致確認
 			if(pass.equals(passCheck) == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/passwordError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/passwordError.jsp");
 				dispatcher.forward(request, response);
 			}
 			
@@ -67,7 +67,7 @@ public class SysadminEmpMaster extends HttpServlet {
 			DateCheck dateCheck = new DateCheck();
 			boolean flag = dateCheck.execute(hireDate);
 			if(flag == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			}
 			
@@ -133,15 +133,15 @@ public class SysadminEmpMaster extends HttpServlet {
 			session.setAttribute("empList", empList);
 			
 			if(empList == null) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadminEmpMaster.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminEmpMaster.jsp");
 				dispatcher.forward(request, response);
 			}
 			
 		} catch(Exception e) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addEmpMasterError.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

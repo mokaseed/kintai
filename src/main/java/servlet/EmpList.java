@@ -41,7 +41,7 @@ public class EmpList extends HttpServlet {
 			session.setAttribute("deptList", deptList);
 			
 			if(empList == null) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empListError.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/empListError.jsp");
 				dispatcher.forward(request, response);
 			}
 			session.setAttribute("empList", empList);
@@ -65,7 +65,7 @@ public class EmpList extends HttpServlet {
 			List<Employee> empList = empListDAO.searchEmpList(searchWord);
 			session.setAttribute("empList", empList);
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empList.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/empList.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -76,7 +76,7 @@ public class EmpList extends HttpServlet {
 		//「詳細」ボタンが押された列の判別はListのインデックス番号を使用
 		int index = Integer.parseInt(request.getParameter("index"));
 		request.setAttribute("index", index);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empMaster.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/empMaster.jsp");
 		dispatcher.forward(request, response);
 		
 	}

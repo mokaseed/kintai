@@ -20,7 +20,7 @@ public class Cond extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			//直接アクセスされた場合は、フィルターのログインチェックを通り勤怠打刻画面へ遷移
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/clockOn.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/clockOn.jsp");
 			dispatcher.forward(request, response);
 	}
 
@@ -46,10 +46,10 @@ public class Cond extends HttpServlet {
 		//DB登録が成功したら打刻完了画面へ、失敗したらエラー画面へ
 		if(flag) {
 			request.setAttribute("clockOn", clockOn);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/clockOnOK.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/clockOnOK.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/clockOnError.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/emp/clockOnError.jsp");
 			dispatcher.forward(request, response);
 		}
 		

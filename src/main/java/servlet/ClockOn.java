@@ -22,7 +22,7 @@ public class ClockOn extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			//直接アクセスされた場合は、フィルターのログインチェックを通り勤怠打刻画面へ遷移
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/clockOn.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/clockOn.jsp");
 			dispatcher.forward(request, response);
 //		}
 	}
@@ -43,22 +43,22 @@ public class ClockOn extends HttpServlet {
 		String nextJsp = null;
 		if(clockOn.equals("work_start")) {
 			request.setAttribute("clockOn", "work_start");
-			nextJsp = "WEB-INF/jsp/cond.jsp";
+			nextJsp = "WEB-INF/jsp/emp/cond.jsp";
 			flag = true;
 		} else if(clockOn.equals("work_finish")) {
 			request.setAttribute("clockOn", "work_finish");	
-			nextJsp = "WEB-INF/jsp/cond.jsp";
+			nextJsp = "WEB-INF/jsp/emp/cond.jsp";
 			flag = true;
 		} else if(clockOn.equals("break_start")) {
 			flag = clockOnDAO.setBreakStartTime(account.getEmpId());
-			nextJsp = "WEB-INF/jsp/clockOnOK.jsp";
+			nextJsp = "WEB-INF/jsp/emp/clockOnOK.jsp";
 		} else if(clockOn.equals("break_finish")) {
 			flag = clockOnDAO.setBreakFinishTime(account.getEmpId());
-			nextJsp = "WEB-INF/jsp/clockOnOK.jsp";
+			nextJsp = "WEB-INF/jsp/emp/clockOnOK.jsp";
 		}
 		
 		if(flag == false) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("clockOnError");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/clockOnError.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			request.setAttribute("clockOn", clockOn);
