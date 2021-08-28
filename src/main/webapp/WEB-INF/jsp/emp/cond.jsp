@@ -15,13 +15,14 @@
 	<div class="main_wrapper" align="center">
 		<p>今のコンディションを選択してください</p>
 <!-- 	画像をラジオボタンにするやり方は以下を参考に作成する予定
-		https://0forest.com/radio-button-image/ -->
+		https://0forest.com/radio-button-image/ 
+		・ボタンを消す　・未選択のものは半透明、選択したものは濃くする-->
 		<form action="/kintai/Cond" method="POST">
 		<input type="hidden" name="clockOn" value="${ clockOn }">
-		<input type="radio" name="cond" value="1">very fine
-		<input type="radio" name="cond" value="2">fine
-		<input type="radio" name="cond" value="3">OK
-		<input type="radio" name="cond" value="4">bad<br>
+		<label><input type="radio" name="cond" value="1"><img width="60" height="60" src="/kintai/common/png/veryFine.png"></label>
+		<label><input type="radio" name="cond" value="2"><img width="60" height="60" src="/kintai/common/png/fine.png"></label>
+		<label><input type="radio" name="cond" value="3"><img width="60" height="60" src="/kintai/common/png/OK.png"></label>
+		<label><input type="radio" name="cond" value="4"><img width="60" height="60" src="/kintai/common/png/bad.png"></label><br>
 		<input type="submit" value="登録する">
 		</form>
 		<a href="/kintai/ClockOn">出退勤選択に戻る</a>
