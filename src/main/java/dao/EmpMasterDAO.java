@@ -230,4 +230,45 @@ public class EmpMasterDAO {
     	}
         return account;
     }
+	
+	public boolean deleteEmpMaster(int empId){
+		try {
+			String sql = "DELETE FROM m_emp WHERE emp_id = ?";
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, empId);
+			int rowcount = ps.executeUpdate();
+			
+			if(rowcount != 0) {
+				System.out.println("従業員情報の削除が完了しました");
+			} else {
+				System.out.println("従業員情報の削除ができませんでした");
+				return false;
+			}
+			
+		} catch(SQLException e) {
+    		e.printStackTrace();
+    		System.out.println("従業員情報の削除ができませんでした");
+    		return false;
+    	} finally {
+    		if(rs != null) {
+    			try {
+    				rs.close();
+    			} catch (SQLException e) {
+    				e.printStackTrace();
+    			}
+    		}
+    		if(ps != null) {
+    			try {
+    				ps.close();
+    			} catch (SQLException e) {
+    				e.printStackTrace();
+    			}
+    		}
+    		//DB接続を切断するメソッド
+    		connectionManager.close();
+    	}
+		return true;
+	}
+	
 }

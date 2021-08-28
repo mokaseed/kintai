@@ -4,8 +4,8 @@
 <%
 List<Integer> yearNumbers = IntStream.range(2020, 2030).boxed().collect(Collectors.toList());
 List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.toList());
-List<Integer> dateNumbers = IntStream.range(1, 31).boxed().collect(Collectors.toList());
-List<Integer> hourNumbers = IntStream.range(1, 24).boxed().collect(Collectors.toList());
+List<Integer> dateNumbers = IntStream.range(1, 32).boxed().collect(Collectors.toList());
+List<Integer> hourNumbers = IntStream.range(1, 25).boxed().collect(Collectors.toList());
 
 MySchedule ms = (MySchedule)request.getAttribute("ms");
 

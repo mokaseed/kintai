@@ -27,10 +27,9 @@ public class SysadminWorkTime extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		
-		//
+		//直接アクセスの場合は従業員一覧へ
 		if(action == null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/");
-			dispatcher.forward(request, response);
+			response.sendRedirect("/kintai/SysadminEmpList");
 		
 		//選択された従業員の当月のタイムシートを表示
 		} else {

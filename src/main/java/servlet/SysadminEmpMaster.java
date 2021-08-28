@@ -27,7 +27,6 @@ public class SysadminEmpMaster extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		System.out.println(action);
 		
 		//従業員情報修正画面へ
 		if(action == null) {
@@ -44,6 +43,10 @@ public class SysadminEmpMaster extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//エラー文言List
+		List<String> errorMsgList = new ArrayList<>();
+		
 		try {
 			//従業員新規登録にて入力された値を取得
 			String empId = request.getParameter("empId");
@@ -59,16 +62,14 @@ public class SysadminEmpMaster extends HttpServlet {
 			
 			//入力した二つのパスワードの一致確認
 			if(pass.equals(passCheck) == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/passwordError.jsp");
-				dispatcher.forward(request, response);
+				errorMsgList.add("・入力した二つのパスワードが一致しません。");
 			}
 			
 			//入社日の表記確認
 			DateCheck dateCheck = new DateCheck();
 			boolean flag = dateCheck.execute(hireDate);
 			if(flag == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
-				dispatcher.forward(request, response);
+				errorMsgList.add("・入社日の表示に問題があります。手入力する場合は「yyyy-MM-dd」の形で入力してください。");
 			}
 			
 			//DBに登録するデータの準備
@@ -133,6 +134,8 @@ public class SysadminEmpMaster extends HttpServlet {
 			session.setAttribute("empList", empList);
 			
 			if(empList == null) {
+				errorMsgList.add("・登録に失敗しました。");
+				request.setAttribute("errorMsgList", errorMsgList);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			} else {
@@ -141,6 +144,8 @@ public class SysadminEmpMaster extends HttpServlet {
 			}
 			
 		} catch(Exception e) {
+			errorMsgList.add("・何らかのエラーが発生しました。");
+			request.setAttribute("errorMsgList", errorMsgList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 			dispatcher.forward(request, response);
 		}

@@ -1,5 +1,7 @@
 package model;
 
+//入社日が「yyyy-MM-dd」になっているかの確認
+//未入力の場合もOK
 public class DateCheck {
 	private String regex = "\\d{4}\\-\\d{2}\\-\\d{2}";
 	

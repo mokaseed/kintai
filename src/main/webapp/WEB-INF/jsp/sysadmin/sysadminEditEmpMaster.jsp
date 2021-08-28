@@ -70,6 +70,10 @@
 			</table>
 			<input type="submit" value="修正内容を登録する">
 		</form>
+		<form action="/kintai/DeleteEmpMaster" method="post">
+			<input type="hidden" name="empId" value="${empList[index].empId}">
+			<input type="submit" value="従業員情報を削除する">
+		</form>
 	</div>
 	<div align="center">
 		<a href="javascript:history.back()">戻る</a>

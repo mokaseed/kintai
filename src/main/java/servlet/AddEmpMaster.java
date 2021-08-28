@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,9 @@ public class AddEmpMaster extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		
+		//エラー文言List
+		List<String> errorMsgList = new ArrayList<>();
+		
 		//従業員新規登録の入力画面で入力された内容を確認画面に表示させる
 		if(action == null) {
 			try {
@@ -66,16 +70,14 @@ public class AddEmpMaster extends HttpServlet {
 			
 			//入力した二つのパスワードの一致確認
 			if(pass.equals(passCheck) == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
-				dispatcher.forward(request, response);
+				errorMsgList.add("・入力した二つのパスワードが一致しません。");
 			}
 			
 			//入社日の表記確認
 			DateCheck dateCheck = new DateCheck();
 			boolean flag = dateCheck.execute(hireDate);
 			if(flag == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
-				dispatcher.forward(request, response);
+				errorMsgList.add("・入社日の表示に問題があります。手入力する場合は「yyyy-MM-dd」の形で入力してください。");
 			}
 			
 			Map<String, String> addEmp = new HashMap<>();
@@ -94,12 +96,20 @@ public class AddEmpMaster extends HttpServlet {
 			
 			} catch(Exception e) {
 				e.printStackTrace();
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
-				dispatcher.forward(request, response);
+				errorMsgList.add("・何らかのエラーが発生しました。");
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterConfirm.jsp");
-			dispatcher.forward(request, response);
+			//エラーがある場合はエラー画面へ
+			if(errorMsgList.isEmpty() == false) {
+				request.setAttribute("errorMsgList", errorMsgList);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
+				dispatcher.forward(request, response);
+				
+			//エラーがない場合は確認画面へ
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterConfirm.jsp");
+				dispatcher.forward(request, response);				
+			}
 		
 				
 		//従業員新規登録入力内容確認画面で「登録」が押された場合の処理
@@ -168,6 +178,8 @@ public class AddEmpMaster extends HttpServlet {
 			boolean flag = empMasterDAO.empMasterRegist(emp);
 			
 			if(flag == false) {
+				errorMsgList.add("・登録に失敗しました。");
+				request.setAttribute("errorMsgList", errorMsgList);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterError.jsp");
 				dispatcher.forward(request, response);
 			} else {

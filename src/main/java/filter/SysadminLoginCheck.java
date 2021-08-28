@@ -18,7 +18,7 @@ import entity.Employee;
 /**
  * Servlet Filter implementation class SysadminLoginCheck
  */
-@WebFilter(urlPatterns={"/SysadminEmpList", "/AddEmpMaster", "/SysadminEmpMaster", "/SysadminWorkTime", "/SysadminUpdateWorkTime"})
+@WebFilter(urlPatterns={"/DeptMaster","/SysadminEmpList", "/AddEmpMaster", "/SysadminEmpMaster", "/SysadminWorkTime", "/SysadminUpdateWorkTime"})
 public class SysadminLoginCheck implements Filter {
 
     /**
