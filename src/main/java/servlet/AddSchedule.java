@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,14 +27,65 @@ public class AddSchedule extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//「予定を追加」を押した時に表示していたカレンダーの年月を取得
-		String s_year = request.getParameter("year");
-		String s_month = request.getParameter("month");
+		String action = request.getParameter("action");
+		String s_index = request.getParameter("index");
+		String s_date = request.getParameter("date");
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+//		String date = null;
+		MySchedule ms = new MySchedule();
 		
-		request.setAttribute("year", s_year);
-		request.setAttribute("month", s_month);
+		if(s_index != null) {
+			int index = Integer.parseInt(s_index);
+			HttpSession session = request.getSession(false);
+			List<MySchedule> msList = (List<MySchedule>)session.getAttribute("myScheduleList");
+			
+			ms = msList.get(index);
+			String skdDate = String.valueOf(ms.getSkdDate());
+			ms.setYear(skdDate.substring(0, 4));
+			ms.setMonth(skdDate.substring(5, 7));
+			ms.setDate(skdDate.substring(8, 10));
+			
+			String skdStartTime = String.valueOf(ms.getSkdStartTime());
+			if(skdStartTime.equals("null") == false) {
+				ms.setStartHour(skdStartTime.substring(0, 2));
+				ms.setStartMinute(skdStartTime.substring(3, 5));
+			}
+			String skdFinishTime = String.valueOf(ms.getSkdFinishTime());
+			if(skdFinishTime.equals("null") == false) {
+				ms.setFinishHour(skdFinishTime.substring(0, 2));
+				ms.setFinishMinute(skdFinishTime.substring(3, 5));
+			}
+		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/addSchedule.jsp");
-		dispatcher.forward(request, response);
+		if(s_date != null) {
+			ms.setYear(s_date.substring(0, 4));
+			ms.setMonth(s_date.substring(5, 7));
+			ms.setDate(s_date.substring(8, 10));
+		} 
+		
+		if(year != null) {
+			ms.setYear(year);
+			if(month.length() == 1) {
+				ms.setMonth("0" + month);
+			} else {
+				ms.setMonth(month);				
+			}
+		}
+		
+		request.setAttribute("ms", ms);
+		
+		if(action != null) {
+			//actionがdoneの場合は予定詳細画面を表示
+			request.setAttribute("index", s_index);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/schedule.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			//actionがnullの場合は予定編集画面を表示
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/addSchedule.jsp");
+			dispatcher.forward(request, response);			
+		}
+		
 		
 	}
 
@@ -43,14 +93,11 @@ public class AddSchedule extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		/*メモ
-		 * 日付がありえない日付の場合は日付エラーになるようにする。日付エラーJSPも作る。
-		*/
-		
 		//予定登録画面で入力された予定をDBへ登録し、カレンダー画面へ遷移
-		//年月日を未選択（「ー」を選択）の場合、時分の片方を選択しもう片方を選択していない場合、存在しない日時を選択した場合はエラー画面へ遷移
+		//入力内容にエラーがある場合はエラー画面へ遷移
 		
 		//追加する予定の各パラメータを取得
+		String skdId = request.getParameter("skdId");
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
 		String date = request.getParameter("date");
@@ -79,6 +126,14 @@ public class AddSchedule extends HttpServlet {
 			MySchedule ms = new MySchedule();
 			
 			//DBに登録するデータの準備
+			
+			//スケジュールID
+			if(skdId != null) {
+				ms.setSkdId(Integer.parseInt(skdId));
+			} else {
+				ms.setSkdId(-1);
+			}
+			
 			//社員ID
 			ms.setEmpId(account.getEmpId());
 			
@@ -108,7 +163,7 @@ public class AddSchedule extends HttpServlet {
 			
 			//終了時刻
 			if(finishHour.length() == 0 || finishMinute.length() == 0) {
-				ms.setSkdStartTime(null);
+				ms.setSkdFinishTime(null);
 			} else { 
 				if(finishHour.length() == 1) {
 					finishHour = "0" + finishHour;
@@ -129,9 +184,8 @@ public class AddSchedule extends HttpServlet {
 			//メモ
 			ms.setMemo(memo);
 			
-			List<MySchedule> myScheduleList = new ArrayList<>();
 			ScheduleDAO scheduleDAO = new ScheduleDAO();
-			myScheduleList = scheduleDAO.addSchedule(ms);
+			List<MySchedule> myScheduleList = scheduleDAO.addSchedule(ms);
 			
 			if(myScheduleList == null) {
 				errorMsgList.add("DB登録失敗");

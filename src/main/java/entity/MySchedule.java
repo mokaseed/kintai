@@ -19,8 +19,8 @@ public class MySchedule implements Serializable {
 	private LocalTime skdStartTime; //スケジュールの開始時刻
 	private LocalTime skdFinishTime; //スケジュールの終了時刻
 	private String color; //スケジュールの色
-	private String subject; //スケジュールの件名
-	private String memo; //スケジュールのメモ
+	private String subject = ""; //スケジュールの件名
+	private String memo = ""; //スケジュールのメモ
 	
 	public MySchedule() {}
 	public MySchedule(int empId, LocalDate skdDate, LocalTime skdStartTime, LocalTime skdFinishTime, String color, String subject, String memo) {

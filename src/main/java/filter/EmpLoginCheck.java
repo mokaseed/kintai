@@ -48,18 +48,18 @@ public class EmpLoginCheck implements Filter {
         try {
 //        if(session == null){
 	        if(session.getAttribute("account") == null) {
-	        	System.out.println("フィルターのsession==nullが実行されました");
+//	        	System.out.println("フィルターのsession==nullが実行されました");
 	        	// セッションがNullならば、top画面へ飛ばす
 	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
 	            dispatcher.forward(request,response);
 	        }else{
 	        	// セッションがNULLでなければ、通常どおりの遷移
 	            chain.doFilter(request, response);
-	            System.out.println("フィルターのelseが実行されました");
+//	            System.out.println("フィルターのelseが実行されました");
 	        }
         } catch(Exception e) {
         	e.printStackTrace();
-        	System.out.println("フィルターのcatchが実行されました");
+//        	System.out.println("フィルターのcatchが実行されました");
         	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
             dispatcher.forward(request,response);
         }
