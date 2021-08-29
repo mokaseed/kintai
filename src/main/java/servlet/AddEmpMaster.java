@@ -77,7 +77,7 @@ public class AddEmpMaster extends HttpServlet {
 			DateCheck dateCheck = new DateCheck();
 			boolean flag = dateCheck.execute(hireDate);
 			if(flag == false) {
-				errorMsgList.add("・入社日の表示に問題があります。手入力する場合は「yyyy-MM-dd」の形で入力してください。");
+				errorMsgList.add("・入社日に問題があります。手入力する場合は「yyyy-MM-dd」の形で入力してください。");
 			}
 			
 			Map<String, String> addEmp = new HashMap<>();
@@ -108,7 +108,7 @@ public class AddEmpMaster extends HttpServlet {
 			//エラーがない場合は確認画面へ
 			} else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/addEmpMasterConfirm.jsp");
-				dispatcher.forward(request, response);				
+				dispatcher.forward(request, response);
 			}
 		
 				

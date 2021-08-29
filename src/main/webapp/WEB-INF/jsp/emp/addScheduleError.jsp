@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kintai スケジュール登録エラー</title>
+<title>Kintai スケジュール</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
@@ -19,7 +19,8 @@
 			<c:out value="${errorMsg}"/><br>
 		</c:forEach></p>
 		<a href="javascript:history.back()">戻る</a><br>
-		<a href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

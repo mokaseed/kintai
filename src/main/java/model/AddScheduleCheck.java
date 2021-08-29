@@ -19,7 +19,7 @@ public class AddScheduleCheck {
 			//存在しない日付を選択した場合
 			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.YEAR, Integer.parseInt(year));
-			cal.set(Calendar.MONTH, Integer.parseInt(month));
+			cal.set(Calendar.MONTH, Integer.parseInt(month) -1);
 			int lastDate = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			
 			if(Integer.parseInt(date) > lastDate) {

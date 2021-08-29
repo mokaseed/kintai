@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.Calendar,java.util.List,entity.WorkTime,java.time.format.DateTimeFormatter,java.text.DecimalFormat,java.util.stream.IntStream,java.util.stream.Collectors" %>
+<%@ page import="java.util.Calendar,java.util.List,entity.WorkTime,java.time.format.DateTimeFormatter,java.text.DecimalFormat,java.util.stream.IntStream,java.util.stream.Collectors,model.WorkTimeListTimeCheck" %>
 <%
 Calendar thisMonthCalendar = (Calendar)session.getAttribute("thisMonthCalendar");
 List<WorkTime> workTimeList = (List<WorkTime>)session.getAttribute("workTimeList");
@@ -51,7 +51,15 @@ List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.t
 			<% for(int i = 1; i <= maxDay; i++){ 
 			 	Boolean chkDateFlag = false;
 			%>
-				<tr>
+			<%  //タイムシートに記録されている時間が「出勤時間<休憩開始時間＜休憩終了時間＜退勤時間」になっているかチェック
+				//falseの場合は列を赤く表示
+				WorkTimeListTimeCheck dateTest = new WorkTimeListTimeCheck();
+				boolean flag = dateTest.execute(workTimeList, i);
+				if(flag){ %>
+					<tr>
+				<% } else { %>
+					<tr style="background-color:red;">
+				<% } %>
 					<td>
 						<%= thisMonthCalendar.get(Calendar.MONTH) + "月" + i + "日" %>
 					</td>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import dao.WorkTimeDAO;
 import entity.Employee;
 import entity.WorkTime;
+import model.WorkTimeCheck;
 
 @WebServlet("/UpdateWorkTime")
 public class UpdateWorkTime extends HttpServlet {
@@ -72,65 +74,79 @@ public class UpdateWorkTime extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//勤務時刻修正画面にて入力された時刻を取得し、DBに上書き登録
-		//予期せぬ文字（記号等）が入力された場合や、時と分の片方を入力してもう片方が未入力の場合などはエラー画面に遷移
-		try {
-			HttpSession session = request.getSession(false);
-			Employee account = (Employee)session.getAttribute("account");
+		//勤務時刻修正画面にて入力された時刻を取得し、DBに上書き登録する
+		
+		HttpSession session = request.getSession(false);
+		Employee account = (Employee)session.getAttribute("account");
+		
+		String hStartTime = request.getParameter("hStartTime");
+		String mStartTime = request.getParameter("mStartTime");
+		String hBreakStartTime = request.getParameter("hBreakStartTime");
+		String mBreakStartTime = request.getParameter("mBreakStartTime");
+		String hBreakFinishTime = request.getParameter("hBreakFinishTime");
+		String mBreakFinishTime = request.getParameter("mBreakFinishTime");
+		String hFinishTime = request.getParameter("hFinishTime");
+		String mFinishTime = request.getParameter("mFinishTime");
+		
+		//入力された勤務時刻のチェック
+		WorkTimeCheck workTimeCheck = new WorkTimeCheck();
+		List<String> errorMsgList = workTimeCheck.execute(hStartTime, mStartTime, hBreakStartTime, mBreakStartTime, hBreakFinishTime, mBreakFinishTime, hFinishTime, mFinishTime);
+		
+		//チェックにてエラーがある場合はエラー画面へ遷移
+		if(errorMsgList.isEmpty() == false) {
+			request.setAttribute("errorMsgList", errorMsgList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTimeError.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			//DBに登録する値の準備
 			WorkTime workTime = new WorkTime();
 			
+			//日付
 			String workDate = request.getParameter("workDate");
 			workTime.setWorkDate(LocalDate.parse(workDate));
 			
-			String hStartTime = request.getParameter("hStartTime");
-			String mStartTime = request.getParameter("mStartTime");
-			
-			//時と分がどちらも未入力の場合はnullをセット
-			//1桁の数字が入力された場合は前に0をつける
+			//出勤時刻
 			if(hStartTime.length() == 0 && mStartTime.length() == 0) {
+				//時と分がどちらも未入力の場合はnullをセット
 				workTime.setStartTime(null);
-			} else if(hStartTime.length() == 0 || mStartTime.length() == 0) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTimeError.jsp");
-				dispatcher.forward(request, response);
 			} else {
+				//1桁の数字が入力された場合は前に0をつける
 				if(hStartTime.length() == 1) {
 					hStartTime = "0" + hStartTime;}
 				if(mStartTime.length() == 1) {
 					mStartTime = "0" + mStartTime;}
 				workTime.setStartTime(LocalTime.parse(hStartTime + ":" + mStartTime));
 			}
-			
-			String hBreakStartTime = request.getParameter("hBreakStartTime");
-			String mBreakStartTime = request.getParameter("mBreakStartTime");
+			//休憩開始時刻
 			if(hBreakStartTime.length() == 0 && mBreakStartTime.length() == 0) {
+				//時と分がどちらも未入力の場合はnullをセット
 				workTime.setBreakStartTime(null);
 			} else {
+				//1桁の数字が入力された場合は前に0をつける
 				if(hBreakStartTime.length() == 1) {
 					hBreakStartTime = "0" + hBreakStartTime;}
 				if(mBreakStartTime.length() == 1) {
 					mBreakStartTime = "0" + mBreakStartTime;}
 				workTime.setBreakStartTime(LocalTime.parse(hBreakStartTime + ":" + mBreakStartTime));
 			}
-			
-			String hBreakFinishTime = request.getParameter("hBreakFinishTime");
-			String mBreakFinishTime = request.getParameter("mBreakFinishTime");
-	
-			
+			//休憩終了時刻
 			if(hBreakFinishTime.length() == 0 && mBreakFinishTime.length() == 0) {
+				//時と分がどちらも未入力の場合はnullをセット
 				workTime.setBreakFinishTime(null);
 			} else {
+				//1桁の数字が入力された場合は前に0をつける
 				if(hBreakFinishTime.length() == 1) {
 					hBreakFinishTime = "0" + hBreakFinishTime;}
 				if(mBreakFinishTime.length() == 1) {
 					mBreakFinishTime = "0" + mBreakFinishTime;}
 				workTime.setBreakFinishTime(LocalTime.parse(hBreakFinishTime + ":" + mBreakFinishTime));
 			}
-			
-			String hFinishTime = request.getParameter("hFinishTime");
-			String mFinishTime = request.getParameter("mFinishTime");
+			//退勤時刻
 			if(hFinishTime.length() == 0 && mFinishTime.length() == 0) {
+				//時と分がどちらも未入力の場合はnullをセット
 				workTime.setFinishTime(null);
 			} else {
+				//1桁の数字が入力された場合は前に0をつける
 				if(hFinishTime.length() == 1) {
 					hFinishTime = "0" + hFinishTime;}
 				if(mFinishTime.length() == 1) {
@@ -138,6 +154,7 @@ public class UpdateWorkTime extends HttpServlet {
 				workTime.setFinishTime(LocalTime.parse(hFinishTime + ":" + mFinishTime));
 			}
 			
+			//DBへ登録
 			WorkTimeDAO workTimeDAO = new WorkTimeDAO();
 			boolean flag = workTimeDAO.updateWorkTime(account.getEmpId(), workTime);
 			if(flag) {
@@ -145,14 +162,12 @@ public class UpdateWorkTime extends HttpServlet {
 				session.setAttribute("request-month", workTime.getWorkDate().format(dateFormat));
 				response.sendRedirect("/kintai/SelectWorkTimeList?action=done");
 			} else {
+				errorMsgList.add("・勤務時刻修正に失敗しました");
+				request.setAttribute("errorMsgList", errorMsgList);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTimeError.jsp");
 				dispatcher.forward(request, response);
 				
 			}
-		} catch(Exception e) {
-			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/updateWorkTimeError.jsp");
-			dispatcher.forward(request, response);
 		}
 	}
 
