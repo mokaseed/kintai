@@ -115,6 +115,13 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 			<input type="hidden" name="skdId" value="<%=ms.getSkdId()%>">
 			<br><input type="submit" value="登録する">
 		</form>
+		<% if(ms.getSubject().length() != 0){ %>
+		<form action="/kintai/AddSchedule" method="post">
+			<input type="hidden" name="action" value="delete">
+			<input type="hidden" name="skdId" value="<%=ms.getSkdId()%>">
+			<input type="submit" value="削除">
+		</form>			
+		<% } %>
 		<a href="javascript:history.back()">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
