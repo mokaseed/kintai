@@ -9,7 +9,7 @@ import entity.WorkTime;
 //タイムシートに記録されている時間が「出勤時間<休憩開始時間＜休憩終了時間＜退勤時間」になっているかチェック
 public class WorkTimeListTimeCheck {
 	
-	public boolean execute(List<WorkTime> workTimeList , int i){
+	public static boolean execute(List<WorkTime> workTimeList , int i){
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd");
 		boolean flag = true;
 		for(WorkTime workTime : workTimeList){

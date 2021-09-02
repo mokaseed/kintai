@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.text.SimpleDateFormat,java.util.Calendar"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
 Calendar cal = Calendar.getInstance();
+request.setAttribute("date", cal.getTime());
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd(E)");
 %>
 
@@ -20,7 +22,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd(E)");
 	</div>
 	<div class="main_wrapper" align="center">
 		<div class="time">
-		<%= sdf.format(cal.getTime()) %><br>
+		<fmt:formatDate value="${date}" pattern="yyyy年MM月dd日（E）"/><br>
 		<!-- 現在時刻をリアルタイム表示 -->
 		<p id="RealtimeClockArea2"></p> 
 		</div>
