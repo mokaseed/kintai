@@ -1,14 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.Calendar,java.util.List,entity.WorkTime,java.time.format.DateTimeFormatter,java.text.DecimalFormat,java.util.stream.IntStream,java.util.stream.Collectors,model.WorkTimeListTimeCheck" %>
 <%
+//選択された年月をセット
 Calendar thisMonthCalendar = (Calendar)session.getAttribute("thisMonthCalendar");
-List<WorkTime> workTimeList = (List<WorkTime>)session.getAttribute("workTimeList");
+request.setAttribute("year", thisMonthCalendar.get(Calendar.YEAR));
+request.setAttribute("month", thisMonthCalendar.get(Calendar.MONTH));
+
+//選択された月の最終日をセット
+thisMonthCalendar.add(Calendar.MONTH, -1);
+request.setAttribute("maxDate", thisMonthCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+//タイムシートの年月指定で選択できる数字をセット
+List<Integer> yearNumbers = IntStream.range(2020, 2030).boxed().collect(Collectors.toList());
+request.setAttribute("yearNumbers",yearNumbers);
+List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.toList());
+request.setAttribute("monthNumbers",monthNumbers);
+
+//タイムシートに記録されている時間が「出勤時間<休憩開始時間＜休憩終了時間＜退勤時間」になっているかチェックするためのクラス
+WorkTimeListTimeCheck check = new WorkTimeListTimeCheck();
+request.setAttribute("check", check);
+
+/* List<WorkTime> workTimeList = (List<WorkTime>)session.getAttribute("workTimeList");
 
 DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd");
-/* DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MM"); */
+DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MM");
 DecimalFormat mFormat= new DecimalFormat("00");
 
 thisMonthCalendar.add(Calendar.MONTH, -1);
@@ -19,12 +38,13 @@ IntStream year = IntStream.range(2020, 2030);
 IntStream month = IntStream.range(1, 13);
 
 List<Integer> yearNumbers = IntStream.range(2020, 2030).boxed().collect(Collectors.toList());
-List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.toList());
+List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.toList()); */
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 勤怠管理</title>
 </head>
 <body>
@@ -32,19 +52,34 @@ List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.t
 	<div class="title" align="center">
 		<c:set var="index" value="${index}"/>
 		<h1>${empList[index].name}さんの<br>
-		<%= thisMonthCalendar.get(Calendar.YEAR) %>年<%= thisMonthCalendar.get(Calendar.MONTH) %>月分タイムシート</h1>
+		${year}年${month}月分タイムシート</h1>
 	</div>
 	<div align="center">
 		<form action="/kintai/SysadminWorkTime" method="post">
 			<select name="selectY">
-			<% for(int y : yearNumbers){ %>
-				<option value="<%= y %>" <% if(y == thisMonthCalendar.get(Calendar.YEAR)){ %>selected<% } %>><%= y %></option>
-			<% } %>
+				<c:forEach var="y" items="${yearNumbers}">
+					<c:choose>
+						<c:when test="${y == year}">
+							<option value="${y}" selected>${y}</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${y}">${y}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 			</select>
 			<select name="selectM">
-			<% for(int m : monthNumbers){ %>
-				<option value="<%= m %>" <% if(m == thisMonthCalendar.get(Calendar.MONTH)){ %>selected<% } %>><%= m %></option>
-			<% } %>
+				<c:set var="month" value="${month}" />
+				<c:forEach var="m" items="${monthNumbers}">
+					<c:choose>
+						<c:when test="${m == month}">
+							<option value="${m}" selected>${m}</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${m}">${m}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 			</select>
 			<input type="submit" value="表示">
 		</form>
@@ -54,79 +89,83 @@ List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.t
 			<tr>
 				<th>日付</th><th>出勤</th><th>休憩開始</th><th>休憩終了</th><th>退勤</th><th>修正</th>
 			</tr>
-			<% for(int i = 1; i <= maxDay; i++){ 
-			 	Boolean chkDateFlag = false;
-			%>
-				<%  //タイムシートに記録されている時間が「出勤時間<休憩開始時間＜休憩終了時間＜退勤時間」になっているかチェック
-				//falseの場合は列を赤く表示
-				WorkTimeListTimeCheck dateTest = new WorkTimeListTimeCheck();
-				boolean flag = dateTest.execute(workTimeList, i);
-				if(flag){ %>
-					<tr>
-				<% } else { %>
-					<tr style="background-color:red;">
-				<% } %>
+			<c:forEach varStatus="date" begin="1" end="${maxDate}" step="1">
+			<c:set var="date" value="${date.index}"/>
+				<c:set var="chkDateFlag" value="false"/>
+				<!-- タイムシートに記録されている時間が「出勤時間<休憩開始時間＜休憩終了時間＜退勤時間」になっているかチェック
+				falseの場合は列に色を付ける -->
+				<c:set var="list" value="${workTimeList}"/>
+				<c:set var="timeListFlag" value="${check.execute(list, date)}"/>
+				<c:choose>
+					<c:when test="${timeListFlag == true}">
+						<tr>
+					</c:when>
+					<c:otherwise>
+						<tr style="background-color:red;">
+					</c:otherwise>
+				</c:choose>
 					<td>
-						<%= thisMonthCalendar.get(Calendar.MONTH) + "月" + i + "日" %>
+						${month}月${date}日
 					</td>
-					<%
-					for(WorkTime workTime : workTimeList){
-						String workDate = workTime.getWorkDate().format(dateFormat);
-						if(Integer.parseInt(workDate) == i){
-					%>
+					<c:forEach var="workTime" items="${workTimeList}">
+						<fmt:parseDate var="parseDate" value="${workTime.workDate}" pattern="yyyy-MM-dd" />
+						<fmt:formatDate var="workDate" value="${parseDate}" pattern="dd" />
+						<c:if test="${workDate == date}">
+							<td>
+								<c:if test="${workTime.startTime != null}">
+									<fmt:parseDate var="startTime" value="${workTime.startTime}" pattern="HH:mm" />
+									<fmt:formatDate value="${startTime}" pattern="HH:mm" />
+								</c:if>
+							</td>
+							<td>
+								<c:if test="${workTime.breakStartTime != null}">
+									<fmt:parseDate var="breakStartTime" value="${workTime.breakStartTime}" pattern="HH:mm" />
+									<fmt:formatDate value="${breakStartTime}" pattern="HH:mm" />
+								</c:if>
+							</td>
+							<td>
+								<c:if test="${workTime.breakFinishTime != null}">
+									<fmt:parseDate var="breakFinishTime" value="${workTime.breakFinishTime}" pattern="HH:mm" />
+									<fmt:formatDate value="${breakFinishTime}" pattern="HH:mm" />
+								</c:if>
+							</td>
+							<td>
+								<c:if test="${workTime.finishTime != null}">
+									<fmt:parseDate var="finishTime" value="${workTime.finishTime}" pattern="HH:mm" />
+									<fmt:formatDate value="${finishTime}" pattern="HH:mm" />
+								</c:if>
+							</td>
+							<td>
+								<form action="/kintai/UpdateWorkTime">
+									<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
+									<input type="hidden" name="workDate" value="${year}-${s_month}-${workDate}">
+									<input type="hidden" name="startTime" value="${workTime.startTime}">
+									<input type="hidden" name="breakStartTime" value="${workTime.breakStartTime}">
+									<input type="hidden" name="breakFinishTime" value="${workTime.breakFinishTime}">
+									<input type="hidden" name="finishTime" value="${workTime.finishTime}">
+									<input type="submit" value="修正">
+								</form>
+							</td></tr>
+						<c:set var="chkDateFlag" value="true"/>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${chkDateFlag == false}">
+						<td></td><td></td><td></td><td></td>
 					<td>
-						<% if(workTime.getStartTime() != null) { %>
-						<%= workTime.getStartTime().format(timeFormat) %><% } %>
-					</td>
-					<td>
-						<% if(workTime.getBreakStartTime() != null) { %>
-						<%= workTime.getBreakStartTime().format(timeFormat) %><% } %>
-					</td>
-					<td>
-						<% if(workTime.getBreakFinishTime() != null) { %>
-						<%= workTime.getBreakFinishTime().format(timeFormat) %><% } %>
-					</td>
-					<td>
-						<% if(workTime.getFinishTime() != null) { %>
-						<%= workTime.getFinishTime().format(timeFormat) %><% } %>
-					</td>
-					<td>
-						<form action="/kintai/SysadminUpdateWorkTime">
-							<input type="hidden" name="workDate" value="<%= thisMonthCalendar.get(Calendar.YEAR) + "-" + mFormat.format(thisMonthCalendar.get(Calendar.MONTH)) + "-" + workTime.getWorkDate().format(dateFormat) %>">
-							<input type="hidden" name="startTime" value="<%= workTime.getStartTime() %>">
-							<input type="hidden" name="breakStartTime" value="<%= workTime.getBreakStartTime() %>">
-							<input type="hidden" name="breakFinishTime" value="<%= workTime.getBreakFinishTime() %>">
-							<input type="hidden" name="finishTime" value="<%= workTime.getFinishTime() %>">
-							<input type="submit" value="修正">
-						</form>
-					</td></tr>
-					<%
-						chkDateFlag = true;
-						break;
-						}
-					}
-					if(!chkDateFlag) {
-					%>
-					<td></td><td></td><td></td><td></td>
-					<td>
-						<form action="/kintai/SysadminUpdateWorkTime">
-							<%
-							String date;
-							if(String.valueOf(i).length() == 1){
-								date = "0" + i;
-							} else {
-								date = String.valueOf(i);
-							}
-							%>
-							<input type="hidden" name="workDate" value="<%= thisMonthCalendar.get(Calendar.YEAR) + "-" + mFormat.format(thisMonthCalendar.get(Calendar.MONTH)) + "-" + date %>">
+						<form action="/kintai/UpdateWorkTime">
+							<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
+							<c:set var="s_date"><fmt:formatNumber value="${date}" pattern="00"/></c:set>
+							<input type="hidden" name="workDate" value="${year}-${s_month}-${s_date}">
 							<input type="hidden" name="startTime" value="">
 							<input type="hidden" name="breakStartTime" value="">
 							<input type="hidden" name="breakFinishTime" value="">
 							<input type="hidden" name="finishTime" value="">
 							<input type="submit" value="修正">
 						</form>
-					</td></tr>
-			<% } }%>
+					</td>
+					</c:if>
+			</c:forEach>
 		</table>
 	</div>
 	<div align="center">

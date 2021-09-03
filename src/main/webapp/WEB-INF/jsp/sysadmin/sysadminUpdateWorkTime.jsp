@@ -3,16 +3,17 @@
 <%@ page import="entity.WorkTime,java.time.format.DateTimeFormatter" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
+<%-- <%
 WorkTime workTime = (WorkTime)request.getAttribute("workTime");
 DateTimeFormatter hFormat = DateTimeFormatter.ofPattern("HH");
 DateTimeFormatter mFormat = DateTimeFormatter.ofPattern("mm");
 DateTimeFormatter workDateFormat = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 勤怠修正</title>
 </head>
 <body>

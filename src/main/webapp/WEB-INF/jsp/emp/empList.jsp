@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
 <title>Kintai 従業員一覧</title>
 </head>
 <body>

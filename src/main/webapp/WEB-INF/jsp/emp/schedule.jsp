@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
 <title>Kintai 予定登録</title>
 </head>
 <body>

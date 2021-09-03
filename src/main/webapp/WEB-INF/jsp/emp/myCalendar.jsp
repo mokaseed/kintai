@@ -13,6 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
 <title>カレンダーテスト</title>
 </head>
 <body>

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.title {
+	text-align: center;
+	color: #38bba4;
+	font-family: "Meiryo",sans-serif;
+	width: 100%;
+	padding: 60px 0 10px 0;
+}
+
+div{
+	margin-bottom: 20px;
+}
