@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="/kintai/common/css/login.css" rel="stylesheet" type="text/css" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,20 +16,20 @@
 		<form action="Login" method="post">
 			<table>
 				<tr>
-					<td>社員ID</td>
-					<td><input type="tel" name="empId" maxlength="5"></td>
+					<td class="box_name">社員ID</td>
+					<td><input class="text_box" type="tel" name="empId" maxlength="5"></td>
 				</tr>
 				<tr>
-					<td>パスワード</td>
-					<td><input type="password" name="pass"></td>
+					<td class="box_name">パスワード</td>
+					<td><input class="text_box" type="password" name="pass"></td>
 				</tr>
 			</table>
 			<input type="hidden" name="action" value="done">
-			<input type="submit" value="ログイン">
+			<input class="btn" type="submit" value="ログイン">
 		</form>
-		<a href="/kintai/Forward?action=top">TOPへ戻る</a>
+		<a class="btn" href="/kintai/Forward?action=top">TOPへ戻る</a>
 	</div>
-	<div align="center">
+	<div class="test_account">
 		<p>テスト用アカウント<br>
 		社員ID：2<br>
 		パスワード：2345</p>

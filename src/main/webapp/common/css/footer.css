@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+*{
+	padding:0;
+	margin:0;
+}
+
+footer{
+	position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+    height: 40px;
+    width: 100%;
+    border-top: solid 2px #38bba4;
+}
+
+p {
+	font-family: "Meiryo",sans-serif;
+	color: #38bba4;
+	line-height: 40px;
+	text-align: center;
+}

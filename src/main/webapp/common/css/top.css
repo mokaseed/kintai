@@ -1,0 +1,42 @@
+@charset "UTF-8";
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	margin: auto;
+}
+
+.title {
+	text-align: center;
+	color: #38bba4;
+	font-family: "Meiryo",sans-serif;
+	width: 100%;
+	padding: 60px 0 10px 0;
+}
+
+.main_wrapper{
+	margin: 10px auto;
+	padding: 10px 0;
+}
+
+.menu_btn{
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	background-color: #38bba4;
+	width: 200px; 
+	height: 40px;
+	line-height: 40px;
+	margin: 0px auto;
+	font-family: "Meiryo",sans-serif;
+	font-weight: bold;
+	color: white;
+	border-radius: 10px;
+}
+
+.menu_btn:hover{
+	opacity: 0.6;
+	
+}

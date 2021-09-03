@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+*{
+	padding:0;
+	margin:0;
+}
+
+header{
+	position: fixed;
+	background-color: #38bba4;
+	height: 40px;
+	width: 100%;
+}
+
+header a{
+	display: block;
+	width:50px;
+	height: 40px;
+	line-height: 40px;
+	text-decoration: none;
+	font-family: "Meiryo",sans-serif;
+	font-weight: bold;
+	color: white;
+	margin-left: 20px;
+}

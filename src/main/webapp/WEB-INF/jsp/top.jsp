@@ -4,17 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/kintai/common/css/top.css" rel="stylesheet" type="text/css" />
 <title>Kintai TOP</title>
 </head>
 <body>
+<header>
 	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
-	<div class="title" align="center">
-		<h1>TOPページ</h1>
-	</div>
-	<div class="main_wrapper" align="center">
-		<a href="/kintai/Login?action=done">従業員ログイン</a><br>
-		<a href="/kintai/Login">管理者ログイン</a>
-	</div>
+</header>
+<div class="title">
+	<h1>Kintai TOP</h1>
+</div>
+<div class="main_wrapper">
+	<a class="menu_btn" href="/kintai/Login?action=done">従業員ログイン</a><br>
+	<a class="menu_btn" href="/kintai/Login">管理者ログイン</a>
+</div>
+<footer>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+</footer>
 </body>
 </html>
