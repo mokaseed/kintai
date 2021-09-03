@@ -1,108 +1,147 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kintai 個人設定 - 従業員情報修正</title>
+<title>Kintai</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
-	<div class="title" align="center">
-		<h1>情報修正</h1>
+<div class="title" align="center" id="container">
+		<h1>${mc.year}年${mc.month}月カレンダー</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="/kintai/PersonalSettingsEmpMaster" method="post">
-			<table>
+		<p>
+			<a href="?year=${mc.year}&month=${mc.month - 1}">前月</a>
+			<a href="?year=${mc.year}&month=${mc.month + 1}">翌月</a>
+			<a href="/kintai/AddSchedule?year=${mc.year}&month=${mc.month}">予定を追加</a>
+		</p>
+<table border="1" style="border-collapse: collapse">
+			<tr>
+				<th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+			</tr>
+			<c:forEach var="rows" items="${mc.data}">
 				<tr>
-					<td>社員ID</td>
-					<td>${account.empId}</td>
+					<c:forEach var="col" items="${rows}">
+						<!-- カレンダーの日数を表示（印をつけたものは印を外す） -->
+						<c:choose>
+							<c:when test="${fn:startsWith(col, 't')}">
+								<td class="today" style="background-color:#;">${fn:substring(col, 1, -1)}</td>
+							</c:when>
+							<c:when test="${fn:startsWith(col, 'b')}">
+								<td class="before">${fn:substring(col, 1, -1)}</td>
+							</c:when>
+							<c:when test="${fn:startsWith(col, 'a')}">
+								<td class="after">${fn:substring(col, 1, -1)}</td>
+							</c:when>
+							<c:otherwise><td>${col}</td></c:otherwise>
+						</c:choose>
+					</c:forEach>
 				</tr>
 				<tr>
-					<td>氏名</td>
-					<td>${account.name}</td>
-				</tr>
-				<tr>
-					<td>所属</td>
-					<td>${account.deptName}</td>
-				</tr>
-				<tr>
-					<td>電話番号</td>
+					<c:forEach var="col" items="${rows}">
 					<td>
-						<input type="tel" name="tel" value="${account.tel}">
-					</td>
+ 					<c:set var="index" value="0"/>
+ 						<c:forEach var="ms" items="${myScheduleList}">
+						<%-- <c:forEach var="ms" items="${sessionScope.myScheduleList}"> --%>
+							<c:set var="index" value="${index + 1}"/>
+							<!-- そのマスが何年何月何日であるかを調べ、変数dateに代入する -->
+							<c:set var="lastMonth" value="${mc.lastMonth}"/>
+							<c:set var="nextMonth" value="${mc.nextMonth}"/>
+							<c:set var="month" value="${mc.month}"/>
+							<c:choose>
+								<c:when test="${fn:startsWith(col, 't') or fn:startsWith(col, 'b') or fn:startsWith(col, 'a')}">
+									<c:set var="dd" value="${fn:substring(col, 1, -1)}"/>
+									<c:if test="${ fn:length(dd) == 1 }">
+										<c:set var="dd">0${dd}</c:set>
+									</c:if>
+									<c:choose>
+										<c:when test="${fn:startsWith(col, 'b')}">
+											<%-- <c:set var="lastMonth" value="${mc.lastMonth}"/> --%>
+											<c:choose>
+												<c:when test="${ fn:length(lastMonth) == 1 }">
+													<c:set var="MM">0${lastMonth}</c:set>
+												</c:when>
+												<c:otherwise>
+													<c:set var="MM" value="${lastMonth}" />
+												</c:otherwise>
+											</c:choose> 
+											<c:set var="date">${mc.lastYear}-${MM}-${dd}</c:set>
+										</c:when>
+										<c:when test="${fn:startsWith(col, 'a')}">
+											<%-- <c:set var="nextMonth" value="${mc.nextMonth}"/> --%>
+											<c:choose>
+												<c:when test="${fn:length(nextMonth) == 1}">
+													<c:set var="MM">0${nextMonth}</c:set> 
+												</c:when>
+												<c:otherwise>
+													<c:set var="MM" value="${nextMonth}" />
+												</c:otherwise>
+											</c:choose>
+											<c:set var="date">${mc.nextYear}-${MM}-${dd}</c:set>
+										</c:when>
+										<c:otherwise>
+											<%-- <c:set var="month" value="${mc.month}"/> --%>
+											<c:choose>
+												<c:when test="${fn:length(month) == 1}">
+													<c:set var="MM">0${month}</c:set>
+												</c:when>
+												<c:otherwise>
+													<c:set var="MM" value="${month}" />
+												</c:otherwise>
+											</c:choose>
+											<c:set var="date">${mc.year}-${MM}-${dd}</c:set>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
+									<c:set var="dd" value="${col}"/>
+									<c:if test="${ fn:length(dd) == 1 }">
+										<c:set var="dd">0${dd}</c:set>
+									</c:if>
+									<%-- <c:choose>
+										<c:when test="${fn:length(month) == 1}"> --%>
+											<c:set var="MM">0${month}</c:set>
+										<%-- </c:when>
+										<c:otherwise>
+											<c:set var="MM" value="${month}" />
+										</c:otherwise>
+									</c:choose> --%>
+									<c:set var="date">${mc.year}-${MM}-${dd}</c:set>
+								</c:otherwise>
+							</c:choose>
+							
+							<!-- 日付が一致するスケジュールを表示 -->
+							<c:choose>
+								<c:when test="${ms.skdDate == date}">
+									<c:choose>
+										<c:when test="${skdStartTime == null}">
+											<div style="background-color:${ms.color};"><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">・${ms.subject}</a></div>
+										</c:when>
+										<c:when test="${skdFinishTime == null}">
+											<div style="background-color:${ms.color};">${ms.skdStartTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+										</c:when>
+										<c:otherwise>
+											<div style="background-color:${ms.color};">${ms.skdStartTime}~${ms.skdFinishTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
+									　
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<form action="/kintai/AddSchedule">
+					 	<input type="image" name="date" value="${date}" src="/kintai/common/png/addSchedule.png" alt="予定を追加" width="20" height="20">
+					 	</form>
+						</td>
+					</c:forEach>
 				</tr>
-				<tr>
-					<td>メールアドレス</td>
-					<td>
-						<input type="text" name="mail" value="${account.mail}">
-					</td>
-				</tr>
-				<tr>
-					<td>入社日</td>
-					<td>${account.hireDate}</td>
-				</tr>
-				<tr>
-					<td>パスワード</td>
-					<td><input type="password" name="pass" value="${account.pass}"></td>
-				</tr>
-				<tr>
-					<td>パスワード(確認用)</td>
-					<td><input type="password" name="passCheck" value="${account.pass}"></td>
-				</tr>
-				<tr>
-					<td>備考</td>
-					<td>
-						<textarea name="remarks">${account.remarks}</textarea>
-					</td>
-				</tr>
-			</table>
-			<input type="submit" value="登録する">
-		</form>
-	</div>
-	<div align="center">
-		<a href="/kintai/PersonalSettingsEmpMaster">戻る</a><br>
-	</div>
-	<div class="cotainer">
-  <div class="row justify-content-center mt-5">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">パスワードのチェック</div>
-        <div class="card-body">
-
-          <form action="" method="post" onsubmit="">
-            <div class="form-group row">
-              <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
-              <div class="col-md-6">
-                <input type="password" id="password" class="form-control" name="password" required>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="confirm-password" class="col-md-4 col-form-label text-md-right">パスワード（確認）</label>
-              <div class="col-md-6">
-                <input type="password" id="confirm-password" class="form-control" name="confirm-password" required>
-                <div class="valid-feedback">O.K.</div>
-                <div class="invalid-feedback">入力されたパスワードが一致しません。</div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-8 offset-md-4">
-                <button class="btn btn-primary" type="button" onclick="">
-                  登録
-                </button>
-                <button class="btn btn-secondary ml-3" type='button' onclick="document.location.href='';">
-                  戻る
-                </button>
-              </div>
-            </div>
-          </form>
-
-        </div><!-- div class="card-body" -->
-      </div><!-- div class="card" -->
-    </div><!-- div class="col-md-8" -->
-  </div><!-- div class="row justify-content-center" -->
-</div><!-- div class="cotainer" -->
-	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
-<script src="${pageContext.request.contextPath}/common/JS/test.js"></script>
+			</c:forEach>
+		</table>
+</div>
 </body>
 </html>

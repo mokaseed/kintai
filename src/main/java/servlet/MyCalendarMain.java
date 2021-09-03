@@ -61,6 +61,7 @@ public class MyCalendarMain extends HttpServlet {
 			List<MySchedule> myScheduleList = scheduleDAO.selectScheduleList(account.getEmpId());
 			
 			session.setAttribute("myScheduleList", myScheduleList);
+//			request.setAttribute("myScheduleList", myScheduleList);
 //		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/myCalendar.jsp");
