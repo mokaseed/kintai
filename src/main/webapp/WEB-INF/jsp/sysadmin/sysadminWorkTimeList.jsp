@@ -23,22 +23,6 @@ request.setAttribute("monthNumbers",monthNumbers);
 WorkTimeListTimeCheck check = new WorkTimeListTimeCheck();
 request.setAttribute("check", check);
 
-/* List<WorkTime> workTimeList = (List<WorkTime>)session.getAttribute("workTimeList");
-
-DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd");
-DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MM");
-DecimalFormat mFormat= new DecimalFormat("00");
-
-thisMonthCalendar.add(Calendar.MONTH, -1);
-int maxDay = thisMonthCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-thisMonthCalendar.add(Calendar.MONTH, +1);
-
-IntStream year = IntStream.range(2020, 2030);
-IntStream month = IntStream.range(1, 13);
-
-List<Integer> yearNumbers = IntStream.range(2020, 2030).boxed().collect(Collectors.toList());
-List<Integer> monthNumbers = IntStream.range(1, 13).boxed().collect(Collectors.toList()); */
 %>
 <!DOCTYPE html>
 <html>

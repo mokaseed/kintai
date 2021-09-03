@@ -71,8 +71,10 @@ table{
 	width: 100%;
 	margin: auto;
 	padding-top: 30px;
+	text-align: center;
 }
 
 .test_account p{
 	line-height: 20px;
+
 }
