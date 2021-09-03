@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.stream.IntStream,java.util.stream.Collectors,java.util.List,entity.MySchedule,java.util.Objects,java.util.Arrays" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%
 List<Integer> yearNumbers = IntStream.range(2020, 2030).boxed().collect(Collectors.toList());
@@ -243,7 +244,7 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 				<option value="">-</option>
 				<c:forEach var="hour" items="${hourNumbers}">
 					<c:choose>
-						<c:when test="${hour == selectStartHour}">
+						<c:when test="${hour == selectFinishHour}">
 							<option value="${hour}" selected><c:out value="${hour}"/></option>
 						</c:when>
 						<c:otherwise>
@@ -258,7 +259,7 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 				<option value="">-</option>
 				<c:forEach var="minute" items="${minuteNumbers}">
 					<c:choose>
-						<c:when test="${minute == selectStartMinute}">
+						<c:when test="${minute == selectFinishMinute}">
 							<option value="${minute}" selected><c:out value="${minute}"/></option>
 						</c:when>
 						<c:otherwise>
@@ -284,18 +285,12 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 				<c:when test="${ms.color == 'rgba(250,60,60,0.4)'}">
 					<label><input type="radio" name="color" value="rgba(250,60,60,0.4)" checked ><span style="background-color:rgba(250,60,60,0.4);">　</span></label>
 				</c:when>
-				<c:when test="${ms.color == null}">
-					<label><input type="radio" name="color" value="rgba(250,60,60,0.4)" checked ><span style="background-color:rgba(250,60,60,0.4);">　</span></label>
-				</c:when>
 				<c:otherwise>
 					<label><input type="radio" name="color" value="rgba(250,60,60,0.4)"><span style="background-color:rgba(250,60,60,0.4);">　</span></label>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
 				<c:when test="${ms.color == '#ffff7a'}">
-					<label><input type="radio" name="color" value="#ffff7a" checked ><span style="background-color:#ffff7a;">　</span></label>
-				</c:when>
-				<c:when test="${ms.color == null}">
 					<label><input type="radio" name="color" value="#ffff7a" checked ><span style="background-color:#ffff7a;">　</span></label>
 				</c:when>
 				<c:otherwise>
@@ -306,9 +301,6 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 				<c:when test="${ms.color == '#abf9ff'}">
 					<label><input type="radio" name="color" value="#abf9ff" checked ><span style="background-color:#abf9ff;">　</span></label>
 				</c:when>
-				<c:when test="${ms.color == null}">
-					<label><input type="radio" name="color" value="#abf9ff" checked ><span style="background-color:#abf9ff;">　</span></label>
-				</c:when>
 				<c:otherwise>
 					<label><input type="radio" name="color" value="#abf9ff"><span style="background-color:#abf9ff;">　</span></label>
 				</c:otherwise>
@@ -317,18 +309,12 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 				<c:when test="${ms.color == '#abf9a8'}">
 					<label><input type="radio" name="color" value="#abf9a8" checked ><span style="background-color:#abf9a8;">　</span></label>
 				</c:when>
-				<c:when test="${ms.color == null}">
-					<label><input type="radio" name="color" value="#abf9a8" checked ><span style="background-color:#abf9a8;">　</span></label>
-				</c:when>
 				<c:otherwise>
 					<label><input type="radio" name="color" value="#abf9a8"><span style="background-color:#abf9a8;">　</span></label>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
 				<c:when test="${ms.color == 'rgba(212,60,250,0.4)'}">
-					<label><input type="radio" name="color" value="rgba(212,60,250,0.4)" checked ><span style="background-color:rgba(212,60,250,0.4);">　</span></label>
-				</c:when>
-				<c:when test="${ms.color == null}">
 					<label><input type="radio" name="color" value="rgba(212,60,250,0.4)" checked ><span style="background-color:rgba(212,60,250,0.4);">　</span></label>
 				</c:when>
 				<c:otherwise>
@@ -344,7 +330,7 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 			<input type="hidden" name="skdId" value="${ms.skdId}">
 			<br><input type="submit" value="登録する">
 		</form>
-		<c:if test="${ms.subject == null}">
+		<c:if test="${fn:length(ms.subject) != 0}">
 			<form action="/kintai/AddSchedule" method="post">
 				<input type="hidden" name="action" value="delete">
 				<input type="hidden" name="skdId" value="${ms.skdId}">

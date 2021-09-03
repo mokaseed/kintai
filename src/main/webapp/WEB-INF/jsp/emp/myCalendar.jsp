@@ -122,24 +122,19 @@
 							</c:choose>
 							
 							<!-- 日付が一致するスケジュールを表示 -->
-							<c:choose>
-								<c:when test="${ms.skdDate == date}">
-									<c:choose>
-										<c:when test="${ms.skdStartTime == null}">
-											<div style="background-color:${ms.color};"><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">・${ms.subject}</a></div>
-										</c:when>
-										<c:when test="${ms.skdFinishTime == null}">
-											<div style="background-color:${ms.color};">${ms.skdStartTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
-										</c:when>
-										<c:otherwise>
-											<div style="background-color:${ms.color};">${ms.skdStartTime}~${ms.skdFinishTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
-										</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
-									　
-								</c:otherwise>
-							</c:choose>
+							<c:if test="${ms.skdDate == date}">
+								<c:choose>
+									<c:when test="${ms.skdStartTime == null}">
+										<div style="background-color:${ms.color};"><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">・${ms.subject}</a></div>
+									</c:when>
+									<c:when test="${ms.skdFinishTime == null}">
+										<div style="background-color:${ms.color};">${ms.skdStartTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+									</c:when>
+									<c:otherwise>
+										<div style="background-color:${ms.color};">${ms.skdStartTime}~${ms.skdFinishTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
 						</c:forEach>
 						<form action="/kintai/AddSchedule">
 					 	<input type="image" name="date" value="${date}" src="/kintai/common/png/addSchedule.png" alt="予定を追加" width="20" height="20">
