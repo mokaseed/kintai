@@ -15,8 +15,11 @@
 	<div class="main_wrapper" align="center">
 		<p>勤怠入力に失敗しました。</p>
 		<p>もう一度やり直してください。</p>
-		<a href="/kintai/ClockOn">勤怠入力に戻る</a>
-		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		
+		<div class="bottom_btn_box">
+			<a class="bottom_btn" href="/kintai/ClockOn">勤怠入力に戻る</a><br>
+			<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

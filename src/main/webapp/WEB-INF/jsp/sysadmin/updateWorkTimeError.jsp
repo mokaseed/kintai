@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
-<title>Kintai 勤怠管理</title>
+<title>kintai 管理者 - 勤怠管理</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />

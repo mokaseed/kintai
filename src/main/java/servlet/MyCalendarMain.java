@@ -17,6 +17,7 @@ import entity.MyCalendar;
 import entity.MySchedule;
 import model.MyCalendarLogic;
 
+//従業員ログインチェックフィルターを通る
 
 @WebServlet("/MyCalendarMain")
 public class MyCalendarMain extends HttpServlet {
@@ -52,25 +53,16 @@ public class MyCalendarMain extends HttpServlet {
 		request.setAttribute("mc", mc);
 		
 		
-		//actionがNULLの場合はDBからスケジュールリストを取得
-//		String action = request.getParameter("action");
-//		if(action == null) {
-			HttpSession session = request.getSession(false);
-			Employee account = (Employee)session.getAttribute("account");
-			ScheduleDAO scheduleDAO = new ScheduleDAO();
-			List<MySchedule> myScheduleList = scheduleDAO.selectScheduleList(account.getEmpId());
-			
-			session.setAttribute("myScheduleList", myScheduleList);
-//			request.setAttribute("myScheduleList", myScheduleList);
-//		}
+		//DBからスケジュールを取得
+		HttpSession session = request.getSession(false);
+		Employee account = (Employee)session.getAttribute("account");
+		ScheduleDAO scheduleDAO = new ScheduleDAO();
+		List<MySchedule> myScheduleList = scheduleDAO.selectScheduleList(account.getEmpId());
+		session.setAttribute("myScheduleList", myScheduleList);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/myCalendar.jsp");
 		dispatcher.forward(request, response);
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 
 }

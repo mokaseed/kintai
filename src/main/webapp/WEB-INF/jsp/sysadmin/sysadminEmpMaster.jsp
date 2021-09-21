@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/empMaster.css" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 従業員情報詳細</title>
 </head>
 <body>
@@ -17,35 +17,35 @@
 		<table>
 			<c:set var="index" value="${index}"/>
 			<tr>
-				<td>社員ID</td>
+				<td class="item_name">社員ID</td>
 				<td>${empList[index].empId}</td>
 			</tr>
 			<tr>
-				<td>氏名</td>
+				<td class="item_name">氏名</td>
 				<td>${empList[index].name}</td>
 			</tr>
 			<tr>
-				<td>所属</td>
+				<td class="item_name">所属</td>
 				<td>${empList[index].deptName}</td>
 			</tr>
 			<tr>
-				<td>電話番号</td>
+				<td class="item_name">電話番号</td>
 				<td>${empList[index].tel}</td>
 			</tr>
 			<tr>
-				<td>メールアドレス</td>
+				<td class="item_name">メールアドレス</td>
 				<td>${empList[index].mail}</td>
 			</tr>
 			<tr>
-				<td>入社日</td>
+				<td class="item_name">入社日</td>
 				<td>${empList[index].hireDate}</td>
 			</tr>
 			<tr>
-				<td>パスワード</td>
+				<td class="item_name">パスワード</td>
 				<td>-</td>
 			</tr>
 			<tr>
-				<td>管理者権限</td>
+				<td class="item_name">管理者権限</td>
 				<td>
 					<c:choose>
 						<c:when test="${empList[index].sysadmin == '1'}">有</c:when>
@@ -54,15 +54,15 @@
 				</td>
 			</tr>
 			<tr>
-				<td>備考</td>
+				<td class="item_name">備考</td>
 				<td>${empList[index].remarks}</td>
 			</tr>
 		</table>
 	</div>
-	<div align="center">
-		<a href="/kintai/SysadminEmpMaster">従業員情報を修正する</a><br>
-		<a href="/kintai/SysadminEmpList">従業員一覧に戻る</a><br>
-		<a href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+	<div class="bottom_btn_box" align="center">
+		<a class="btn" href="/kintai/SysadminEmpMaster">従業員情報を修正する</a><br>
+		<a class="btn" href="/kintai/SysadminEmpList">従業員一覧に戻る</a><br>
+		<a class="btn" href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

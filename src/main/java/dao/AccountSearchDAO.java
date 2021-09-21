@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import entity.Employee;
 
+//ログイン時にアカウントが登録されているか確認するDAO
 public class AccountSearchDAO {
     
 	public Employee fined(Employee emp){
@@ -18,11 +19,11 @@ public class AccountSearchDAO {
     	ConnectionManager connectionManager = new ConnectionManager();
     	Connection con = connectionManager.connect();
     	
-//    	戻り値の用意
+    	//戻り値の用意
     	Employee account = null;
     	
 
-//    	ログイン画面にて入力された社員IDがDBに登録済みの場合、当該社員情報を返す
+    	//ログイン画面にて入力された社員IDがDBに登録済みの場合、当該社員情報を返す
     	try {
     		String sql = "SELECT emp_id, name, pass, dept_name, tel, mail, hire_date, sysadmin, remarks FROM m_emp inner join m_dept on m_emp.dept_id = m_dept.dept_id WHERE emp_id = ?";
     		ps = con.prepareStatement(sql);
@@ -32,7 +33,7 @@ public class AccountSearchDAO {
     		rs = ps.executeQuery();
     		
     		if(rs.next()) {
-//    			見つかったアカウント情報を戻り値にセット
+    			//見つかったアカウント情報を戻り値にセット
     			int empId = rs.getInt("emp_id");
     			String name = rs.getString("name");
     			String pass = rs.getString("pass");
@@ -45,7 +46,7 @@ public class AccountSearchDAO {
     			account = new Employee(empId, name, pass, deptName, tel, mail, hireDate, sysadmin, remarks);
     			System.out.println("accountあり");
     		} else {
-//    			アカウントがなければnullを返す
+    			//アカウントがなければnullを返す
     			System.out.println("accountなし");
     			return null;
     		}

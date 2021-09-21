@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
-<title>Kintai ログイン</title>
+<title>kintai 管理者 - ログイン</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />
@@ -16,7 +16,9 @@
 		<p>ログインできませんでした。<br>
 		管理者権限がない、もしくはユーザー名・パスワードが誤っている可能性があります。<br></p>
 		<p></p>
-		<a href="/kintai/Forward?action=sysadminLogin">ログインページへ戻る</a>
+		<div class="bottom_btn_box">
+			<a class="bottom_btn" href="/kintai/Forward?action=sysadminLogin">ログインページへ戻る</a>
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

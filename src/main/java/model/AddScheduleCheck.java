@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+//入力したスケジュール情報内容にエラーがないかチェックする
 public class AddScheduleCheck {
 	public List<String> execute(String year, String month, String date, String startHour, String startMinute, String finishHour, String finishMinute){
 		

@@ -13,18 +13,16 @@ import javax.servlet.http.HttpSession;
 import dao.ClockOnDAO;
 import entity.Employee;
 
-/**
- * Servlet implementation class ClockOn
- */
+//従業員ログインチェックフィルターを通る
+
 @WebServlet("/ClockOn")
 public class ClockOn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			//直接アクセスされた場合は、フィルターのログインチェックを通り勤怠打刻画面へ遷移
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/clockOn.jsp");
-			dispatcher.forward(request, response);
-//		}
+		//直接アクセスされた場合は、フィルターのログインチェックを通り勤怠打刻画面へ遷移
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/emp/clockOn.jsp");
+		dispatcher.forward(request, response);
 	}
 
 

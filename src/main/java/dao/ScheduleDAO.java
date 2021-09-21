@@ -12,19 +12,22 @@ import java.util.List;
 
 import entity.MySchedule;
 
+//カレンダー表示時のスケジュールの取得や、スケジュールの追加・修正・削除を行うDAO
 public class ScheduleDAO {
 	
 	final String jdbcId = "root";
     final String jdbcPass = "seedrose";
     final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
-  //DBを接続するメソッド
+    //DBを接続するメソッド
     ConnectionManager connectionManager = new ConnectionManager();
     Connection con = connectionManager.connect();
     
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
+	
+	//スケジュールの追加・修正
 	public List<MySchedule> addSchedule(MySchedule ms){
 		
 		List<MySchedule> myScheduleList = new ArrayList<>();
@@ -106,7 +109,7 @@ public class ScheduleDAO {
 	   		
 	   		while(rs.next()) {
 	   			MySchedule s_ms = new MySchedule();
-//	   			見つかったスケジュール情報を戻り値にセット
+	   			//見つかったスケジュール情報を戻り値にセット
 	   			if(rs.getString("skd_id") != null) {
 	   				int skdId = rs.getInt("skd_id");
 	   				s_ms.setSkdId(skdId);
@@ -166,14 +169,12 @@ public class ScheduleDAO {
 		return myScheduleList;
 	}
 	
+	
 	//スケジュールリストを取得する
 	public List<MySchedule> selectScheduleList(int employeeId){
 		
 		//戻り値の用意
 		List<MySchedule> myScheduleList = new ArrayList<>();
-		
-		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
-		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
 		try {
 			String sql = "SELECT * FROM t_skd WHERE emp_id = ? ORDER BY skd_start_time"; 
@@ -183,7 +184,7 @@ public class ScheduleDAO {
 	   		
 	   		while(rs.next()) {
 	   			MySchedule ms = new MySchedule();
-//		   			見つかったスケジュール情報を戻り値にセット
+		   		//見つかったスケジュール情報を戻り値にセット
 	   			if(rs.getString("skd_id") != null) {
 	   				int skdId = rs.getInt("skd_id");
 	   				ms.setSkdId(skdId);
@@ -245,6 +246,8 @@ public class ScheduleDAO {
 		return myScheduleList;
 	}
 	
+	
+	//スケジュールを削除する
 	public boolean deleteSchedule(int skdId){
 		try {
 			String sql = "DELETE FROM t_skd WHERE skd_id = ?";

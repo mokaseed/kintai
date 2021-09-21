@@ -38,28 +38,20 @@ public class EmpLoginCheck implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code herez
-		
 		
 		// セッションが存在しない場合NULLを返す
         HttpSession session = ((HttpServletRequest)request).getSession(false);
 
         try {
-//        if(session == null){
 	        if(session.getAttribute("account") == null) {
-//	        	System.out.println("フィルターのsession==nullが実行されました");
-	        	// セッションがNullならば、top画面へ飛ばす
 	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
 	            dispatcher.forward(request,response);
 	        }else{
 	        	// セッションがNULLでなければ、通常どおりの遷移
 	            chain.doFilter(request, response);
-//	            System.out.println("フィルターのelseが実行されました");
 	        }
         } catch(Exception e) {
         	e.printStackTrace();
-//        	System.out.println("フィルターのcatchが実行されました");
         	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
             dispatcher.forward(request,response);
         }

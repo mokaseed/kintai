@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/updateEmpMaster.css" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 従業員情報詳細</title>
 </head>
 <body>
@@ -18,16 +18,16 @@
 			<table>
 				<c:set var="index" value="${index}"/>
 				<tr>
-					<td>社員ID</td>
+					<td class="item_name">社員ID</td>
 					<td>${empList[index].empId}</td>
 					<input type="hidden" name="empId" value="${empList[index].empId}">
 				</tr>
 				<tr>
-					<td>氏名</td>
-					<td><input type="text" name="name" value="${empList[index].name}" required></td>
+					<td class="item_name">氏名</td>
+					<td><input class="text" type="text" name="name" value="${empList[index].name}" required></td>
 				</tr>
 				<tr>
-					<td>所属</td>
+					<td class="item_name">所属</td>
 					<td>
 						<select name="deptName">
 							<c:set var="deptName" value="${empList[index].deptName}" />
@@ -38,46 +38,54 @@
 					</td>
 				</tr>
 				<tr>
-					<td>電話番号</td>
-					<td><input type="tel" name="tel" value="${empList[index].tel}"></td>
+					<td class="item_name">電話番号</td>
+					<td><input class="text" type="tel" name="tel" value="${empList[index].tel}"></td>
 				</tr>
 				<tr>
-					<td>メールアドレス</td>
-					<td><input type="text" name="mail" value="${empList[index].mail}"></td>
+					<td class="item_name">メールアドレス</td>
+					<td><input class="text" type="text" name="mail" value="${empList[index].mail}"></td>
 				</tr>
 				<tr>
-					<td>入社日</td>
-					<td><input type="date" name="hireDate" value="${empList[index].hireDate}"></td>
+					<td class="item_name">入社日</td>
+					<td><input class="text" type="date" name="hireDate" value="${empList[index].hireDate}"></td>
 				</tr>
 				<tr>
-					<td>パスワード</td>
-					<td><input type="password" name="pass" value="${empList[index].pass}" required></td>
+					<td class="item_name">パスワード</td>
+					<td><input class="text" type="password" name="pass" value="${empList[index].pass}" required></td>
 				</tr>
 				<tr>
-					<td>パスワード(確認用)</td>
-					<td><input type="password" name="passCheck" value="${empList[index].pass}" required></td>
+					<td class="item_name">パスワード(確認用)</td>
+					<td><input class="text" type="password" name="passCheck" value="${empList[index].pass}" required></td>
 				</tr>
 				<tr>
-					<td>管理者権限</td>
+					<td class="item_name">管理者権限</td>
 					<td>
 					<input type="radio" name="sysadmin" value="1" <c:if test="${empList[index].sysadmin == '1'}">checked</c:if>>有
 					<input type="radio" name="sysadmin" value="0" <c:if test="${empty empList[index].sysadmin}">checked</c:if>>無
 					</td>
 				</tr>
 				<tr>
-					<td>備考</td>
+					<td class="item_name memo">備考</td>
 					<td><textarea name="remarks" >${empList[index].remarks}</textarea></td>
 				</tr>
 			</table>
-			<input type="submit" value="修正内容を登録する">
+			<input class="btn" type="submit" value="修正内容を登録する">
 		</form>
-		<form action="/kintai/DeleteEmpMaster" method="post">
-			<input type="hidden" name="empId" value="${empList[index].empId}">
-			<input type="submit" value="従業員情報を削除する">
-		</form>
-	</div>
-	<div align="center">
-		<a href="javascript:history.back()">戻る</a>
+	
+		<label class="open delete_btn" for="pop-up"><a>削除する</a></label>
+		<input type="checkbox" id="pop-up">
+		<div class="overlay">
+			<div class="window">
+				<p class="pop-up_text">従業員情報を削除します</p><br>
+				<form action="/kintai/DeleteEmpMaster" method="post">
+					<input type="hidden" name="empId" value="${empList[index].empId}">
+					<input class="pop-up_btn" type="submit" value="はい">
+					<label class="close" for="pop-up"><a class="pop-up_btn">いいえ</a></label>
+				</form>
+			</div>
+		</div>
+		<br>
+		<a class="btn" href="javascript:history.back()">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

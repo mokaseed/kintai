@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//DBの接続と切断
 public class ConnectionManager {
 	final String jdbcId = "root";
     final String jdbcPass = "seedrose";
@@ -11,13 +12,13 @@ public class ConnectionManager {
     
     Connection con = null;
     
+    //DB接続
 	public Connection connect() {
 		
 		if(con == null) {
 			try{
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
-//				System.out.println("DB接続を行いました");
 			}catch(SQLException | ClassNotFoundException e){
 				e.printStackTrace();
 			}			
@@ -25,11 +26,11 @@ public class ConnectionManager {
 		return con;
 	}
 	
+	//DB切断
 	public void close() {
 		if(con != null) {
 			try {
 				con.close();
-//				System.out.println("DB切断を行いました");
 			} catch (SQLException e) {
 			e.printStackTrace();
 			}

@@ -17,13 +17,13 @@ public class Logout extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		セッションスコープを破棄
+		//セッションスコープを破棄
 		HttpSession session = request.getSession(false);
 		session.invalidate();
 		
 		System.out.println("Logoutを実行しました");
 		
-//		ログアウト画面にフォワード
+		//ログアウト画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp");
 		dispatcher.forward(request, response);
 	}

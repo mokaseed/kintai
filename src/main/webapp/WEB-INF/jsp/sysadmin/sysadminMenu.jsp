@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kintai  管理者メニュー</title>
+<title>kintai 管理者 - 管理者メニュー</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />

@@ -9,12 +9,13 @@ import java.util.List;
 
 import entity.Employee;
 
+//従業員情報の追加・修正・削除を行うDAO
 public class EmpMasterDAO {
 	final String jdbcId = "root";
     final String jdbcPass = "seedrose";
     final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
-  //DBを接続するメソッド
+    //DBを接続するメソッド
     ConnectionManager connectionManager = new ConnectionManager();
     Connection con = connectionManager.connect();
     
@@ -98,7 +99,7 @@ public class EmpMasterDAO {
 		   		
 		   		while(rs.next()) {
 		   			Employee emp = new Employee();
-//		   			見つかったアカウント情報を戻り値にセット
+		   			//見つかったアカウント情報を戻り値にセット
 		   			if(rs.getString("emp_id") != null) {
 		   				int id = rs.getInt("emp_id");
 		   				emp.setEmpId(id);
@@ -190,7 +191,7 @@ public class EmpMasterDAO {
 	    		rs = ps.executeQuery();
 	    		
 	    		if(rs.next()) {
-//	    			修正後のアカウント情報を戻り値にセット
+	    			//修正後のアカウント情報を戻り値にセット
 	    			int empId = rs.getInt("emp_id");
 	    			String name = rs.getString("name");
 	    			String pass = rs.getString("pass");

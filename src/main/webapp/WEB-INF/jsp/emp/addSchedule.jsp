@@ -22,7 +22,7 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/addSchedule.css" rel="stylesheet" type="text/css" />
 <title>Kintai 予定登録</title>
 </head>
 <body>
@@ -32,188 +32,195 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 	</div>
 	<div class="main_wrapper" align="center">
 		<form action="/kintai/AddSchedule" method="post">
-			日付
-			<!-- 年 -->
-			<select name="year">
-				<c:set var="selectYear" value="${ms.year}"/>
-				<option value="">-</option>
-				<c:forEach var="year" items="${yearNumbers}">
+			<table>
+				<tr><td class="item_name">日付</td>
+				<!-- 年 -->
+				<td>
+						<select name="year">
+							<c:set var="selectYear" value="${ms.year}"/>
+							<option value="">-</option>
+							<c:forEach var="year" items="${yearNumbers}">
+								<c:choose>
+									<c:when test="${year == selectYear}">
+										<option value="${year}" selected><c:out value="${year}"/></option>
+									</c:when>
+									<c:otherwise>
+										<option value="${year}"><c:out value="${year}"/></option>
+									</c:otherwise>						
+								</c:choose>
+							</c:forEach>
+						</select>年 
+						<!-- 月 -->
+						<select name="month">
+							<c:set var="selectMonth" value="${ms.month}"/>
+							<option value="">-</option>
+							<c:forEach var="month" items="${monthNumbers}">
+								<c:choose>
+									<c:when test="${month == selectMonth}">
+										<option value="${month}" selected><c:out value="${month}"/></option>
+									</c:when>
+									<c:otherwise>
+										<option value="${month}"><c:out value="${month}"/></option>
+									</c:otherwise>						
+								</c:choose>
+							</c:forEach>
+						</select>月 
+						<!-- 日 -->
+						<select name="date">
+							<c:set var="selectDate" value="${ms.date}"/>
+							<option value="">-</option>
+							<c:forEach var="date" items="${dateNumbers}">
+								<c:choose>
+									<c:when test="${date == selectDate}">
+										<option value="${date}" selected><c:out value="${date}"/></option>
+									</c:when>
+									<c:otherwise>
+										<option value="${date}"><c:out value="${date}"/></option>
+									</c:otherwise>						
+								</c:choose>
+							</c:forEach>
+						</select>日
+					</td></tr>
+				<tr><td class="item_name">時間</td>
+				<!-- 開始時間の時 -->
+				<td>
+					<select name="startHour">
+						<c:set var="selectStartHour" value="${ms.startHour}"/>
+						<option value="">-</option>
+						<c:forEach var="hour" items="${hourNumbers}">
+							<c:choose>
+								<c:when test="${hour == selectStartHour}">
+									<option value="${hour}" selected><c:out value="${hour}"/></option>
+								</c:when>
+								<c:otherwise>
+									<option value="${hour}"><c:out value="${hour}"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>:
+					<!-- 開始時間の分 -->
+					<select name="startMinute">
+						<c:set var="selectStartMinute" value="${ms.startMinute}"/>
+						<option value="">-</option>
+						<c:forEach var="minute" items="${minuteNumbers}">
+							<c:choose>
+								<c:when test="${minute == selectStartMinute}">
+									<option value="${minute}" selected><c:out value="${minute}"/></option>
+								</c:when>
+								<c:otherwise>
+									<option value="${minute}"><c:out value="${minute}"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+					
+					〜
+					
+					<!-- 終了時間の時 -->
+					<select name="finishHour">
+						<c:set var="selectFinishHour" value="${ms.finishHour}"/>
+						<option value="">-</option>
+						<c:forEach var="hour" items="${hourNumbers}">
+							<c:choose>
+								<c:when test="${hour == selectFinishHour}">
+									<option value="${hour}" selected><c:out value="${hour}"/></option>
+								</c:when>
+								<c:otherwise>
+									<option value="${hour}"><c:out value="${hour}"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>:
+					<!-- 終了時間の分 -->
+					<select name="finishMinute">
+						<c:set var="selectFinishMinute" value="${ms.finishMinute}"/>
+						<option value="">-</option>
+						<c:forEach var="minute" items="${minuteNumbers}">
+							<c:choose>
+								<c:when test="${minute == selectFinishMinute}">
+									<option value="${minute}" selected><c:out value="${minute}"/></option>
+								</c:when>
+								<c:otherwise>
+									<option value="${minute}"><c:out value="${minute}"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</td></tr>
+				
+				<tr><td class="item_name">色</td>
+				<td>
 					<c:choose>
-						<c:when test="${year == selectYear}">
-							<option value="${year}" selected><c:out value="${year}"/></option>
+						<c:when test="${ms.color == 'transparent'}">
+							<label><input type="radio" name="color" value="transparent" checked > 無 </label>
+						</c:when>
+						<c:when test="${ms.color == null}">
+							<label><input type="radio" name="color" value="transparent" checked > 無 </label>
 						</c:when>
 						<c:otherwise>
-							<option value="${year}"><c:out value="${year}"/></option>
-						</c:otherwise>						
-					</c:choose>
-				</c:forEach>
-			</select>年
-			<!-- 月 -->
-			<select name="month">
-				<c:set var="selectMonth" value="${ms.month}"/>
-				<option value="">-</option>
-				<c:forEach var="month" items="${monthNumbers}">
-					<c:choose>
-						<c:when test="${month == selectMonth}">
-							<option value="${month}" selected><c:out value="${month}"/></option>
-						</c:when>
-						<c:otherwise>
-							<option value="${month}"><c:out value="${month}"/></option>
-						</c:otherwise>						
-					</c:choose>
-				</c:forEach>
-			</select>月
-			<!-- 日 -->
-			<select name="date">
-				<c:set var="selectDate" value="${ms.date}"/>
-				<option value="">-</option>
-				<c:forEach var="date" items="${dateNumbers}">
-					<c:choose>
-						<c:when test="${date == selectDate}">
-							<option value="${date}" selected><c:out value="${date}"/></option>
-						</c:when>
-						<c:otherwise>
-							<option value="${date}"><c:out value="${date}"/></option>
-						</c:otherwise>						
-					</c:choose>
-				</c:forEach>
-			</select>日
-			
-			<br>
-			時間
-			<!-- 開始時間の時 -->
-			<select name="startHour">
-				<c:set var="selectStartHour" value="${ms.startHour}"/>
-				<option value="">-</option>
-				<c:forEach var="hour" items="${hourNumbers}">
-					<c:choose>
-						<c:when test="${hour == selectStartHour}">
-							<option value="${hour}" selected><c:out value="${hour}"/></option>
-						</c:when>
-						<c:otherwise>
-							<option value="${hour}"><c:out value="${hour}"/></option>
+							<label><input type="radio" name="color" value="transparent"> 無 </label>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-			</select>:
-			<!-- 開始時間の分 -->
-			<select name="startMinute">
-				<c:set var="selectStartMinute" value="${ms.startMinute}"/>
-				<option value="">-</option>
-				<c:forEach var="minute" items="${minuteNumbers}">
 					<c:choose>
-						<c:when test="${minute == selectStartMinute}">
-							<option value="${minute}" selected><c:out value="${minute}"/></option>
+						<c:when test="${ms.color == 'rgba(250,60,60,0.4)'}">
+							<label><input type="radio" name="color" value="rgba(250,60,60,0.4)" checked ><span style="background-color:rgba(250,60,60,0.4);">　</span></label>
 						</c:when>
 						<c:otherwise>
-							<option value="${minute}"><c:out value="${minute}"/></option>
+							<label><input type="radio" name="color" value="rgba(250,60,60,0.4)"><span style="background-color:rgba(250,60,60,0.4);">　</span></label>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-			</select>
-			
-			〜
-			
-			<!-- 終了時間の時 -->
-			<select name="finishHour">
-				<c:set var="selectFinishHour" value="${ms.finishHour}"/>
-				<option value="">-</option>
-				<c:forEach var="hour" items="${hourNumbers}">
 					<c:choose>
-						<c:when test="${hour == selectFinishHour}">
-							<option value="${hour}" selected><c:out value="${hour}"/></option>
+						<c:when test="${ms.color == '#ffff7a'}">
+							<label><input type="radio" name="color" value="#ffff7a" checked ><span style="background-color:#ffff7a;">　</span></label>
 						</c:when>
 						<c:otherwise>
-							<option value="${hour}"><c:out value="${hour}"/></option>
+							<label><input type="radio" name="color" value="#ffff7a"><span style="background-color:#ffff7a;">　</span></label>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-			</select>:
-			<!-- 終了時間の分 -->
-			<select name="finishMinute">
-				<c:set var="selectFinishMinute" value="${ms.finishMinute}"/>
-				<option value="">-</option>
-				<c:forEach var="minute" items="${minuteNumbers}">
 					<c:choose>
-						<c:when test="${minute == selectFinishMinute}">
-							<option value="${minute}" selected><c:out value="${minute}"/></option>
+						<c:when test="${ms.color == '#abf9ff'}">
+							<label><input type="radio" name="color" value="#abf9ff" checked ><span style="background-color:#abf9ff;">　</span></label>
 						</c:when>
 						<c:otherwise>
-							<option value="${minute}"><c:out value="${minute}"/></option>
+							<label><input type="radio" name="color" value="#abf9ff"><span style="background-color:#abf9ff;">　</span></label>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-			</select>
-			
-			<p>色
-			<c:choose>
-				<c:when test="${ms.color == 'transparent'}">
-					<label><input type="radio" name="color" value="transparent" checked > 無 </label>
-				</c:when>
-				<c:when test="${ms.color == null}">
-					<label><input type="radio" name="color" value="transparent" checked > 無 </label>
-				</c:when>
-				<c:otherwise>
-					<label><input type="radio" name="color" value="transparent"> 無 </label>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${ms.color == 'rgba(250,60,60,0.4)'}">
-					<label><input type="radio" name="color" value="rgba(250,60,60,0.4)" checked ><span style="background-color:rgba(250,60,60,0.4);">　</span></label>
-				</c:when>
-				<c:otherwise>
-					<label><input type="radio" name="color" value="rgba(250,60,60,0.4)"><span style="background-color:rgba(250,60,60,0.4);">　</span></label>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${ms.color == '#ffff7a'}">
-					<label><input type="radio" name="color" value="#ffff7a" checked ><span style="background-color:#ffff7a;">　</span></label>
-				</c:when>
-				<c:otherwise>
-					<label><input type="radio" name="color" value="#ffff7a"><span style="background-color:#ffff7a;">　</span></label>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${ms.color == '#abf9ff'}">
-					<label><input type="radio" name="color" value="#abf9ff" checked ><span style="background-color:#abf9ff;">　</span></label>
-				</c:when>
-				<c:otherwise>
-					<label><input type="radio" name="color" value="#abf9ff"><span style="background-color:#abf9ff;">　</span></label>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${ms.color == '#abf9a8'}">
-					<label><input type="radio" name="color" value="#abf9a8" checked ><span style="background-color:#abf9a8;">　</span></label>
-				</c:when>
-				<c:otherwise>
-					<label><input type="radio" name="color" value="#abf9a8"><span style="background-color:#abf9a8;">　</span></label>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${ms.color == 'rgba(212,60,250,0.4)'}">
-					<label><input type="radio" name="color" value="rgba(212,60,250,0.4)" checked ><span style="background-color:rgba(212,60,250,0.4);">　</span></label>
-				</c:when>
-				<c:otherwise>
-					<label><input type="radio" name="color" value="rgba(212,60,250,0.4)"><span style="background-color:rgba(212,60,250,0.4);">　</span></label>
-				</c:otherwise>
-			</c:choose>
-			</p>
-			
-			<p>件名<input type="text" name="subject" value="${ms.subject}" required></p>
-			
-			<p>メモ<textarea name="memo" wrap="hard">${ms.memo}</textarea></p>
+					<c:choose>
+						<c:when test="${ms.color == '#abf9a8'}">
+							<label><input type="radio" name="color" value="#abf9a8" checked ><span style="background-color:#abf9a8;">　</span></label>
+						</c:when>
+						<c:otherwise>
+							<label><input type="radio" name="color" value="#abf9a8"><span style="background-color:#abf9a8;">　</span></label>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${ms.color == 'rgba(212,60,250,0.4)'}">
+							<label><input type="radio" name="color" value="rgba(212,60,250,0.4)" checked ><span style="background-color:rgba(212,60,250,0.4);">　</span></label>
+						</c:when>
+						<c:otherwise>
+							<label><input type="radio" name="color" value="rgba(212,60,250,0.4)"><span style="background-color:rgba(212,60,250,0.4);">　</span></label>
+						</c:otherwise>
+					</c:choose>
+				</td></tr>
+				
+				<tr><td class="item_name">件名</td>
+				<td><input class="subject" type="text" name="subject" value="${ms.subject}" required></td></tr>
+				
+				<tr><td class="item_name">メモ</td>
+				<td><textarea name="memo" wrap="hard">${ms.memo}</textarea></td><tr>
+			</table>
 			
 			<input type="hidden" name="skdId" value="${ms.skdId}">
-			<br><input type="submit" value="登録する">
+			<br><input class="btn" type="submit" value="登録する">
 		</form>
 		<c:if test="${fn:length(ms.subject) != 0}">
 			<form action="/kintai/AddSchedule" method="post">
 				<input type="hidden" name="action" value="delete">
 				<input type="hidden" name="skdId" value="${ms.skdId}">
-				<input type="submit" value="削除">
+				<input class="btn" type="submit" value="削除">
 			</form>
 		</c:if>
-		<a href="javascript:history.back()">戻る</a>
+		<a class="btn" href="javascript:history.back()">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

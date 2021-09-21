@@ -11,21 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.EmpMasterDAO;
 
+//管理者ログインチェックフィルターを通る
 
 @WebServlet("/DeleteEmpMaster")
 public class DeleteEmpMaster extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//従業員情報を削除する
-		
 		String empId = request.getParameter("empId");
-		String nextJsp = null;
 		boolean flag = false;
 		
 		EmpMasterDAO empMasterDAO = new EmpMasterDAO();

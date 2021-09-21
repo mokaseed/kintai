@@ -17,7 +17,7 @@ import dao.WorkTimeDAO;
 import entity.Employee;
 import entity.WorkTime;
 
-//管理者ログインチェックを通る
+//管理者ログインチェックフィルターを通る
 
 @WebServlet("/SysadminWorkTime")
 public class SysadminWorkTime extends HttpServlet {
@@ -72,43 +72,43 @@ public class SysadminWorkTime extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				//勤怠管理画面の年月選択で選択された月のタイムシートを表示
+		//勤怠管理画面の年月選択で選択された月のタイムシートを表示
+
+		//選択された年月を取得
+		String y = request.getParameter("selectY");
+		String m = request.getParameter("selectM");
+	
+		if(m.length() == 1) {
+			m = "0" + m;
+		}
+		String thisMonth = y + "-" + m ;
 		
-				//選択された年月を取得
-				String y = request.getParameter("selectY");
-				String m = request.getParameter("selectM");
-			
-				if(m.length() == 1) {
-					m = "0" + m;
-				}
-				String thisMonth = y + "-" + m ;
-				
-				Calendar thisMonthCalendar = Calendar.getInstance();
-				thisMonthCalendar.set(Calendar.YEAR, Integer.parseInt(y));
-				thisMonthCalendar.set(Calendar.MONTH, Integer.parseInt(m));
-				
-				//社員IDを取得
-				HttpSession session = request.getSession(false);
-				String index = (String)session.getAttribute("index");
-				List<Employee> empList = (List<Employee>)session.getAttribute("empList");
-				Employee emp = empList.get(Integer.parseInt(index, 10));
-				
-				WorkTimeDAO tsDAO = new WorkTimeDAO();
-				List<WorkTime> workTimeList = new ArrayList<>();
-				
-				//選択された年月の勤務時刻情報を取得
-				workTimeList = tsDAO.selectWorkTimeList(emp.getEmpId(), thisMonth);
-				
-				String nextJsp;
-				if(workTimeList == null) {
-					nextJsp = "/WEB-INF/jsp/sysadmin/sysadminError.jsp";
-				} else {
-					session.setAttribute("workTimeList", workTimeList);
-					session.setAttribute("thisMonthCalendar", thisMonthCalendar);
-					nextJsp = "/WEB-INF/jsp/sysadmin/sysadminWorkTimeList.jsp";
-				}
-				RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
-				dispatcher.forward(request, response);
+		Calendar thisMonthCalendar = Calendar.getInstance();
+		thisMonthCalendar.set(Calendar.YEAR, Integer.parseInt(y));
+		thisMonthCalendar.set(Calendar.MONTH, Integer.parseInt(m));
+		
+		//社員IDを取得
+		HttpSession session = request.getSession(false);
+		String index = (String)session.getAttribute("index");
+		List<Employee> empList = (List<Employee>)session.getAttribute("empList");
+		Employee emp = empList.get(Integer.parseInt(index, 10));
+		
+		WorkTimeDAO tsDAO = new WorkTimeDAO();
+		List<WorkTime> workTimeList = new ArrayList<>();
+		
+		//選択された年月の勤務時刻情報を取得
+		workTimeList = tsDAO.selectWorkTimeList(emp.getEmpId(), thisMonth);
+		
+		String nextJsp;
+		if(workTimeList == null) {
+			nextJsp = "/WEB-INF/jsp/sysadmin/sysadminError.jsp";
+		} else {
+			session.setAttribute("workTimeList", workTimeList);
+			session.setAttribute("thisMonthCalendar", thisMonthCalendar);
+			nextJsp = "/WEB-INF/jsp/sysadmin/sysadminWorkTimeList.jsp";
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
+		dispatcher.forward(request, response);
 				
 	}
 

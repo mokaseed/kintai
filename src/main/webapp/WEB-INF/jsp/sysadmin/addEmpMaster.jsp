@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/updateEmpMaster.css" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 従業員新規登録</title>
 </head>
 <body>
@@ -17,11 +17,13 @@
 		<form action="/kintai/AddEmpMaster" method="post">
 			<table>
 				<tr>
-					<td>氏名</td>
-					<td>姓<input type="text" name="lastName" required>名<input type="text" name="firstName" required></td>
+					<td class="item_name name">氏名</td>
+					<td><input class="text last_name" type="text" name="lastName" placeholder="姓" required><br>
+						<input class="text" type="text" name="firstName" placeholder="名" required>
+					</td>
 				</tr>
 				<tr>
-					<td>所属</td>
+					<td class="item_name">所属</td>
 					<td>
 						<select name="deptName">
 							<c:forEach var="dept" items="${deptList}">
@@ -31,43 +33,41 @@
 					</td>
 				</tr>
 				<tr>
-					<td>電話番号</td>
-					<td><input type="tel" name="tel"></td>
+					<td class="item_name">電話番号</td>
+					<td><input class="text" type="tel" name="tel"></td>
 				</tr>
 				<tr>
-					<td>メールアドレス</td>
-					<td><input type="text" name="mail"></td>
+					<td class="item_name">メールアドレス</td>
+					<td><input class="text" type="text" name="mail"></td>
 				</tr>
 				<tr>
-					<td>入社日</td>
-					<td><input type="date" name="hireDate"></td>
+					<td class="item_name">入社日</td>
+					<td><input class="text" type="date" name="hireDate"></td>
 				</tr>
 				<tr>
-					<td>パスワード</td>
-					<td><input type="password" name="pass" required></td>
+					<td class="item_name">パスワード</td>
+					<td><input class="text" type="password" name="pass" required></td>
 				</tr>
 				<tr>
-					<td>パスワード(確認用)</td>
-					<td><input type="password" name="passCheck" required></td>
+					<td class="item_name">パスワード(確認用)</td>
+					<td><input class="text" type="password" name="passCheck" required></td>
 				</tr>
 				<tr>
-					<td>管理者権限</td>
+					<td class="item_name">管理者権限</td>
 					<td>
 					<input type="radio" name="sysadmin" value="1">有
 					<input type="radio" name="sysadmin" value="0" checked>無
 					</td>
 				</tr>
 				<tr>
-					<td>備考</td>
+					<td class="item_name memo">備考</td>
 					<td><textarea name="remarks"></textarea></td>
 				</tr>
 			</table>
-			<input type="submit" value="入力内容を確認する">
+			<input class="btn" type="submit" value="入力内容を確認する">
 		</form>
-	</div>
-	<div align="center">
-		<a href="/kintai/SysadminEmpList">戻る</a><br>
+		<a class="btn" href="/kintai/SysadminEmpList">戻る</a><br>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
-</html></html>
+</html>

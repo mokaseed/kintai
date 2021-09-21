@@ -17,11 +17,11 @@ import dao.EmpListDAO;
 import entity.Dept;
 import entity.Employee;
 
+//管理者ログインチェックフィルターを通る
+
 @WebServlet("/SysadminEmpList")
 public class SysadminEmpList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	//管理者ログインチェックフィルターを通る
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

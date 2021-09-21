@@ -24,7 +24,9 @@
 		</c:choose>
 		<br>
 		登録完了しました</p>
-		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		<div class="bottom_btn_box">
+			<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

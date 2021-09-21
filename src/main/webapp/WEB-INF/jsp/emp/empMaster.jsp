@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/empMaster.css" rel="stylesheet" type="text/css" />
 <title>Kintai 従業員一覧　詳細</title>
 </head>
 <body>
@@ -17,34 +17,34 @@
 		<table>
 			<c:set var="index" value="${index}"/>
 			<tr>
-				<td>氏名</td>
+				<td class="item_name">氏名</td>
 				<td>${empList[index].name}</td>
 			</tr>
 			<tr>
-				<td>所属</td>
+				<td class="item_name">所属</td>
 				<td>${empList[index].deptName}</td>
 			</tr>
 			<tr>
-				<td>電話番号</td>
+				<td class="item_name">電話番号</td>
 				<td>${empList[index].tel}</td>
 			</tr>
 			<tr>
-				<td>メールアドレス</td>
+				<td class="item_name">メールアドレス</td>
 				<td>${empList[index].mail}</td>
 			</tr>
 			<tr>
-				<td>入社日</td>
+				<td class="item_name">入社日</td>
 				<td>${empList[index].hireDate}</td>
 			</tr>
 			<tr>
-				<td>備考</td>
+				<td class="item_name">備考</td>
 				<td>${empList[index].remarks}</td>
 			</tr>
 		</table>
 	</div>
-	<div align="center">
-		<a href="javascript:history.back()">戻る</a><br>
-		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+	<div class="bottom_btn_box" align="center">
+		<a class="btn" href="javascript:history.back()">戻る</a><br>
+		<a class="btn" href="/kintai/Forward?action=empMenu">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

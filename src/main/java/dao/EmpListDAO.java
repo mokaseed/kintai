@@ -9,7 +9,7 @@ import java.util.List;
 
 import entity.Employee;
 
-
+//条件に合う従業員リストを取得するDAO
 public class EmpListDAO {
 	final String jdbcId = "root";
     final String jdbcPass = "seedrose";
@@ -35,7 +35,7 @@ public class EmpListDAO {
 	   		
 	   		while(rs.next()) {
 	   			Employee emp = new Employee();
-//	   			見つかったアカウント情報を戻り値にセット
+	   			//見つかったアカウント情報を戻り値にセット
 	   			if(rs.getString("emp_id") != null) {
 	   				int id = rs.getInt("emp_id");
 	   				emp.setEmpId(id);
@@ -113,7 +113,7 @@ public class EmpListDAO {
 	   		
 	   		while(rs.next()) {
 	   			Employee emp = new Employee();
-//		   			見つかったアカウント情報を戻り値にセット
+		   		//見つかったアカウント情報を戻り値にセット
 	   			if(rs.getString("emp_id") != null) {
 	   				int id = rs.getInt("emp_id");
 	   				emp.setEmpId(id);
@@ -193,7 +193,7 @@ public class EmpListDAO {
 	   		
 	   		while(rs.next()) {
 	   			Employee emp = new Employee();
-//		   			見つかったアカウント情報を戻り値にセット
+		   		//見つかったアカウント情報を戻り値にセット
 	   			if(rs.getString("emp_id") != null) {
 	   				int id = rs.getInt("emp_id");
 	   				emp.setEmpId(id);
@@ -276,7 +276,7 @@ public class EmpListDAO {
 	   		
 	   		while(rs.next()) {
 	   			Employee emp = new Employee();
-//			   			見つかったアカウント情報を戻り値にセット
+			   	//見つかったアカウント情報を戻り値にセット
 	   			if(rs.getString("emp_id") != null) {
 	   				int id = rs.getInt("emp_id");
 	   				emp.setEmpId(id);

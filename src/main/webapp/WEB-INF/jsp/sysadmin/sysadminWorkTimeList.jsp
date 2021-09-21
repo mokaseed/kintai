@@ -28,7 +28,7 @@ request.setAttribute("check", check);
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/workTimeList.css" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 勤怠管理</title>
 </head>
 <body>
@@ -38,9 +38,9 @@ request.setAttribute("check", check);
 		<h1>${empList[index].name}さんの<br>
 		${year}年${month}月分タイムシート</h1>
 	</div>
-	<div align="center">
-		<form action="/kintai/SysadminWorkTime" method="post">
-			<select name="selectY">
+	<div class="select_box" align="center">
+		<form class="select" action="/kintai/SysadminWorkTime" method="post">
+			<select class="select_year" name="selectY">
 				<c:forEach var="y" items="${yearNumbers}">
 					<c:choose>
 						<c:when test="${y == year}">
@@ -52,7 +52,7 @@ request.setAttribute("check", check);
 					</c:choose>
 				</c:forEach>
 			</select>
-			<select name="selectM">
+			<select class="select_month" name="selectM">
 				<c:set var="month" value="${month}" />
 				<c:forEach var="m" items="${monthNumbers}">
 					<c:choose>
@@ -65,8 +65,9 @@ request.setAttribute("check", check);
 					</c:choose>
 				</c:forEach>
 			</select>
-			<input type="submit" value="表示">
+			<input class="btn_hover" type="submit" value="表示">
 		</form>
+		<a class="bottom_btn" href="/kintai/SysadminEmpList">従業員一覧に戻る</a>
 	</div>
 	<div class="main_wrapper" align="center">
 		<table>
@@ -85,7 +86,7 @@ request.setAttribute("check", check);
 						<tr>
 					</c:when>
 					<c:otherwise>
-						<tr style="background-color:red;">
+						<tr style="background-color:rgba(250,60,60,0.6);">
 					</c:otherwise>
 				</c:choose>
 					<td>
@@ -120,14 +121,14 @@ request.setAttribute("check", check);
 								</c:if>
 							</td>
 							<td>
-								<form action="/kintai/UpdateWorkTime">
+								<form action="/kintai/SysadminUpdateWorkTime">
 									<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
 									<input type="hidden" name="workDate" value="${year}-${s_month}-${workDate}">
 									<input type="hidden" name="startTime" value="${workTime.startTime}">
 									<input type="hidden" name="breakStartTime" value="${workTime.breakStartTime}">
 									<input type="hidden" name="breakFinishTime" value="${workTime.breakFinishTime}">
 									<input type="hidden" name="finishTime" value="${workTime.finishTime}">
-									<input type="submit" value="修正">
+									<input class="btn_hover" type="submit" value="修正">
 								</form>
 							</td></tr>
 						<c:set var="chkDateFlag" value="true"/>
@@ -137,7 +138,7 @@ request.setAttribute("check", check);
 					<c:if test="${chkDateFlag == false}">
 						<td></td><td></td><td></td><td></td>
 					<td>
-						<form action="/kintai/UpdateWorkTime">
+						<form action="/kintai/SysadminUpdateWorkTime">
 							<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
 							<c:set var="s_date"><fmt:formatNumber value="${date}" pattern="00"/></c:set>
 							<input type="hidden" name="workDate" value="${year}-${s_month}-${s_date}">
@@ -145,16 +146,16 @@ request.setAttribute("check", check);
 							<input type="hidden" name="breakStartTime" value="">
 							<input type="hidden" name="breakFinishTime" value="">
 							<input type="hidden" name="finishTime" value="">
-							<input type="submit" value="修正">
+							<input class="btn_hover" type="submit" value="修正">
 						</form>
 					</td>
 					</c:if>
 			</c:forEach>
 		</table>
 	</div>
-	<div align="center">
-		<a href="/kintai/SysadminEmpList">従業員一覧に戻る</a><br>
-		<a href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+	<div class="bottom_btn_box" align="center">
+		<a class="bottom_btn" href="/kintai/SysadminEmpList">従業員一覧に戻る</a><br>
+		<a class="bottom_btn" href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

@@ -18,7 +18,7 @@ import entity.Dept;
 import entity.Employee;
 
 
-//ログインチェックフィルターを通る
+//従業員ログインチェックフィルターを通る
 
 @WebServlet("/EmpList")
 public class EmpList extends HttpServlet {

@@ -19,6 +19,8 @@ import entity.Employee;
 import entity.WorkTime;
 import model.WorkTimeCheck;
 
+//従業員ログインチェックフィルターを通る
+
 @WebServlet("/UpdateWorkTime")
 public class UpdateWorkTime extends HttpServlet {
 	private static final long serialVersionUID = 1L;

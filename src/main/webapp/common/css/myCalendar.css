@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+*{
+	padding:0;
+	margin:0;
+	/* border-style: none; */
+	font-family: "Meiryo",sans-serif;
+}
+
+.title {
+	width: 100%;
+	text-align: center;
+	color: #38bba4;
+	padding: 60px 0 0px 0;
+}
+
+.main_wrapper{
+    margin: auto;
+    margin-top: 20px;
+}
+
+.top_btn{
+	width: 800px;
+	margin: auto;
+	text-align: center;
+}
+
+.top_btn a {
+	display: inline-block;
+	cursor: pointer; 
+	text-decoration: none;
+	text-align: center;
+	background-color: #38bba4;
+	width: 100px; 
+	height: 20px;
+	line-height: 20px;
+	margin: 20px auto;
+	color: white;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+.top_btn a:hover {
+	opacity: 0.6;
+}
+
+
+table {
+	width:700px;
+	font-size: 16px;
+	border-collapse: collapse
+}
+
+table th {
+	padding: 0 auto;
+	width: 65px;
+	border: 2px solid #38bba4;
+	border-bottom: 4px double white;
+	background-color: rgba(56,187,164,0.8);
+	color: white;
+	padding:5px;
+}
+
+td{
+	border: 2px solid #38bba4;
+  	background-color: rgba(56,187,164,0.8);
+  	color: white;
+	width:100px;
+	position: relative;
+	text-align: center;
+  	padding: 5px 0 5px 0;	
+}
+
+.schedule_td{
+	padding-bottom:15px;
+	text-align: left;
+	background: transparent;
+	color: black;
+	vertical-align: top;
+}
+
+.add_icon{
+	position: absolute;
+    right: 0;
+    bottom: 0;
+
+}
+
+.bottom_btn_box{
+	margin-top: 20px;
+	width: 100%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.bottom_btn{
+	display: inline-block;
+	cursor: pointer; 
+	text-decoration: none;
+	text-align: center;
+	background-color: #38bba4;
+	width: 150px; 
+	height: 20px;
+	line-height: 20px;
+	margin: 20px auto;
+	color: white;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+.bottom_btn:hover{
+	opacity: 0.6;
+}

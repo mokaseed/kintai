@@ -28,18 +28,18 @@ request.setAttribute("check", check);
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/workTimeList.css" rel="stylesheet" type="text/css" />
 <title>Kintai 勤怠管理</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
-	<div class="title" align="center">
+	<div class="title">
 		<h1>${year}年${month}月分タイムシート</h1>
 	</div>
-	<div align="center">
+	<div class="select_box">
 		<form action="/kintai/SelectWorkTimeList" method="post">
 			<c:set var="year" value="${year}" />
-			<select name="selectY">
+			<select class="select_year" name="selectY">
 				<c:forEach var="y" items="${yearNumbers}">
 					<c:choose>
 						<c:when test="${y == year}">
@@ -51,7 +51,7 @@ request.setAttribute("check", check);
 					</c:choose>
 				</c:forEach>
 			</select>
-			<select name="selectM">
+			<select class="select_month" name="selectM">
 				<c:set var="month" value="${month}" />
 				<c:forEach var="m" items="${monthNumbers}">
 					<c:choose>
@@ -64,11 +64,11 @@ request.setAttribute("check", check);
 					</c:choose>
 				</c:forEach>
 			</select>
-			<input type="submit" value="表示">
+			<input class="btn_hover" type="submit" value="表示">
 		</form>
 	</div>
 	<div class="main_wrapper" align="center">
-		<table>
+		<table class="work_time_list_table">
 			<tr>
 				<th>日付</th><th>出勤</th><th>休憩開始</th><th>休憩終了</th><th>退勤</th><th>修正</th>
 			</tr>
@@ -84,7 +84,7 @@ request.setAttribute("check", check);
 						<tr>
 					</c:when>
 					<c:otherwise>
-						<tr style="background-color:red;">
+						<tr style="background-color:rgba(250,60,60,0.6);">
 					</c:otherwise>
 				</c:choose>
 					<td>
@@ -126,7 +126,7 @@ request.setAttribute("check", check);
 									<input type="hidden" name="breakStartTime" value="${workTime.breakStartTime}">
 									<input type="hidden" name="breakFinishTime" value="${workTime.breakFinishTime}">
 									<input type="hidden" name="finishTime" value="${workTime.finishTime}">
-									<input type="submit" value="修正">
+									<input class="btn_hover" type="submit" value="修正">
 								</form>
 							</td></tr>
 						<c:set var="chkDateFlag" value="true"/>
@@ -144,15 +144,15 @@ request.setAttribute("check", check);
 							<input type="hidden" name="breakStartTime" value="">
 							<input type="hidden" name="breakFinishTime" value="">
 							<input type="hidden" name="finishTime" value="">
-							<input type="submit" value="修正">
+							<input class="btn_hover" type="submit" value="修正">
 						</form>
 					</td>
 					</c:if>
 			</c:forEach>
 		</table>
 	</div>
-	<div align="center">
-		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+	<div class="bottom_btn_box">
+		<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

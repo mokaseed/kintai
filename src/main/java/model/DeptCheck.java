@@ -4,6 +4,7 @@ import java.util.List;
 
 import entity.Dept;
 
+//事業部名を元に事業部IDを返す
 public class DeptCheck {
 	
 	int deptId;

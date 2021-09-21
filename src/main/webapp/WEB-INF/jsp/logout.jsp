@@ -12,7 +12,7 @@
 <div class="title">
 	<h1>ログアウト</h1>
 </div>
-<div class="title" align="center">
+<div class="main_wrapper" align="center">
 	<p >ログアウトしました</p><br>
 	<a class="menu_btn" href="/kintai/Forward?action=top">TOPへ戻る</a>
 </div>

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+//勤怠打刻に関するDAO
 public class ClockOnDAO {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -22,8 +23,6 @@ public class ClockOnDAO {
 	//勤怠打刻で出勤が押された場合の処理
     public boolean setWorkStartTime(int empId, String cond){
 		try {
-//    		Class.forName("com.mysql.jdbc.Driver");
-//    		con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
     		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date = ?";
     		ps = con.prepareStatement(sql);
     		ps.setInt(1, empId);

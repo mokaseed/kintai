@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class MyCalendar implements Serializable{
 	
-	private int year;
-	private int month;
-	private  String[][] data;
-	private int lastYear;
-	private int lastMonth;
-	private int nextYear;
-	private int nextMonth;
+	private int year; //カレンダーの年
+	private int month; //カレンダーの月
+	private  String[][] data; //カレンダーの日付
+	private int lastYear; //前月の年
+	private int lastMonth; //前月の月
+	private int nextYear; //次月の年
+	private int nextMonth; //次月の月
 	
 	
 	public int getLastYear() {

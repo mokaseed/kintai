@@ -18,7 +18,7 @@ import entity.Employee;
 /**
  * Servlet Filter implementation class SysadminLoginCheck
  */
-@WebFilter(urlPatterns={"/DeptMaster","/SysadminEmpList", "/AddEmpMaster", "/SysadminEmpMaster", "/SysadminWorkTime", "/SysadminUpdateWorkTime"})
+@WebFilter(urlPatterns={"/DeleteEmpMaster", "/DeptMaster","/SysadminEmpList", "/AddEmpMaster", "/SysadminEmpMaster", "/SysadminWorkTime", "/SysadminUpdateWorkTime"})
 public class SysadminLoginCheck implements Filter {
 
     /**
@@ -43,7 +43,6 @@ public class SysadminLoginCheck implements Filter {
 
         try {
 	        if(session.getAttribute("account") == null) {
-	        	System.out.println("管理者ログインフィルターのaccount==nullが実行されました");
 	        	// セッションがNullならば、top画面へ
 	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
 	            dispatcher.forward(request,response);
@@ -51,8 +50,6 @@ public class SysadminLoginCheck implements Filter {
 	        	// セッションがNULLでなければ、管理者権限があるか確認
 	        	Employee account = (Employee)session.getAttribute("account");
 	        	if(account.getSysadmin().equals("1")) {
-	        		System.out.println("管理者ログインフィルターをOKで通過しました");
-//	        		chain.doFilter(request, response);
 	        	} else {
 	        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
 		            dispatcher.forward(request,response);
@@ -60,7 +57,6 @@ public class SysadminLoginCheck implements Filter {
 	        }
         } catch(Exception e) {
         	e.printStackTrace();
-        	System.out.println("管理者ログインフィルターのcatchが実行されました");
         	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
             dispatcher.forward(request,response);
         }

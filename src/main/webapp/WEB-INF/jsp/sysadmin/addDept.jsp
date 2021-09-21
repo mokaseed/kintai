@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
-<title>kintai 事業部管理</title>
+<link href="/kintai/common/css/updateWorkTime.css" rel="stylesheet" type="text/css" />
+<title>kintai 管理者 - 事業部管理</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />
@@ -14,13 +14,18 @@
 	</div>
 	<div class="main_wrapper" align="center">
 		<form action="/kintai/DeptMaster" method="post">
-			事業部名：<input type="text" name="deptName">
+			<table>
+				<tr>
+					<td class="item_name">事業部名</td>
+					<td><input class="add_dept_text" type="text" name="deptName"></td>
+				</tr>
+			</table>
 			<input type="hidden" name="action" value="regist">
-			<br><input type="submit" value="登録する">
+			<br><input class="bottom_btn" type="submit" value="登録する">
 		</form>
 	</div>
 	<div align="center">
-		<a href="/kintai/DeptMaster">戻る</a>
+		<a class="bottom_btn" href="/kintai/DeptMaster">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 

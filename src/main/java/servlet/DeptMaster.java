@@ -15,7 +15,7 @@ import dao.DeptDAO;
 import entity.Dept;
 
 
-//管理者ログインチェックを通る
+//管理者ログインチェックフィルターを通る
 
 @WebServlet("/DeptMaster")
 public class DeptMaster extends HttpServlet {
@@ -86,12 +86,18 @@ public class DeptMaster extends HttpServlet {
 		} else if(action.equals("delete")) {
 			String deptId = request.getParameter("deptId");
 			
+			//エラー文言List
+			List<String> errorMsgList = null;
+			
 			if(deptId != null) {
-				flag = deptDAO.deleteDept(Integer.parseInt(deptId));
+				errorMsgList = deptDAO.deleteDept(Integer.parseInt(deptId));
 			}
 			
-			if(flag == false) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/sysadminError.jsp");
+			
+			//エラーがある場合はエラー画面へ
+			if(errorMsgList.isEmpty() == false || errorMsgList == null) {
+				request.setAttribute("errorMsgList", errorMsgList);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sysadmin/deptDeleteError.jsp");
 				dispatcher.forward(request, response);
 			}
 		}

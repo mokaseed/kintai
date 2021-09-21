@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/cond.css" rel="stylesheet" type="text/css" />
 <title>Kintai 勤怠入力</title>
 </head>
 <body>
@@ -15,18 +15,19 @@
 	</div>
 	<div class="main_wrapper" align="center">
 		<p>今のコンディションを選択してください</p>
-<!-- 	画像をラジオボタンにするやり方は以下を参考に作成する予定
-		https://0forest.com/radio-button-image/ 
-		・ボタンを消す　・未選択のものは半透明、選択したものは濃くする-->
 		<form action="/kintai/Cond" method="POST">
 		<input type="hidden" name="clockOn" value="${ clockOn }">
-		<label><input type="radio" name="cond" value="1"><img width="60" height="60" src="/kintai/common/png/veryFine.png"></label>
-		<label><input type="radio" name="cond" value="2"><img width="60" height="60" src="/kintai/common/png/fine.png"></label>
-		<label><input type="radio" name="cond" value="3"><img width="60" height="60" src="/kintai/common/png/OK.png"></label>
-		<label><input type="radio" name="cond" value="4"><img width="60" height="60" src="/kintai/common/png/bad.png"></label><br>
-		<input type="submit" value="登録する">
+		<div class="cond_btn">
+			<input id="veryFine" type="radio" name="cond" value="1"><label for="veryFine"><img width="60" height="60" src="/kintai/common/png/veryFine.png"></label>
+			<input id="fine" type="radio" name="cond" value="2"><label for="fine"><img width="60" height="60" src="/kintai/common/png/fine.png"></label>
+			<input id="OK" type="radio" name="cond" value="3"><label for="OK"><img width="60" height="60" src="/kintai/common/png/OK.png"></label>
+			<input id="bad" type="radio" name="cond" value="4"><label for="bad"><img width="60" height="60" src="/kintai/common/png/bad.png"></label><br>
+		</div>
+		<input class="regist_btn" type="submit" value="登録する">
 		</form>
-		<a href="/kintai/ClockOn">出退勤選択に戻る</a>
+		<div class="bottom_btn_box">
+			<a class="bottom_btn" href="/kintai/ClockOn">出退勤選択に戻る</a>
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

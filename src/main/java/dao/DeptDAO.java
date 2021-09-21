@@ -9,6 +9,7 @@ import java.util.List;
 
 import entity.Dept;
 
+//事業部管理に関するDAO
 public class DeptDAO {
 	
 	final String jdbcId = "root";
@@ -147,25 +148,45 @@ public class DeptDAO {
 	}
 	
 	//事業部情報を削除する
-	public boolean deleteDept(int deptId) {
+	public List<String> deleteDept(int deptId) {
+		
+		//戻り値の用意
+		List<String> errorMsgList = new ArrayList<>();
+		
 		try {
-			String sql = "DELETE FROM m_dept WHERE dept_id = ?";
-			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, deptId);
-			int rowcount = ps.executeUpdate();
+			String sql = "SELECT * FROM m_emp WHERE dept_id = ?";
+    		ps = con.prepareStatement(sql);
+    		
+    		ps.setInt(1, deptId);
+    		
+    		rs = ps.executeQuery();
+    		
+    		if(rs.next()) {
+    			//該当ありの場合はエラー文言を返す
+    			errorMsgList.add("当該事業部に所属設定されている従業員がいるため事業部を削除できません。");
+    			
+    		} else {
+    			//アカウントがなければnullを返す
+    			sql = "DELETE FROM m_dept WHERE dept_id = ?";
+    			ps = con.prepareStatement(sql);
+    			
+    			ps.setInt(1, deptId);
+    			int rowcount = ps.executeUpdate();
+    			
+    			if(rowcount != 0) {
+    				System.out.println("事業部情報の削除が完了しました");
+    			} else {
+    				System.out.println("事業部情報の削除ができませんでした");
+    				errorMsgList.add("当該事業部の削除に失敗しました。");
+    			}
+    		}
 			
-			if(rowcount != 0) {
-				System.out.println("事業部情報の削除が完了しました");
-			} else {
-				System.out.println("事業部情報の削除ができませんでした");
-				return false;
-			}
 			
 		} catch(SQLException e) {
     		e.printStackTrace();
     		System.out.println("事業部情報の削除ができませんでした");
-    		return false;
+    		errorMsgList.add("当該事業部の削除に失敗しました。");
     	} finally {
     		if(rs != null) {
     			try {
@@ -184,6 +205,6 @@ public class DeptDAO {
     		//DB接続を切断するメソッド
     		connectionManager.close();
     	}
-		return true;
+		return errorMsgList;
 	}
 }

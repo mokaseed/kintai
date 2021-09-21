@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/kintai/common/css/myCalendar.css" rel="stylesheet" type="text/css" />
 <title>カレンダーテスト</title>
 </head>
 <body>
@@ -22,132 +22,133 @@
 		<h1>${mc.year}年${mc.month}月カレンダー</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<p>
+		<div class="top_btn">
 			<a href="?year=${mc.year}&month=${mc.month - 1}">前月</a>
 			<a href="?year=${mc.year}&month=${mc.month + 1}">翌月</a>
-			<a href="/kintai/AddSchedule?year=${mc.year}&month=${mc.month}">予定を追加</a>
-		</p>
+			<a class="add_schedule_btn" href="/kintai/AddSchedule?year=${mc.year}&month=${mc.month}">予定を追加</a>
+		</div>
 		
 		<!-- カレンダーを表示 -->
-		<table border="1" style="border-collapse: collapse">
-			<tr>
-				<th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
-			</tr>
-			<c:forEach var="rows" items="${mc.data}">
+		<div class="calendar">
+			<table border="1" style="border-collapse: collapse">
 				<tr>
-					<c:forEach var="col" items="${rows}">
-						<!-- カレンダーの日数を表示（印をつけたものは印を外す） -->
-						<c:choose>
-							<c:when test="${fn:startsWith(col, 't')}">
-								<td class="today" style="background-color:#;">${fn:substring(col, 1, -1)}</td>
-							</c:when>
-							<c:when test="${fn:startsWith(col, 'b')}">
-								<td class="before">${fn:substring(col, 1, -1)}</td>
-							</c:when>
-							<c:when test="${fn:startsWith(col, 'a')}">
-								<td class="after">${fn:substring(col, 1, -1)}</td>
-							</c:when>
-							<c:otherwise><td>${col}</td></c:otherwise>
-						</c:choose>
-					</c:forEach>
+					<th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
 				</tr>
-				<tr>
-					<c:forEach var="col" items="${rows}">
-					<td>
- 					<c:set var="index" value="0"/>
- 						<c:forEach var="ms" items="${myScheduleList}">
-						<%-- <c:forEach var="ms" items="${sessionScope.myScheduleList}"> --%>
-							<c:set var="index" value="${index + 1}"/>
-							<!-- そのマスが何年何月何日であるかを調べ、変数dateに代入する -->
+				<c:forEach var="rows" items="${mc.data}">
+					<tr>
+						<c:forEach var="col" items="${rows}">
+							<!-- カレンダーの日数を表示（印をつけたものは印を外す） -->
 							<c:choose>
-								<c:when test="${fn:startsWith(col, 't') or fn:startsWith(col, 'b') or fn:startsWith(col, 'a')}">
-									<c:set var="dd" value="${fn:substring(col, 1, -1)}"/>
-									<c:if test="${ fn:length(dd) == 1 }">
-										<c:set var="dd">0${dd}</c:set>
-									</c:if>
-									<c:choose>
-										<c:when test="${fn:startsWith(col, 'b')}">
-											<c:set var="lastMonth">${mc.lastMonth}</c:set>
-											<c:choose>
-												<c:when test="${ fn:length(lastMonth) == 1 }">
-													<c:set var="MM">0${lastMonth}</c:set>
-												</c:when>
-												<c:otherwise>
-													<c:set var="MM" value="${lastMonth}" />
-												</c:otherwise>
-											</c:choose>
-											<c:set var="date">${mc.lastYear}-${MM}-${dd}</c:set>
-										</c:when>
-										<c:when test="${fn:startsWith(col, 'a')}">
-											<c:set var="nextMonth">${mc.nextMonth}</c:set>
-											<c:choose>
-												<c:when test="${fn:length(nextMonth) == 1}">
-													<c:set var="MM">0${nextMonth}</c:set>
-												</c:when>
-												<c:otherwise>
-													<c:set var="MM" value="${nextMonth}" />
-												</c:otherwise>
-											</c:choose>
-											<c:set var="date">${mc.nextYear}-${MM}-${dd}</c:set>
-										</c:when>
-										<c:otherwise>
-											<c:set var="month">${mc.month}</c:set>
-											<c:choose>
-												<c:when test="${fn:length(month) == 1}">
-													<c:set var="MM">0${month}</c:set>
-												</c:when>
-												<c:otherwise>
-													<c:set var="MM" value="${month}" />
-												</c:otherwise>
-											</c:choose>
-											<c:set var="date">${mc.year}-${MM}-${dd}</c:set>
-										</c:otherwise>
-									</c:choose>
+								<c:when test="${fn:startsWith(col, 't')}">
+									<td class="today" style="background-color:#;">${fn:substring(col, 1, -1)}</td>
 								</c:when>
-								<c:otherwise>
-									<c:set var="dd" value="${col}"/>
-									<c:if test="${ fn:length(dd) == 1 }">
-										<c:set var="dd">0${dd}</c:set>
-									</c:if>
-									<c:set var="month">${mc.month}</c:set>
-									<c:choose>
-										<c:when test="${ fn:length(month) == 1 }">
-											<c:set var="MM">0${month}</c:set>
-										</c:when>
-										<c:otherwise>
-											<c:set var="MM" value="${month}" />
-										</c:otherwise>
-									</c:choose>
-									<c:set var="date">${mc.year}-${MM}-${dd}</c:set>
-								</c:otherwise>
+								<c:when test="${fn:startsWith(col, 'b')}">
+									<td class="before">${fn:substring(col, 1, -1)}</td>
+								</c:when>
+								<c:when test="${fn:startsWith(col, 'a')}">
+									<td class="after">${fn:substring(col, 1, -1)}</td>
+								</c:when>
+								<c:otherwise><td>${col}</td></c:otherwise>
 							</c:choose>
-							
-							<!-- 日付が一致するスケジュールを表示 -->
-							<c:if test="${ms.skdDate == date}">
+						</c:forEach>
+					</tr>
+					<tr>
+						<c:forEach var="col" items="${rows}">
+						<td class="schedule_td">
+	 					<c:set var="index" value="0"/>
+	 						<c:forEach var="ms" items="${myScheduleList}">
+								<c:set var="index" value="${index + 1}"/>
+								<!-- そのマスが何年何月何日であるかを調べ、変数dateに代入する -->
 								<c:choose>
-									<c:when test="${ms.skdStartTime == null}">
-										<div style="background-color:${ms.color};"><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">・${ms.subject}</a></div>
-									</c:when>
-									<c:when test="${ms.skdFinishTime == null}">
-										<div style="background-color:${ms.color};">${ms.skdStartTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+									<c:when test="${fn:startsWith(col, 't') or fn:startsWith(col, 'b') or fn:startsWith(col, 'a')}">
+										<c:set var="dd" value="${fn:substring(col, 1, -1)}"/>
+										<c:if test="${ fn:length(dd) == 1 }">
+											<c:set var="dd">0${dd}</c:set>
+										</c:if>
+										<c:choose>
+											<c:when test="${fn:startsWith(col, 'b')}">
+												<c:set var="lastMonth">${mc.lastMonth}</c:set>
+												<c:choose>
+													<c:when test="${ fn:length(lastMonth) == 1 }">
+														<c:set var="MM">0${lastMonth}</c:set>
+													</c:when>
+													<c:otherwise>
+														<c:set var="MM" value="${lastMonth}" />
+													</c:otherwise>
+												</c:choose>
+												<c:set var="date">${mc.lastYear}-${MM}-${dd}</c:set>
+											</c:when>
+											<c:when test="${fn:startsWith(col, 'a')}">
+												<c:set var="nextMonth">${mc.nextMonth}</c:set>
+												<c:choose>
+													<c:when test="${fn:length(nextMonth) == 1}">
+														<c:set var="MM">0${nextMonth}</c:set>
+													</c:when>
+													<c:otherwise>
+														<c:set var="MM" value="${nextMonth}" />
+													</c:otherwise>
+												</c:choose>
+												<c:set var="date">${mc.nextYear}-${MM}-${dd}</c:set>
+											</c:when>
+											<c:otherwise>
+												<c:set var="month">${mc.month}</c:set>
+												<c:choose>
+													<c:when test="${fn:length(month) == 1}">
+														<c:set var="MM">0${month}</c:set>
+													</c:when>
+													<c:otherwise>
+														<c:set var="MM" value="${month}" />
+													</c:otherwise>
+												</c:choose>
+												<c:set var="date">${mc.year}-${MM}-${dd}</c:set>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<div style="background-color:${ms.color};">${ms.skdStartTime}~${ms.skdFinishTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+										<c:set var="dd" value="${col}"/>
+										<c:if test="${ fn:length(dd) == 1 }">
+											<c:set var="dd">0${dd}</c:set>
+										</c:if>
+										<c:set var="month">${mc.month}</c:set>
+										<c:choose>
+											<c:when test="${ fn:length(month) == 1 }">
+												<c:set var="MM">0${month}</c:set>
+											</c:when>
+											<c:otherwise>
+												<c:set var="MM" value="${month}" />
+											</c:otherwise>
+										</c:choose>
+										<c:set var="date">${mc.year}-${MM}-${dd}</c:set>
 									</c:otherwise>
 								</c:choose>
-							</c:if>
+								
+								<!-- 日付が一致するスケジュールを表示 -->
+								<c:if test="${ms.skdDate == date}">
+									<c:choose>
+										<c:when test="${ms.skdStartTime == null}">
+											<div style="background-color:${ms.color};"><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">・${ms.subject}</a></div>
+										</c:when>
+										<c:when test="${ms.skdFinishTime == null}">
+											<div style="background-color:${ms.color};">${ms.skdStartTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+										</c:when>
+										<c:otherwise>
+											<div style="background-color:${ms.color};">${ms.skdStartTime}~${ms.skdFinishTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+							</c:forEach>
+							<form action="/kintai/AddSchedule">
+						 	<input class="add_icon" type="image" name="date" value="${date}" src="/kintai/common/png/addSchedule.png" alt="予定を追加" width="15" height="15">
+						 	</form>
+							</td>
 						</c:forEach>
-						<form action="/kintai/AddSchedule">
-					 	<input type="image" name="date" value="${date}" src="/kintai/common/png/addSchedule.png" alt="予定を追加" width="20" height="20">
-					 	</form>
-						</td>
-					</c:forEach>
-				</tr>
-			</c:forEach>
-		</table>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 	</div>
-	<div align="center">
-		<a href="/kintai/Forward?action=empMenu">メニューへ戻る</a>
+	<div class="bottom_btn_box" align="center">
+		<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューへ戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

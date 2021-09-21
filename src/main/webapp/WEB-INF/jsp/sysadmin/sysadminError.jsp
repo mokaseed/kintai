@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
-<title>Kintai エラー</title>
+<title>kintai 管理者 - エラー</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />
@@ -15,8 +15,10 @@
 	<div class="main_wrapper" align="center">
 		<p>エラーが発生しました。<br>
 		再度お試しください。</p>
-		<a href="javascript:history.back()">戻る</a><br>
-		<a href="/kintai/Forward?action=sysadminMenu">メニューへ</a>
+		<div  class="bottom_btn_box">
+			<a class="bottom_btn" href="javascript:history.back()">戻る</a><br>
+			<a class="bottom_btn" href="/kintai/Forward?action=sysadminMenu">メニューへ</a>
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

@@ -18,12 +18,12 @@ import entity.Employee;
 import entity.MySchedule;
 import model.AddScheduleCheck;
 
+//従業員ログインチェックフィルターを通る
 
 @WebServlet("/AddSchedule")
 public class AddSchedule extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//「予定を追加」を押した時に表示していたカレンダーの年月を取得
@@ -32,7 +32,6 @@ public class AddSchedule extends HttpServlet {
 		String s_date = request.getParameter("date");
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
-//		String date = null;
 		MySchedule ms = new MySchedule();
 		
 		if(s_index != null) {

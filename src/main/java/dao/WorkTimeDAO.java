@@ -12,6 +12,7 @@ import java.util.List;
 
 import entity.WorkTime;
 
+//勤怠管理のタイムシートの取得や、打刻修正に関するDAO
 public class WorkTimeDAO {
 		final String jdbcId = "root";
 	    final String jdbcPass = "seedrose";
@@ -27,10 +28,10 @@ public class WorkTimeDAO {
 	//タイムシートを表示するための勤務時刻情報を取得
 	public List<WorkTime> selectWorkTimeList(int empId, String thisMonth){
 	   	
-//	   	戻り値の用意
+	   	//戻り値の用意
 	   	List<WorkTime> workTimeList = new ArrayList<>();
 	   	
-//	   	データベースへ接続
+	   	//データベースへ接続
 	   	try {
 	   		String sql = "SELECT * FROM t_work_time WHERE emp_id = ? AND work_date LIKE ?";
 	   		ps = con.prepareStatement(sql);
@@ -42,7 +43,7 @@ public class WorkTimeDAO {
 	   		
 	   		while(rs.next()) {
 	   			WorkTime workTime = new WorkTime();
-//	   			見つかったアカウント情報を戻り値にセット
+	   			//見つかったアカウント情報を戻り値にセット
 	   			if(rs.getString("emp_id") != null) {
 	   				int id = rs.getInt("emp_id");
 	   				workTime.setEmpId(id);

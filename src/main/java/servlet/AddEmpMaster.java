@@ -27,9 +27,9 @@ import model.DeptCheck;
 public class AddEmpMaster extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	//DBから事業部一覧を取得して従業員新規登録画面を表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//DBから事業部一覧を取得して従業員新規登録画面へ
 		DeptDAO deptDAO = new DeptDAO();
 		List<Dept> deptList = deptDAO.selectDeptList();
 		

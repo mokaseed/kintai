@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
-<title>kintai 事業部管理</title>
+<link href="/kintai/common/css/updateWorkTime.css" rel="stylesheet" type="text/css" />
+<title>kintai 管理者 - 事業部管理</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/sysadminHeader.jsp" />
@@ -16,21 +16,34 @@
 	<div class="main_wrapper" align="center">
 	<c:set var="index" value="${index}"/>
 		<form action="/kintai/DeptMaster" method="post">
-			事業部名：<input type="text" name="deptName" value="${deptList[index].deptName}">
+			<table>
+				<tr>
+					<td class="item_name">事業部名</td>
+					<td><input class="add_dept_text" type="text" name="deptName" value="${deptList[index].deptName}"></td>
+				</tr>
+			</table>
 			<input type="hidden" name="deptId" value="${deptList[index].deptId}">
 			<input type="hidden" name="action" value="edit">
-			<br><input type="submit" value="登録する">
+			<br><input class="bottom_btn"  type="submit" value="登録する">
 		</form>
-		<form action="/kintai/DeptMaster" method="post">
-			<input type="hidden" name="deptId" value="${deptList[index].deptId}">
-			<input type="hidden" name="action" value="delete">
-			<br><input type="submit" value="削除する">
-		</form>
+		<label class="open delete_btn" for="pop-up"><a>削除する</a></label>
+		<input type="checkbox" id="pop-up">
+		<div class="overlay">
+			<div class="window">
+				<p class="pop-up_text">事業部を削除します</p><br>
+				<form action="/kintai/DeptMaster" method="post">
+					<input type="hidden" name="deptId" value="${deptList[index].deptId}">
+					<input type="hidden" name="action" value="delete">
+					<input class="pop-up_btn" type="submit" value="はい">
+					<label class="close" for="pop-up"><a class="pop-up_btn">いいえ</a></label>
+				</form>
+			</div>
+		</div>
+		<br>
 	</div>
-	<div align="center">
-		<a href="/kintai/DeptMaster">戻る</a>
+	<div class="bottom_btn_box" align="center">
+		<a class="bottom_btn" href="/kintai/DeptMaster">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
-
 </body>
 </html>

@@ -3,6 +3,7 @@
 *{
 	padding:0;
 	margin:0;
+	font-family: "Meiryo",sans-serif;
 }
 
 header{
@@ -18,8 +19,8 @@ header a{
 	height: 40px;
 	line-height: 40px;
 	text-decoration: none;
-	font-family: "Meiryo",sans-serif;
 	font-weight: bold;
+	font-size: 20px;
 	color: white;
 	margin-left: 20px;
 }

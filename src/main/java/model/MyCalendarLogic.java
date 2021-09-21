@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import entity.MyCalendar;
 
+//カレンダーのデータを生成する
 public class MyCalendarLogic {
 	public MyCalendar createMyCalendar(int... args) {
 		//マイカレンダーインスタンス生成
@@ -47,11 +48,11 @@ public class MyCalendarLogic {
 		
 		//前月の年をセットする
 		mc.setLastYear(cal.get(Calendar.YEAR));
-//		//前月の月をセットする
+		//前月の月をセットする
 		mc.setLastMonth(cal.get(Calendar.MONTH) + 1);
-//		//次月の年月をセットするため次月にする
+		//次月の年月をセットするため次月にする
 		cal.set(Calendar.MONTH, mc.getMonth());
-//		//次月の年をセットする
+		//次月の年をセットする
 		if(mc.getMonth() == 1) {
 			mc.setNextYear(cal.get(Calendar.YEAR) + 1);
 			System.out.println("次月の年" + mc.getNextYear());
@@ -59,7 +60,7 @@ public class MyCalendarLogic {
 			mc.setNextYear(cal.get(Calendar.YEAR));
 			System.out.println("次月の年" + mc.getNextYear());				
 		}
-//		//次月の月をセットする
+		//次月の月をセットする
 		mc.setNextMonth(cal.get(Calendar.MONTH) + 1);
 		System.out.println("次月の月" + mc.getNextMonth());
 		
