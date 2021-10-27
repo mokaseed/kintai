@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+.title {
+	text-align: center;
+	color: #38bba4;
+	font-family: "Meiryo",sans-serif;
+	width: 100%;
+	padding: 60px 0 10px 0;
+}
+
+div{
+	margin-bottom: 20px;
+}
+
+.bottom_btn_box{
+	margin-top: 20px;
+}
+
+p {
+	color: #38bba4;
+	font-family: "Meiryo",sans-serif;
+}
+
+.bottom_btn{
+	display: inline-block;
+	cursor: pointer; 
+	text-decoration: none;
+	text-align: center;
+	background-color: #38bba4;
+	width: 150px; 
+	height: 20px;
+	line-height: 20px;
+	margin: 0px auto;
+	margin-bottom: 10px;
+	color: white;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+.bottom_btn:hover{
+	opacity: 0.6;
+}

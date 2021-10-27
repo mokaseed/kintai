@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+*{
+	padding:0;
+	margin:0;
+	border-style: none;
+	font-family: "Meiryo",sans-serif;
+}
+
+.title {
+	width: 100%;
+	text-align: center;
+	color: #38bba4;
+	padding: 60px 0 0px 0;
+}
+
+.time{
+	color: #38bba4;
+	margin-top: 20px;
+	text-align:  center;
+}
+
+.clock_on_btn_box{
+	display: flex;
+    flex-wrap: wrap;
+    width: 240px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.clock_on_btn{
+	color:white;
+	margin:  7px 10px;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	border-radius: 5px;
+	text-align:  center;
+	background-color:#38bba4;
+	cursor: pointer; 
+}
+
+.clock_on_btn:hover{
+	opacity: 0.6;
+}
+
+.bottom_btn_box{
+	margin-top: 20px;
+	width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.bottom_btn{
+	display: inline-block;
+	cursor: pointer; 
+	text-decoration: none;
+	text-align: center;
+	background-color: #38bba4;
+	width: 150px; 
+	height: 20px;
+	line-height: 20px;
+	margin: 20px auto;
+	color: white;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+.bottom_btn:hover{
+	opacity: 0.6;
+}

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 //DBの接続と切断
 public class ConnectionManager {
-	final String jdbcId = "root";
-    final String jdbcPass = "seedrose";
-    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
+	final String jdbcId = "b92fbb8338a735";
+    final String jdbcPass = "a9972877";
+    final String jdbcUrl = "jdbc:mysql://us-cdbr-east-04.cleardb.com/heroku_4781b9d084eb35a";
     
     Connection con = null;
     
@@ -17,7 +17,7 @@ public class ConnectionManager {
 		
 		if(con == null) {
 			try{
-				Class.forName("com.mysql.jdbc.Driver");
+				Class.forName("com.mysql.cj.jdbc.Driver");
 				con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
 			}catch(SQLException | ClassNotFoundException e){
 				e.printStackTrace();
