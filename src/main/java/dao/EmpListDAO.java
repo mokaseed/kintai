@@ -11,9 +11,6 @@ import entity.Employee;
 
 //条件に合う従業員リストを取得するDAO
 public class EmpListDAO {
-	final String jdbcId = "root";
-    final String jdbcPass = "seedrose";
-    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
     //DBを接続するメソッド
     ConnectionManager connectionManager = new ConnectionManager();
@@ -317,6 +314,7 @@ public class EmpListDAO {
 	   		}
    		} catch(SQLException e) {
    			e.printStackTrace();
+   			System.out.println(e);
    			return null;
     	} finally {
     		if(rs != null) {

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/style.css" %>" rel="stylesheet" type="text/css" />
 <title>kintai 管理者 - 勤怠管理</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
 			<c:out value="${errorMsg}"/><br>
 		</c:forEach></p>
 		<a href="javascript:history.back()">戻る</a><br>
-		<a href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+		<a href="<%= request.getContextPath() + "/Forward?action=sysadminMenu" %>">メニューに戻る</a>
 		
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />

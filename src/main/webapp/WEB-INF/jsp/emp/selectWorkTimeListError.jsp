@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/style.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 勤怠管理</title>
 </head>
 <body>
@@ -18,8 +18,8 @@
 		<p>※ 注意 ※<br>
 		年月を手入力する場合は半角で下記のように入力してください。<br>
 		2020年4月のタイムシート表示したい場合　→　【2020-04】</p><br>
-		<a href="/kintai/SelectWorkTimeList">戻る</a><br>
-		<a href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		<a href="<%= request.getContextPath() + "/SelectWorkTimeList" %>">戻る</a><br>
+		<a href="<%= request.getContextPath() + "/Forward?action=empMenu" %>">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

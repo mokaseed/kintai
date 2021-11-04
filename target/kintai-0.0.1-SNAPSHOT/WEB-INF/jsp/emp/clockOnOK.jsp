@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/style.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 勤怠入力</title>
 </head>
 <body>
@@ -25,7 +25,7 @@
 		<br>
 		登録完了しました</p>
 		<div class="bottom_btn_box">
-			<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+			<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=empMenu" %>">メニューに戻る</a>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />

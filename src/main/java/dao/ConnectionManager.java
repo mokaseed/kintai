@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ConnectionManager {
 	final String jdbcId = "b92fbb8338a735";
     final String jdbcPass = "a9972877";
-    final String jdbcUrl = "jdbc:mysql://us-cdbr-east-04.cleardb.com/heroku_4781b9d084eb35a";
+    final String jdbcUrl = "jdbc:mysql://us-cdbr-east-04.cleardb.com/heroku_4781b9d084eb35a?enabledTLSProtocols=TLSv1.2&useUnicode=true&characterEncoding=utf8";
     
     Connection con = null;
     

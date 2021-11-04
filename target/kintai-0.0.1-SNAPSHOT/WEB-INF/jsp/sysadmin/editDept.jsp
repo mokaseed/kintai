@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/updateWorkTime.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/updateWorkTime.css" %>" rel="stylesheet" type="text/css" />
 <title>kintai 管理者 - 事業部管理</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 	</div>
 	<div class="main_wrapper" align="center">
 	<c:set var="index" value="${index}"/>
-		<form action="/kintai/DeptMaster" method="post">
+		<form action="<%= request.getContextPath() + "/DeptMaster" %>" method="post">
 			<table>
 				<tr>
 					<td class="item_name">事業部名</td>
@@ -31,7 +31,7 @@
 		<div class="overlay">
 			<div class="window">
 				<p class="pop-up_text">事業部を削除します</p><br>
-				<form action="/kintai/DeptMaster" method="post">
+				<form action="<%= request.getContextPath() + "/DeptMaster" %>" method="post">
 					<input type="hidden" name="deptId" value="${deptList[index].deptId}">
 					<input type="hidden" name="action" value="delete">
 					<input class="pop-up_btn" type="submit" value="はい">
@@ -42,7 +42,7 @@
 		<br>
 	</div>
 	<div class="bottom_btn_box" align="center">
-		<a class="bottom_btn" href="/kintai/DeptMaster">戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/DeptMaster" %>">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

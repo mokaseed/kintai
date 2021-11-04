@@ -102,7 +102,7 @@ public class DeptMaster extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect("/kintai/DeptMaster");
+		response.sendRedirect(request.getContextPath() + "/DeptMaster");
 	}
 
 }

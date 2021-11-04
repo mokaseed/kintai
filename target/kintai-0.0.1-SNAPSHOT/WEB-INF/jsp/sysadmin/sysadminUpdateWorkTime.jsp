@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/updateWorkTime.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/updateWorkTime.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 勤怠修正</title>
 </head>
 <body>
@@ -17,7 +17,7 @@
 		<h1>勤怠修正（${empList[index].name}）</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="/kintai/SysadminUpdateWorkTime" method="POST">
+		<form action="<%= request.getContextPath() + "/SysadminUpdateWorkTime" %>" method="POST">
 			<table>
 				<tr>
 					<td class="item_name">日付</td>
@@ -87,7 +87,7 @@
 	</div>
 	<div align="center">
 		<a class="bottom_btn" href="javascript:history.back()">戻る</a><br>
-		<a class="bottom_btn" href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=sysadminMenu" %>">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

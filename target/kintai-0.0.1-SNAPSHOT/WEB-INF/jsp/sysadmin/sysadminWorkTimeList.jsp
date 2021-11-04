@@ -28,7 +28,7 @@ request.setAttribute("check", check);
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/workTimeList.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/workTimeList.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 勤怠管理</title>
 </head>
 <body>
@@ -39,7 +39,7 @@ request.setAttribute("check", check);
 		${year}年${month}月分タイムシート</h1>
 	</div>
 	<div class="select_box" align="center">
-		<form class="select" action="/kintai/SysadminWorkTime" method="post">
+		<form class="select" action="<%= request.getContextPath() + "/SysadminWorkTime" %>" method="post">
 			<select class="select_year" name="selectY">
 				<c:forEach var="y" items="${yearNumbers}">
 					<c:choose>
@@ -67,7 +67,7 @@ request.setAttribute("check", check);
 			</select>
 			<input class="btn_hover" type="submit" value="表示">
 		</form>
-		<a class="bottom_btn" href="/kintai/SysadminEmpList">従業員一覧に戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/SysadminEmpList" %>">従業員一覧に戻る</a>
 	</div>
 	<div class="main_wrapper" align="center">
 		<table>
@@ -121,7 +121,7 @@ request.setAttribute("check", check);
 								</c:if>
 							</td>
 							<td>
-								<form action="/kintai/SysadminUpdateWorkTime">
+								<form action="<%= request.getContextPath() + "/SysadminUpdateWorkTime" %>">
 									<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
 									<input type="hidden" name="workDate" value="${year}-${s_month}-${workDate}">
 									<input type="hidden" name="startTime" value="${workTime.startTime}">
@@ -138,7 +138,7 @@ request.setAttribute("check", check);
 					<c:if test="${chkDateFlag == false}">
 						<td></td><td></td><td></td><td></td>
 					<td>
-						<form action="/kintai/SysadminUpdateWorkTime">
+						<form action="<%= request.getContextPath() + "/SysadminUpdateWorkTime" %>">
 							<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
 							<c:set var="s_date"><fmt:formatNumber value="${date}" pattern="00"/></c:set>
 							<input type="hidden" name="workDate" value="${year}-${s_month}-${s_date}">
@@ -154,8 +154,8 @@ request.setAttribute("check", check);
 		</table>
 	</div>
 	<div class="bottom_btn_box" align="center">
-		<a class="bottom_btn" href="/kintai/SysadminEmpList">従業員一覧に戻る</a><br>
-		<a class="bottom_btn" href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/SysadminEmpList" %>">従業員一覧に戻る</a><br>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=sysadminMenu" %>">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

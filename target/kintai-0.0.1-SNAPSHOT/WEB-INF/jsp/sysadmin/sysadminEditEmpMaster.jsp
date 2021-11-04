@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/updateEmpMaster.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/updateEmpMaster.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 従業員情報詳細</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
 		<h1>従業員情報　修正</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="/kintai/SysadminEmpMaster" method="post">
+		<form action="<%= request.getContextPath() + "/SysadminEmpMaster" %>" method="post">
 			<table>
 				<c:set var="index" value="${index}"/>
 				<tr>
@@ -77,7 +77,7 @@
 		<div class="overlay">
 			<div class="window">
 				<p class="pop-up_text">従業員情報を削除します</p><br>
-				<form action="/kintai/DeleteEmpMaster" method="post">
+				<form action="<%= request.getContextPath() + "/DeleteEmpMaster" %>" method="post">
 					<input type="hidden" name="empId" value="${empList[index].empId}">
 					<input class="pop-up_btn" type="submit" value="はい">
 					<label class="close" for="pop-up"><a class="pop-up_btn">いいえ</a></label>

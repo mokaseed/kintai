@@ -28,7 +28,7 @@ request.setAttribute("check", check);
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/workTimeList.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/workTimeList.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 勤怠管理</title>
 </head>
 <body>
@@ -37,7 +37,7 @@ request.setAttribute("check", check);
 		<h1>${year}年${month}月分タイムシート</h1>
 	</div>
 	<div class="select_box">
-		<form action="/kintai/SelectWorkTimeList" method="post">
+		<form action="<%= request.getContextPath() + "/SelectWorkTimeList" %>" method="post">
 			<c:set var="year" value="${year}" />
 			<select class="select_year" name="selectY">
 				<c:forEach var="y" items="${yearNumbers}">
@@ -119,7 +119,7 @@ request.setAttribute("check", check);
 								</c:if>
 							</td>
 							<td>
-								<form action="/kintai/UpdateWorkTime">
+								<form action="<%= request.getContextPath() + "/UpdateWorkTime" %>">
 									<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
 									<input type="hidden" name="workDate" value="${year}-${s_month}-${workDate}">
 									<input type="hidden" name="startTime" value="${workTime.startTime}">
@@ -136,7 +136,7 @@ request.setAttribute("check", check);
 					<c:if test="${chkDateFlag == false}">
 						<td></td><td></td><td></td><td></td>
 					<td>
-						<form action="/kintai/UpdateWorkTime">
+						<form action="<%= request.getContextPath() + "/UpdateWorkTime" %>">
 							<c:set var="s_month"><fmt:formatNumber value="${month}" pattern="00"/></c:set>
 							<c:set var="s_date"><fmt:formatNumber value="${date}" pattern="00"/></c:set>
 							<input type="hidden" name="workDate" value="${year}-${s_month}-${s_date}">
@@ -152,7 +152,7 @@ request.setAttribute("check", check);
 		</table>
 	</div>
 	<div class="bottom_btn_box">
-		<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューに戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=empMenu" %>">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

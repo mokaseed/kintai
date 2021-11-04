@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/updateEmpMaster.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/updateEmpMaster.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 個人設定 - 従業員情報修正</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<h1>情報修正</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="/kintai/PersonalSettingsEmpMaster" method="post">
+		<form action="<%= request.getContextPath() + "/PersonalSettingsEmpMaster" %>" method="post">
 			<table>
 				<tr>
 					<td class="item_name">社員ID</td>
@@ -60,7 +60,7 @@
 			</table>
 			<input class="btn" type="submit" value="登録する">
 		</form>
-		<a class="btn" href="/kintai/PersonalSettingsEmpMaster">戻る</a>
+		<a class="btn" href="<%= request.getContextPath() + "/PersonalSettingsEmpMaster" %>">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

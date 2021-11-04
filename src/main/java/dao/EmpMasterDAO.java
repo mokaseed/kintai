@@ -11,9 +11,6 @@ import entity.Employee;
 
 //従業員情報の追加・修正・削除を行うDAO
 public class EmpMasterDAO {
-	final String jdbcId = "root";
-    final String jdbcPass = "seedrose";
-    final String jdbcUrl = "jdbc:mysql://localhost:3306/kintai";
     
     //DBを接続するメソッド
     ConnectionManager connectionManager = new ConnectionManager();

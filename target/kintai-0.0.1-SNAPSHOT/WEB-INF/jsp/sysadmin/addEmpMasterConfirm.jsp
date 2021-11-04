@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/empMaster.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/empMaster.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 従業員新規登録</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
 		<h1>従業員新規登録（入力内容確認）</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="/kintai/AddEmpMaster" method="post">
+		<form action="<%= request.getContextPath() + "/AddEmpMaster" %>" method="post">
 			<table>
 				<tr>
 					<td class="item_name">氏名</td>

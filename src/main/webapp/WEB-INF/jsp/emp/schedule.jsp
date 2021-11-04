@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/schedule.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/schedule.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 予定登録</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
 			<tr><td class="item_name">メモ</td><td>${ms.memo}</td></tr>
 		</table>
 			
-		<a class="btn" href="/kintai/AddSchedule?index=${index}">修正</a><br>
+		<a class="btn" href="<%= request.getContextPath() + "/AddSchedule" %>?index=${index}">修正</a><br>
 		<a class="btn" href="javascript:history.back()">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />

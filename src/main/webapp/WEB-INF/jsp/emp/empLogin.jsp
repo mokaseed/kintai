@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/login.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/login.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 従業員ログイン</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<h1>従業員ログイン</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="Login" method="post">
+		<form action="<%= request.getContextPath() + "/Login" %>" method="post">
 			<table>
 				<tr>
 					<td class="box_name">社員ID</td>
@@ -26,7 +26,7 @@
 			</table>
 			<input class="btn" type="submit" value="ログイン">
 		</form>
-		<a class="btn" href="/kintai/Forward?action=top">TOPへ戻る</a>
+		<a class="btn" href="<%= request.getContextPath() + "/Forward?action=top" %>">TOPへ戻る</a>
 	</div>
 	<div class="test_account">
 		<p>テスト用アカウント<br>

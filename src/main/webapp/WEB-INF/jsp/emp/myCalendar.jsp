@@ -13,8 +13,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/myCalendar.css" rel="stylesheet" type="text/css" />
-<title>カレンダーテスト</title>
+<link href="<%= request.getContextPath() + "/common/css/myCalendar.css" %>" rel="stylesheet" type="text/css" />
+<title>kintai - カレンダー</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/empHeader.jsp" />
@@ -23,9 +23,9 @@
 	</div>
 	<div class="main_wrapper" align="center">
 		<div class="top_btn">
-			<a href="?year=${mc.year}&month=${mc.month - 1}">前月</a>
-			<a href="?year=${mc.year}&month=${mc.month + 1}">翌月</a>
-			<a class="add_schedule_btn" href="/kintai/AddSchedule?year=${mc.year}&month=${mc.month}">予定を追加</a>
+			<a href="<%= request.getContextPath() + "/MyCalendarMain" %>?year=${mc.year}&month=${mc.month - 1}">前月</a>
+			<a href="<%= request.getContextPath() + "/MyCalendarMain" %>?year=${mc.year}&month=${mc.month + 1}">翌月</a>
+			<a class="add_schedule_btn" href="<%= request.getContextPath() + "/AddSchedule" %>?year=${mc.year}&month=${mc.month}">予定を追加</a>
 		</div>
 		
 		<!-- カレンダーを表示 -->
@@ -126,19 +126,20 @@
 								<c:if test="${ms.skdDate == date}">
 									<c:choose>
 										<c:when test="${ms.skdStartTime == null}">
-											<div style="background-color:${ms.color};"><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">・${ms.subject}</a></div>
+											<div style="background-color:${ms.color};"><a style="color:black;text-decoration:none;" href="<%= request.getContextPath() + "/AddSchedule" %>?action=done&index=${index - 1}">・${ms.subject}</a></div>
 										</c:when>
 										<c:when test="${ms.skdFinishTime == null}">
-											<div style="background-color:${ms.color};">${ms.skdStartTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+											<div style="background-color:${ms.color};">${ms.skdStartTime}<br><a style="color:black;text-decoration:none;" href="<%= request.getContextPath() + "/AddSchedule" %>?action=done&index=${index - 1}">${ms.subject}</a></div>
 										</c:when>
 										<c:otherwise>
-											<div style="background-color:${ms.color};">${ms.skdStartTime}~${ms.skdFinishTime}<br><a style="color:black;text-decoration:none;" href="/kintai/AddSchedule?action=done&index=${index - 1}">${ms.subject}</a></div>
+											<div style="background-color:${ms.color};">${ms.skdStartTime}~${ms.skdFinishTime}<br><a style="color:black;text-decoration:none;" href="<%= request.getContextPath() + "/AddSchedule" %>?action=done&index=${index - 1}">${ms.subject}</a></div>
 										</c:otherwise>
 									</c:choose>
 								</c:if>
 							</c:forEach>
-							<form action="/kintai/AddSchedule">
-						 	<input class="add_icon" type="image" name="date" value="${date}" src="/kintai/common/png/addSchedule.png" alt="予定を追加" width="15" height="15">
+							<form action="<%= request.getContextPath() + "/AddSchedule" %>">
+							<input type="hidden" name="date" value="${date}">
+						 	<input class="add_icon" type="image" src="<%= request.getContextPath() + "/common/png/addSchedule.png" %>" alt="予定を追加" width="15" height="15">
 						 	</form>
 							</td>
 						</c:forEach>
@@ -148,7 +149,7 @@
 		</div>
 	</div>
 	<div class="bottom_btn_box" align="center">
-		<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューへ戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=empMenu" %>">メニューへ戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

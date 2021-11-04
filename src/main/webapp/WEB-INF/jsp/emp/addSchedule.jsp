@@ -22,7 +22,7 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/addSchedule.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/addSchedule.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 予定登録</title>
 </head>
 <body>
@@ -31,56 +31,56 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 		<h1>予定の登録</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="/kintai/AddSchedule" method="post">
+		<form action="<%= request.getContextPath() + "/AddSchedule" %>" method="post">
 			<table>
 				<tr><td class="item_name">日付</td>
 				<!-- 年 -->
 				<td>
-						<select name="year">
-							<c:set var="selectYear" value="${ms.year}"/>
-							<option value="">-</option>
-							<c:forEach var="year" items="${yearNumbers}">
-								<c:choose>
-									<c:when test="${year == selectYear}">
-										<option value="${year}" selected><c:out value="${year}"/></option>
-									</c:when>
-									<c:otherwise>
-										<option value="${year}"><c:out value="${year}"/></option>
-									</c:otherwise>						
-								</c:choose>
-							</c:forEach>
-						</select>年 
-						<!-- 月 -->
-						<select name="month">
-							<c:set var="selectMonth" value="${ms.month}"/>
-							<option value="">-</option>
-							<c:forEach var="month" items="${monthNumbers}">
-								<c:choose>
-									<c:when test="${month == selectMonth}">
-										<option value="${month}" selected><c:out value="${month}"/></option>
-									</c:when>
-									<c:otherwise>
-										<option value="${month}"><c:out value="${month}"/></option>
-									</c:otherwise>						
-								</c:choose>
-							</c:forEach>
-						</select>月 
-						<!-- 日 -->
-						<select name="date">
-							<c:set var="selectDate" value="${ms.date}"/>
-							<option value="">-</option>
-							<c:forEach var="date" items="${dateNumbers}">
-								<c:choose>
-									<c:when test="${date == selectDate}">
-										<option value="${date}" selected><c:out value="${date}"/></option>
-									</c:when>
-									<c:otherwise>
-										<option value="${date}"><c:out value="${date}"/></option>
-									</c:otherwise>						
-								</c:choose>
-							</c:forEach>
-						</select>日
-					</td></tr>
+					<select name="year">
+						<c:set var="selectYear" value="${ms.year}"/>
+						<option value="">-</option>
+						<c:forEach var="year" items="${yearNumbers}">
+							<c:choose>
+								<c:when test="${year == selectYear}">
+									<option value="${year}" selected><c:out value="${year}"/></option>
+								</c:when>
+								<c:otherwise>
+									<option value="${year}"><c:out value="${year}"/></option>
+								</c:otherwise>						
+							</c:choose>
+						</c:forEach>
+					</select>年 
+					<!-- 月 -->
+					<select name="month">
+						<c:set var="selectMonth" value="${ms.month}"/>
+						<option value="">-</option>
+						<c:forEach var="month" items="${monthNumbers}">
+							<c:choose>
+								<c:when test="${month == selectMonth}">
+									<option value="${month}" selected><c:out value="${month}"/></option>
+								</c:when>
+								<c:otherwise>
+									<option value="${month}"><c:out value="${month}"/></option>
+								</c:otherwise>						
+							</c:choose>
+						</c:forEach>
+					</select>月 
+					<!-- 日 -->
+					<select name="date">
+						<c:set var="selectDate" value="${ms.date}"/>
+						<option value="">-</option>
+						<c:forEach var="date" items="${dateNumbers}">
+							<c:choose>
+								<c:when test="${date == selectDate}">
+									<option value="${date}" selected><c:out value="${date}"/></option>
+								</c:when>
+								<c:otherwise>
+									<option value="${date}"><c:out value="${date}"/></option>
+								</c:otherwise>						
+							</c:choose>
+						</c:forEach>
+					</select>日
+				</td></tr>
 				<tr><td class="item_name">時間</td>
 				<!-- 開始時間の時 -->
 				<td>
@@ -214,7 +214,7 @@ MySchedule ms = (MySchedule)request.getAttribute("ms");
 			<br><input class="btn" type="submit" value="登録する">
 		</form>
 		<c:if test="${fn:length(ms.subject) != 0}">
-			<form action="/kintai/AddSchedule" method="post">
+			<form action="<%= request.getContextPath() + "/AddSchedule" %>" method="post">
 				<input type="hidden" name="action" value="delete">
 				<input type="hidden" name="skdId" value="${ms.skdId}">
 				<input class="btn" type="submit" value="削除">

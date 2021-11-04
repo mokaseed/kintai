@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/style.css" %>" rel="stylesheet" type="text/css" />
 <title>kintai 管理者 - エラー</title>
 </head>
 <body>
@@ -23,8 +23,8 @@
 		</c:forEach>
 		
 		<div  class="bottom_btn_box">
-			<a class="bottom_btn" href="/kintai/DeptMaster">戻る</a><br>
-			<a class="bottom_btn" href="/kintai/Forward?action=sysadminMenu">メニューへ</a>
+			<a class="bottom_btn" href="<%= request.getContextPath() + "/DeptMaster" %>">戻る</a><br>
+			<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=sysadminMenu" %>">メニューへ</a>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />

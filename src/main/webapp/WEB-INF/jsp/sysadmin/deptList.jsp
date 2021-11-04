@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/empList.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/empList.css" %>" rel="stylesheet" type="text/css" />
 <title>kintai 管理者 - 事業部管理</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
 		<h1>事業部管理</h1>
 	</div>
 	<div class="select_box" align="center">
-		<form action="/kintai/DeptMaster">
+		<form action="<%= request.getContextPath() + "/DeptMaster" %>">
 			<input type="hidden" name="action" value="regist">
 			<input class="add_btn btn_hover" type="submit" value="事業部新規登録">
 		</form>
@@ -25,7 +25,7 @@
 			<c:forEach var="dept" items="${deptList}" varStatus="status">
 				<tr>
 				<td><c:out value="${dept.deptName}"/></td>
-				<td><form action="/kintai/DeptMaster">
+				<td><form action="<%= request.getContextPath() + "/DeptMaster" %>">
 					<input type="hidden" name="action" value="edit">
 					<input type="hidden" name="index" value="${status.index}">
 					<input class="btn_hover" type="submit" value="編集">
@@ -35,7 +35,7 @@
 		</table>
 	</div>
 	<div class="bottom_btn_box">
-		<a class="bottom_btn" href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=sysadminMenu" %>">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

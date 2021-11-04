@@ -35,7 +35,7 @@ public class DeleteEmpMaster extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
-		response.sendRedirect("/kintai/SysadminEmpList");
+		response.sendRedirect(request.getContextPath() + "/SysadminEmpList");
 	}
 
 }

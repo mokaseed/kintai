@@ -162,7 +162,7 @@ public class UpdateWorkTime extends HttpServlet {
 			if(flag) {
 				DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM");
 				session.setAttribute("request-month", workTime.getWorkDate().format(dateFormat));
-				response.sendRedirect("/kintai/SelectWorkTimeList?action=done");
+				response.sendRedirect(request.getContextPath() + "/SelectWorkTimeList?action=done");
 			} else {
 				errorMsgList.add("・勤務時刻修正に失敗しました");
 				request.setAttribute("errorMsgList", errorMsgList);

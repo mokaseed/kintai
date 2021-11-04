@@ -1,3 +1,4 @@
+
 package servlet;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class SysadminWorkTime extends HttpServlet {
 		
 		//直接アクセスの場合は従業員一覧へ
 		if(action == null) {
-			response.sendRedirect("/kintai/SysadminEmpList");
+			response.sendRedirect(request.getContextPath() + "/SysadminEmpList");
 		
 		//選択された従業員の当月のタイムシートを表示
 		} else {

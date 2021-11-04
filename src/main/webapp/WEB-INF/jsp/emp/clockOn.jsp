@@ -13,7 +13,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd(E)");
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/clockOn.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/clockOn.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 勤怠入力</title>
 </head>
 <body>
@@ -29,28 +29,28 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd(E)");
 		</div>
 		<div class="clock_on_btn_box">
 			<!-- 出勤ボタン -->
-			<form action="/kintai/ClockOn" method="POST">
+			<form action="<%= request.getContextPath() + "/ClockOn" %>" method="POST">
 				<input type="hidden" name="clockOn" value="work_start">
 				<input class="clock_on_btn" type="submit" value="出勤">
 			</form>
 			<!-- 退勤ボタン -->
-			<form action="/kintai/ClockOn" method="POST">
+			<form action="<%= request.getContextPath() + "/ClockOn" %>" method="POST">
 				<input type="hidden" name="clockOn" value="work_finish">
 				<input class="clock_on_btn" type="submit" value="退勤">
 			</form>
 			<!-- 休憩開始ボタン -->
-			<form action="/kintai/ClockOn" method="POST">
+			<form action="<%= request.getContextPath() + "/ClockOn" %>" method="POST">
 				<input type="hidden" name="clockOn" value="break_start">
 				<input class="clock_on_btn" type="submit" value="休憩開始">
 			</form>
 			<!-- 休憩終了ボタン -->
-			<form action="/kintai/ClockOn" method="POST">
+			<form action="<%= request.getContextPath() + "/ClockOn" %>" method="POST">
 				<input type="hidden" name="clockOn" value="break_finish">
 				<input class="clock_on_btn" type="submit" value="休憩終了">
 			</form>
 		</div>
 		<div class="bottom_btn_box">
-			<a class="bottom_btn" href="/kintai/Forward?action=empMenu">メニューへ戻る</a>
+			<a class="bottom_btn" href="<%= request.getContextPath() + "/Forward?action=empMenu" %>">メニューへ戻る</a>
 		</div>
 	</div>
 <jsp:include page="/WEB-INF/jsp/footer.jsp" />

@@ -100,7 +100,7 @@ public class AddSchedule extends HttpServlet {
 				int skdId = Integer.parseInt(s_skdId);
 				ScheduleDAO scheduleDAO = new ScheduleDAO();
 				scheduleDAO.deleteSchedule(skdId);
-				response.sendRedirect("/kintai/MyCalendarMain");
+				response.sendRedirect(request.getContextPath() + "/MyCalendarMain");
 			}
 			
 			
@@ -212,7 +212,7 @@ public class AddSchedule extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher(nextJsp);
 				dispatcher.forward(request, response);
 			} else {
-				response.sendRedirect("/kintai/MyCalendarMain?action=done&year=" + year + "&month=" + month);
+				response.sendRedirect(request.getContextPath() + "/MyCalendarMain?action=done&year=" + year + "&month=" + month);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/kintai/common/css/login.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/login.css" %>" rel="stylesheet" type="text/css" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,7 @@
 		<h1>管理者ログイン</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="Login" method="post">
+		<form action="<%= request.getContextPath() + "/Login" %>" method="post">
 			<table>
 				<tr>
 					<td class="box_name">社員ID</td>
@@ -27,7 +27,7 @@
 			<input type="hidden" name="action" value="done">
 			<input class="btn" type="submit" value="ログイン">
 		</form>
-		<a class="btn" href="/kintai/Forward?action=top">TOPへ戻る</a>
+		<a class="btn" href="<%= request.getContextPath() + "/Forward?action=top" %>">TOPへ戻る</a>
 	</div>
 	<div class="test_account">
 		<p>テスト用アカウント<br>

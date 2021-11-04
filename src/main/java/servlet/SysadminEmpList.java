@@ -102,17 +102,17 @@ public class SysadminEmpList extends HttpServlet {
 		
 		//「従業員新規登録」が押された場合
 		if(action.equals("addEmp")) {
-			next = "/kintai/AddEmpMaster";
+			next = request.getContextPath() + "/AddEmpMaster";
 			
 		//「従業員情報詳細」が押された場合
 		} else if(action.equals("empMaster")) {
 			session.setAttribute("index", index);
-			next = "/kintai/SysadminEmpMaster?action=done";
+			next = request.getContextPath() + "/SysadminEmpMaster?action=done";
 			
 		//「勤怠管理詳細」が押された場合
 		} else if(action.equals("workTime")) {
 			session.setAttribute("index", index);
-			next = "/kintai/SysadminWorkTime?action=done";
+			next = request.getContextPath() + "/SysadminWorkTime?action=done";
 		}
 		response.sendRedirect(next);
 	}

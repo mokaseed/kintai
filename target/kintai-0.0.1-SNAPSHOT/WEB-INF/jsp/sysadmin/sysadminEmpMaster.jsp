@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/empMaster.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/empMaster.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai 管理者 - 従業員情報詳細</title>
 </head>
 <body>
@@ -60,9 +60,9 @@
 		</table>
 	</div>
 	<div class="bottom_btn_box" align="center">
-		<a class="btn" href="/kintai/SysadminEmpMaster">従業員情報を修正する</a><br>
-		<a class="btn" href="/kintai/SysadminEmpList">従業員一覧に戻る</a><br>
-		<a class="btn" href="/kintai/Forward?action=sysadminMenu">メニューに戻る</a>
+		<a class="btn" href="<%= request.getContextPath() + "/SysadminEmpMaster" %>">従業員情報を修正する</a><br>
+		<a class="btn" href="<%= request.getContextPath() + "/SysadminEmpList" %>">従業員一覧に戻る</a><br>
+		<a class="btn" href="<%= request.getContextPath() + "/Forward?action=sysadminMenu" %>">メニューに戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

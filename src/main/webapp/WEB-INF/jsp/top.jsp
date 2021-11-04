@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/top.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/top.css" %>" rel="stylesheet" type="text/css" />
 <title>Kintai TOP</title>
 </head>
 <body>
@@ -15,8 +15,8 @@
 	<h1>Kintai TOP</h1>
 </div>
 <div class="main_wrapper">
-	<a class="menu_btn" href="/kintai/Login?action=done">従業員ログイン</a><br>
-	<a class="menu_btn" href="/kintai/Login">管理者ログイン</a>
+	<a class="menu_btn" href="<%= request.getContextPath() + "/Login?action=done" %>">従業員ログイン</a><br>
+	<a class="menu_btn" href="<%= request.getContextPath() + "/Login" %>">管理者ログイン</a>
 </div>
 <footer>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />

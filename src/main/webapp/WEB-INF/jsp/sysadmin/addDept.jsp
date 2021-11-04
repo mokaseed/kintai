@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/kintai/common/css/updateWorkTime.css" rel="stylesheet" type="text/css" />
+<link href="<%= request.getContextPath() + "/common/css/updateWorkTime.css" %>" rel="stylesheet" type="text/css" />
 <title>kintai 管理者 - 事業部管理</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<h1>事業部新規登録</h1>
 	</div>
 	<div class="main_wrapper" align="center">
-		<form action="/kintai/DeptMaster" method="post">
+		<form action="<%= request.getContextPath() + "/DeptMaster" %>" method="post">
 			<table>
 				<tr>
 					<td class="item_name">事業部名</td>
@@ -25,7 +25,7 @@
 		</form>
 	</div>
 	<div align="center">
-		<a class="bottom_btn" href="/kintai/DeptMaster">戻る</a>
+		<a class="bottom_btn" href="<%= request.getContextPath() + "/DeptMaster" %>">戻る</a>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 
