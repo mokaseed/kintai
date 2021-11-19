@@ -1,27 +1,32 @@
 package dao;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 //DBの接続と切断
 public class ConnectionManager {
-	final String jdbcId = "b92fbb8338a735";
-    final String jdbcPass = "a9972877";
-    final String jdbcUrl = "jdbc:mysql://us-cdbr-east-04.cleardb.com/heroku_4781b9d084eb35a?enabledTLSProtocols=TLSv1.2&useUnicode=true&characterEncoding=utf8";
-    
+	
     Connection con = null;
     
     //DB接続
 	public Connection connect() {
 		
+		try{
+		URI dbUri = new URI(System.getenv("DATABASE_URL"));
+		System.out.println(dbUri);
+		final String jdbcId = dbUri.getUserInfo().split(":")[0];
+		final String jdbcPass = dbUri.getUserInfo().split(":")[1];
+		final String jdbcUrl = "jdbc:mysql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+		
 		if(con == null) {
-			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				con = DriverManager.getConnection(jdbcUrl, jdbcId, jdbcPass);
-			}catch(SQLException | ClassNotFoundException e){
-				e.printStackTrace();
 			}			
+		}catch(SQLException | ClassNotFoundException | URISyntaxException e){
+			e.printStackTrace();
 		}
 		return con;
 	}
